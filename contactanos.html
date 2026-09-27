@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos - Stevida</title>
+    <link rel="stylesheet" href="stevida.css">
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stevida-green': '#64b035',
+                        'honey-gold': '#ffc400',
+                        'stevida-red': '#e83c3c',
+                        'sky-blue': '#6aa8dc',
+                        'warm-sand': '#d2b68c',
+                        'mint-sage': '#a2d3a6',
+                        'ink-black': '#000000',
+                        'pure-white': '#ffffff',
+                        'cream-paper': '#fbf9f6',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'hero': ['Oswald', 'sans-serif'],
+                        'mega': ['"Playfair Display"', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'nav': ['Jost', 'sans-serif'],
+                        'script': ['Caveat', 'cursive'],
+                    },
+                    boxShadow: {
+                        'card': 'rgba(0, 0, 0, 0.16) -14px 10px 49px 0px',
+                    },
+                    letterSpacing: {
+                        'display': '0.043em', 'label': '0.27em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: var(--color-cream-paper); }
+        .text-editorial-label { font-family: theme('fontFamily.nav'); letter-spacing: theme('letterSpacing.label'); text-transform: uppercase; }
+        .form-input:focus { outline: none; border-color: var(--color-stevida-red); }
+    </style>
+</head>
+<body class="font-body text-base">
+
+    <!-- Header -->
+        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0">
+                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="index.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Inicio</a>
+                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Productos</a>
+                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Recetas</a>
+                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Nosotros</a>
+                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Encuéntranos</a>
+                    <a href="blog.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Blog</a>
+                    <a href="contactanos.html" class="font-nav text-[13px] text-stevida-red tracking-nav uppercase border-b-2 border-stevida-red pb-1">Contáctanos</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors flex items-center">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                    </a>
+                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
+                        Tienda
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-stevida-green text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 max-w-[1200px] mx-auto px-4 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-16">
+            
+            <!-- Left: Info -->
+            <div class="w-full lg:w-1/2 relative">
+                <span class="text-editorial-label text-stevida-red text-xs lg:text-sm mb-4 inline-block font-bold">Comunicación</span>
+                <h1 class="font-mega text-5xl lg:text-[72px] leading-[0.9] text-stevida-green mb-6">Déjanos un mensaje.</h1>
+                <p class="font-script text-3xl text-stevida-green mb-10 transform -rotate-2">
+                    Te responderemos lo más pronto que nos sea posible.
+                </p>
+
+                <div class="space-y-8 mt-12">
+                    <div class="flex items-start">
+                        <i class="fas fa-phone text-stevida-red text-2xl mr-4"></i>
+                        <div>
+                            <p class="font-display text-2xl text-stevida-green tracking-widest">(+593) 62 585 693</p>
+                            <p class="font-display text-2xl text-stevida-green tracking-widest">(+593) 98 451 0973</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-envelope text-stevida-red text-2xl mr-4"></i>
+                        <div>
+                            <p class="font-body text-lg text-stevida-green font-medium">asoecosol@hotmail.com</p>
+                            <p class="font-body text-lg text-stevida-green font-medium">info@steviadelecuador.com.ec</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="w-full lg:w-1/2">
+                <div class="bg-pure-white rounded-[8px] p-8 lg:p-12 shadow-card relative z-10">
+                    <form class="space-y-6">
+                        <div>
+                            <label class="text-editorial-label text-[10px] text-stevida-green block mb-2">Nombre completo</label>
+                            <input type="text" class="form-input w-full border-b border-gray-300 py-2 bg-transparent text-stevida-green font-body" required>
+                        </div>
+                        <div>
+                            <label class="text-editorial-label text-[10px] text-stevida-green block mb-2">Email</label>
+                            <input type="email" class="form-input w-full border-b border-gray-300 py-2 bg-transparent text-stevida-green font-body" required>
+                        </div>
+                        <div>
+                            <label class="text-editorial-label text-[10px] text-stevida-green block mb-2">Mensaje</label>
+                            <textarea rows="4" class="form-input w-full border-b border-gray-300 py-2 bg-transparent text-stevida-green font-body resize-none" required></textarea>
+                        </div>
+                        <button type="submit" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-12 py-4 hover:bg-opacity-90 transition-all w-full mt-4">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,597 @@
+/* =============================================================
+   STEVIDA — Global Design System
+   Based on DESIGN F.md — Pa'lais Style Reference
+   Updated: Stevida Green (#64b035) + Stevida Red (#e83c3c)
+   ============================================================= */
+
+/* ───── CSS Custom Properties ───── */
+:root {
+  /* Colors */
+  --color-stevida-green:  #64b035;
+  --color-honey-gold:     #ffc400;
+  --color-stevida-red:    #e83c3c;
+  --color-sky-blue:       #6aa8dc;
+  --color-warm-sand:      #d2b68c;
+  --color-mint-sage:      #a2d3a6;
+  --color-ink-black:      #000000;
+  --color-pure-white:     #ffffff;
+  --color-cream-paper:    #fbf9f6;
+  --color-soft-shadow:    #d6d6d6;
+
+  /* Typography — substitutes from design spec */
+  --font-display: "Bebas Neue", sans-serif;           /* hwt-artz substitute */
+  --font-hero:    Oswald, sans-serif;                 /* Delivery Note substitute */
+  --font-mega:    "Playfair Display", serif;          /* Sandman_Fill substitute */
+  --font-body:    Inter, sans-serif;                  /* Axiforma substitute */
+  --font-nav:     Jost, sans-serif;                   /* ITC Avant Garde substitute */
+  --font-script:  Caveat, cursive;                    /* Script accent */
+
+  /* Type Scale */
+  --text-caption:    12px;
+  --text-body-sm:    14px;
+  --text-body:       16px;
+  --text-subheading: 24px;
+  --text-heading-sm: 32px;
+  --text-heading:    46px;
+  --text-heading-lg: 56px;
+  --text-display:    88px;
+
+  /* Leading */
+  --leading-caption:    1.6;
+  --leading-body-sm:    1.67;
+  --leading-body:       1.5;
+  --leading-heading-sm: 0.9;
+  --leading-heading:    1.18;
+  --leading-heading-lg: 1.14;
+  --leading-display:    0.82;
+
+  /* Letter Spacing */
+  --tracking-label:   0.27em;
+  --tracking-nav:     0.2em;
+  --tracking-display: 0.043em;
+  --tracking-hero:    0.031em;
+
+  /* Spacing Scale */
+  --spacing-4:   4px;
+  --spacing-8:   8px;
+  --spacing-12:  12px;
+  --spacing-16:  16px;
+  --spacing-24:  24px;
+  --spacing-32:  32px;
+  --spacing-40:  40px;
+  --spacing-48:  48px;
+  --spacing-56:  56px;
+  --spacing-64:  64px;
+  --spacing-80:  80px;
+  --spacing-128: 128px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap:    64px;
+  --card-padding:   16px;
+  --element-gap:    8px;
+
+  /* Border Radius */
+  --radius-tags:    16px;
+  --radius-cards:   8px;
+  --radius-inputs:  8px;
+  --radius-buttons: 32px;
+
+  /* Shadows */
+  --shadow-card: rgba(0, 0, 0, 0.16) -14px 10px 49px 0px;
+  --shadow-nav:  rgba(0, 0, 0, 0.05) 0px 20px 27px 0px;
+}
+
+/* ───── Base Reset & Body ───── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream-paper);
+  color: var(--color-ink-black);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ───── Typography Utilities ───── */
+
+.font-display  { font-family: var(--font-display); }
+.font-hero     { font-family: var(--font-hero); }
+.font-mega     { font-family: var(--font-mega); }
+.font-body     { font-family: var(--font-body); }
+.font-nav      { font-family: var(--font-nav); }
+.font-script   { font-family: var(--font-script); }
+
+.text-display  { font-size: var(--text-display);    line-height: var(--leading-display); }
+.text-heading-lg { font-size: var(--text-heading-lg); line-height: var(--leading-heading-lg); }
+.text-heading  { font-size: var(--text-heading);    line-height: var(--leading-heading); }
+.text-heading-sm { font-size: var(--text-heading-sm); line-height: var(--leading-heading-sm); }
+.text-subheading { font-size: var(--text-subheading); }
+.text-body     { font-size: var(--text-body);       line-height: var(--leading-body); }
+.text-body-sm  { font-size: var(--text-body-sm);    line-height: var(--leading-body-sm); }
+.text-caption  { font-size: var(--text-caption);    line-height: var(--leading-caption); }
+
+.tracking-label   { letter-spacing: var(--tracking-label); }
+.tracking-nav     { letter-spacing: var(--tracking-nav); }
+.tracking-display { letter-spacing: var(--tracking-display); }
+
+/* Editorial label — used for all category/section eyebrows */
+.text-editorial-label {
+  font-family: var(--font-nav);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* ───── Color Utilities ───── */
+
+.text-stevida-green  { color: var(--color-stevida-green); }
+.text-stevida-red    { color: var(--color-stevida-red); }
+.text-honey-gold     { color: var(--color-honey-gold); }
+.text-sky-blue       { color: var(--color-sky-blue); }
+.text-mint-sage      { color: var(--color-mint-sage); }
+.text-cream-paper    { color: var(--color-cream-paper); }
+.text-pure-white     { color: var(--color-pure-white); }
+.text-ink-black      { color: var(--color-ink-black); }
+
+.bg-stevida-green    { background-color: var(--color-stevida-green); }
+.bg-stevida-red      { background-color: var(--color-stevida-red); }
+.bg-honey-gold       { background-color: var(--color-honey-gold); }
+.bg-cream-paper      { background-color: var(--color-cream-paper); }
+.bg-pure-white       { background-color: var(--color-pure-white); }
+.bg-ink-black        { background-color: var(--color-ink-black); }
+
+/* ───── Layout ───── */
+
+.site-container {
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--spacing-32);
+}
+
+@media (max-width: 768px) {
+  .site-container {
+    padding-inline: var(--spacing-16);
+  }
+}
+
+/* ───── Header / Navigation ───── */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(251, 249, 246, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 50;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: var(--shadow-nav);
+}
+
+.header-inner {
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--spacing-32);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.site-logo {
+  font-family: var(--font-mega);
+  font-weight: 900;
+  font-size: 1.875rem;    /* 30px */
+  color: var(--color-stevida-green);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.site-nav {
+  display: none;
+  gap: var(--spacing-40);
+}
+
+@media (min-width: 768px) {
+  .site-nav {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.nav-link {
+  font-family: var(--font-nav);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-stevida-green);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-nav);
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-stevida-red);
+}
+
+.nav-link.active {
+  color: var(--color-stevida-red);
+  border-bottom: 2px solid var(--color-stevida-red);
+  padding-bottom: 4px;
+}
+
+.header-actions {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-24);
+}
+
+@media (min-width: 768px) {
+  .header-actions {
+    display: flex;
+  }
+}
+
+/* ───── Buttons ───── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: var(--radius-buttons);
+  padding: 14px 32px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+/* Primary — Stevida Green fill */
+.btn-primary {
+  background-color: var(--color-stevida-green);
+  color: var(--color-pure-white);
+}
+.btn-primary:hover { opacity: 0.9; }
+
+/* Secondary — Stevida Red outlined */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-stevida-red);
+  border: 2px solid var(--color-stevida-red);
+}
+.btn-secondary:hover {
+  background-color: var(--color-stevida-red);
+  color: var(--color-pure-white);
+}
+
+/* Ghost — Stevida Green outlined */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-stevida-green);
+  border: 2px solid var(--color-stevida-green);
+}
+.btn-ghost:hover {
+  background-color: var(--color-stevida-green);
+  color: var(--color-pure-white);
+}
+
+/* White on dark background */
+.btn-white {
+  background-color: var(--color-pure-white);
+  color: var(--color-stevida-green);
+}
+.btn-white:hover { opacity: 0.9; }
+
+/* ───── Cards ───── */
+
+.card {
+  background-color: var(--color-pure-white);
+  border-radius: var(--radius-cards);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* ───── Wave / Section Divider ───── */
+
+.wave-divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+/* ───── Botanical Illustration ───── */
+
+.botanical-ill {
+  position: absolute;
+  pointer-events: none;
+  stroke: var(--color-stevida-green);
+  stroke-width: 1.5px;
+  fill: none;
+  z-index: 5;
+  opacity: 0.6;
+}
+
+/* ───── Scrollbar Hide Utility ───── */
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ───── Forms ───── */
+
+.form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #d1d5db;
+  padding: var(--spacing-8) 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-stevida-green);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--color-stevida-red);
+}
+
+.form-label {
+  font-family: var(--font-nav);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-stevida-green);
+  display: block;
+  margin-bottom: var(--spacing-8);
+}
+
+/* ───── Footer ───── */
+
+.site-footer {
+  background-color: var(--color-stevida-green);
+  color: var(--color-pure-white);
+}
+
+.footer-inner {
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding: var(--spacing-80) var(--spacing-32) var(--spacing-64);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-48);
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 5fr 3fr 4fr;
+  }
+}
+
+.footer-logo {
+  font-family: var(--font-mega);
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: var(--color-pure-white);
+  text-decoration: none;
+  display: block;
+  margin-bottom: var(--spacing-24);
+}
+
+.footer-tagline {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  color: rgba(255,255,255,0.8);
+  max-width: 26rem;
+}
+
+.footer-heading {
+  font-family: var(--font-nav);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-honey-gold);
+  margin-bottom: var(--spacing-24);
+}
+
+.footer-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.footer-nav-list a {
+  font-size: var(--text-body-sm);
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-nav-list a:hover {
+  color: var(--color-honey-gold);
+}
+
+.footer-contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  font-size: var(--text-body-sm);
+  color: rgba(255,255,255,0.8);
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
+.footer-contact-list .icon {
+  color: var(--color-honey-gold);
+  width: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding: var(--spacing-24) var(--spacing-32);
+}
+
+.footer-bottom-inner {
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  font-size: var(--text-caption);
+  color: rgba(255,255,255,0.55);
+}
+
+@media (min-width: 768px) {
+  .footer-bottom-inner {
+    flex-direction: row;
+    gap: 0;
+  }
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--spacing-16);
+}
+
+.footer-social a {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: var(--color-pure-white);
+}
+
+/* ───── Section Backgrounds ───── */
+
+.section-cream  { background-color: var(--color-cream-paper); }
+.section-white  { background-color: var(--color-pure-white); }
+.section-green  { background-color: var(--color-stevida-green); }
+.section-red    { background-color: var(--color-stevida-red); }
+
+/* ───── Blob Decorators ───── */
+
+.blob {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ───── Tag / Badge ───── */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  font-family: var(--font-nav);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  border-radius: var(--radius-tags);
+  padding: 4px 12px;
+}
+
+.tag-green {
+  background-color: var(--color-stevida-green);
+  color: var(--color-pure-white);
+}
+
+.tag-red {
+  background-color: var(--color-stevida-red);
+  color: var(--color-pure-white);
+}
+
+.tag-sky {
+  background-color: var(--color-sky-blue);
+  color: var(--color-pure-white);
+}
+
+/* ───── Scroll Entrance Animations ───── */
+
+.animate-fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+/* ───── WhatsApp Floating Button ───── */
+
+.whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366;
+  color: var(--color-pure-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  z-index: 60;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+}

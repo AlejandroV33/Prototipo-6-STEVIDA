@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuéntranos - Stevida</title>
+    <link rel="stylesheet" href="stevida.css">
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stevida-green': '#64b035',
+                        'honey-gold': '#ffc400',
+                        'stevida-red': '#e83c3c',
+                        'sky-blue': '#6aa8dc',
+                        'warm-sand': '#d2b68c',
+                        'mint-sage': '#a2d3a6',
+                        'ink-black': '#000000',
+                        'pure-white': '#ffffff',
+                        'cream-paper': '#fbf9f6',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'hero': ['Oswald', 'sans-serif'],
+                        'mega': ['"Playfair Display"', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'nav': ['Jost', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': 'rgba(0, 0, 0, 0.16) -14px 10px 49px 0px',
+                    },
+                    letterSpacing: {
+                        'display': '0.043em', 'label': '0.27em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: var(--color-cream-paper); }
+        .text-editorial-label { font-family: theme('fontFamily.nav'); letter-spacing: theme('letterSpacing.label'); text-transform: uppercase; }
+    </style>
+</head>
+<body class="font-body text-base">
+
+    <!-- Header -->
+        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0">
+                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="index.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Inicio</a>
+                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Productos</a>
+                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Recetas</a>
+                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Nosotros</a>
+                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-red tracking-nav uppercase border-b-2 border-stevida-red pb-1">Encuéntranos</a>
+                    <a href="blog.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Blog</a>
+                    <a href="contactanos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Contáctanos</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors flex items-center">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                    </a>
+                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
+                        Tienda
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-stevida-green text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24">
+        
+        <div class="max-w-[1200px] mx-auto px-4 lg:px-8 mb-16 text-center">
+            <h1 class="font-mega text-5xl lg:text-[72px] leading-[0.9] text-stevida-green mb-6">¿Dónde encontrar Stevida?</h1>
+        </div>
+
+        <section class="max-w-[1200px] mx-auto px-4 lg:px-8 mb-20">
+            <h2 class="text-editorial-label text-stevida-red text-sm mb-6 border-b border-gray-200 pb-2">Supermercados</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center bg-pure-white rounded-[8px] p-8 shadow-card">
+                <div class="font-display text-3xl text-stevida-green text-center uppercase tracking-widest">Santa Maria</div>
+                <div class="font-display text-3xl text-stevida-green text-center uppercase tracking-widest">Supermaxi</div>
+                <div class="font-display text-3xl text-stevida-green text-center uppercase tracking-widest">Megamaxi</div>
+                <div class="font-display text-3xl text-stevida-green text-center uppercase tracking-widest">Mi Comisariato</div>
+            </div>
+        </section>
+
+        <section class="max-w-[1200px] mx-auto px-4 lg:px-8 mb-20">
+            <h2 class="text-editorial-label text-stevida-green text-sm mb-6 border-b border-gray-200 pb-2">Tiendas Naturistas Quito</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Store Card -->
+                <div class="bg-pure-white p-6 rounded-[8px] shadow-card">
+                    <h3 class="font-display text-2xl text-stevida-green uppercase tracking-display mb-2">Camari</h3>
+                    <p class="font-body text-sm text-ink-black">Marchena Oe-2 38 y Versalles</p>
+                </div>
+                <div class="bg-pure-white p-6 rounded-[8px] shadow-card">
+                    <h3 class="font-display text-2xl text-stevida-green uppercase tracking-display mb-2">Amandé</h3>
+                    <p class="font-body text-sm text-ink-black">Avigiras E13-135 y de las Mentas</p>
+                </div>
+                <div class="bg-pure-white p-6 rounded-[8px] shadow-card">
+                    <h3 class="font-display text-2xl text-stevida-green uppercase tracking-display mb-2">Flora Garden</h3>
+                    <p class="font-body text-sm text-ink-black">CC Ventura Mall, Tumbaco</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

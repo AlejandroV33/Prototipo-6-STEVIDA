@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Stevida</title>
+    <link rel="stylesheet" href="stevida.css">
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stevida-green': '#64b035',
+                        'honey-gold': '#ffc400',
+                        'stevida-red': '#e83c3c',
+                        'sky-blue': '#6aa8dc',
+                        'warm-sand': '#d2b68c',
+                        'mint-sage': '#a2d3a6',
+                        'ink-black': '#000000',
+                        'pure-white': '#ffffff',
+                        'cream-paper': '#fbf9f6',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'hero': ['Oswald', 'sans-serif'],
+                        'mega': ['"Playfair Display"', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'nav': ['Jost', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': 'rgba(0, 0, 0, 0.16) -14px 10px 49px 0px',
+                    },
+                    letterSpacing: {
+                        'display': '0.043em', 'label': '0.27em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: var(--color-cream-paper); }
+        .text-editorial-label { font-family: theme('fontFamily.nav'); letter-spacing: theme('letterSpacing.label'); text-transform: uppercase; }
+    </style>
+</head>
+<body class="font-body text-base text-ink-black">
+
+        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0">
+                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="index.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Inicio</a>
+                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Productos</a>
+                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Recetas</a>
+                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Nosotros</a>
+                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Encuéntranos</a>
+                    <a href="blog.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Blog</a>
+                    <a href="contactanos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Contáctanos</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors flex items-center">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                    </a>
+                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
+                        Tienda
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-stevida-green text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 max-w-[1200px] mx-auto px-4 lg:px-8">
+        <h1 class="font-mega text-4xl lg:text-5xl text-stevida-green mb-10">Tu Carrito</h1>
+        
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Cart Items -->
+            <div class="w-full lg:w-2/3">
+                <div class="bg-pure-white rounded-[8px] shadow-card p-8">
+                    
+                    <!-- Item 1 -->
+                    <div class="flex flex-col sm:flex-row items-center gap-6 py-6 border-b border-gray-100">
+                        <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-24 h-24 object-contain">
+                        <div class="flex-1 text-center sm:text-left">
+                            <h3 class="font-body font-bold text-stevida-green text-lg mb-1">Stevida en Polvo 250g</h3>
+                            <p class="text-xs text-stevida-red font-bold uppercase">Envío Gratis</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-stevida-green hover:border-stevida-green">-</button>
+                            <span class="font-semibold w-4 text-center">1</span>
+                            <button class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-stevida-green hover:border-stevida-green">+</button>
+                        </div>
+                        <div class="text-right w-24">
+                            <p class="font-display text-2xl text-stevida-green tracking-wide">$6.80</p>
+                        </div>
+                        <button class="text-gray-400 hover:text-red-500"><i class="fas fa-trash"></i></button>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex flex-col sm:flex-row items-center gap-6 py-6">
+                        <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-24 h-24 object-contain">
+                        <div class="flex-1 text-center sm:text-left">
+                            <h3 class="font-body font-bold text-stevida-green text-lg mb-1">Stevida Líquida Gotero 100ml</h3>
+                            <p class="text-xs text-stevida-red font-bold uppercase">Envío Gratis</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-stevida-green hover:border-stevida-green">-</button>
+                            <span class="font-semibold w-4 text-center">2</span>
+                            <button class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-stevida-green hover:border-stevida-green">+</button>
+                        </div>
+                        <div class="text-right w-24">
+                            <p class="font-display text-2xl text-stevida-green tracking-wide">$8.40</p>
+                        </div>
+                        <button class="text-gray-400 hover:text-red-500"><i class="fas fa-trash"></i></button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="w-full lg:w-1/3">
+                <div class="bg-pure-white rounded-[8px] shadow-card p-8 sticky top-24">
+                    <h2 class="font-display text-2xl text-stevida-green uppercase tracking-display mb-6 border-b border-gray-100 pb-4">Resumen</h2>
+                    
+                    <div class="space-y-4 font-body text-gray-600 mb-6">
+                        <div class="flex justify-between">
+                            <span>Productos (3)</span>
+                            <span>$15.20</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Envío</span>
+                            <span class="text-stevida-red font-bold">Gratis</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Impuestos (IVA 12%)</span>
+                            <span>$1.82</span>
+                        </div>
+                        <div class="border-t border-gray-100 pt-4 flex justify-between items-center text-stevida-green mt-4">
+                            <span class="font-bold text-lg">Total</span>
+                            <span class="font-display text-4xl">$17.02</span>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-stevida-red text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full py-4 hover:bg-opacity-90 transition-all shadow-md mt-4">
+                        Pagar
+                    </button>
+                    
+                    <div class="mt-8 flex justify-center gap-4 text-3xl text-gray-300">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

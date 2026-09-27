@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stevida - Víve lo natural</title>
+    <link rel="stylesheet" href="stevida.css">
+
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stevida-green': '#64b035',
+                        'honey-gold': '#ffc400',
+                        'stevida-red': '#e83c3c',
+                        'sky-blue': '#6aa8dc',
+                        'warm-sand': '#d2b68c',
+                        'mint-sage': '#a2d3a6',
+                        'ink-black': '#000000',
+                        'pure-white': '#ffffff',
+                        'cream-paper': '#fbf9f6',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'hero': ['Oswald', 'sans-serif'],
+                        'mega': ['"Playfair Display"', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'nav': ['Jost', 'sans-serif'],
+                        'script': ['Caveat', 'cursive'],
+                    },
+                    boxShadow: {
+                        'card': 'rgba(0, 0, 0, 0.16) -14px 10px 49px 0px',
+                        'nav-hover': 'rgba(0, 0, 0, 0.05) 0px 20px 27px 0px',
+                    },
+                    letterSpacing: {
+                        'display': '0.043em',
+                        'hero': '0.031em',
+                        'nav': '0.2em',
+                        'label': '0.27em',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Base styles */
+        body {
+            background-color: var(--color-cream-paper);
+            color: theme('colors.ink-black');
+            overflow-x: hidden;
+        }
+
+        /* Organic Blobs */
+        .blob-bg {
+            position: absolute;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* SVG Waves */
+        .wave-divider {
+            display: block;
+            width: 100%;
+            height: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        /* Typography utility classes based on tokens */
+        .text-editorial-label {
+            font-family: theme('fontFamily.nav');
+            letter-spacing: theme('letterSpacing.label');
+            text-transform: uppercase;
+        }
+
+        /* Botanical Illustrations */
+        .botanical-ill {
+            position: absolute;
+            pointer-events: none;
+            stroke: var(--color-stevida-green);
+            stroke-width: 1.5px;
+            fill: none;
+            z-index: 5;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="font-body text-base">
+
+    <!-- Top Navigation -->
+        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0">
+                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="index.html" class="font-nav text-[13px] text-stevida-red tracking-nav uppercase border-b-2 border-stevida-red pb-1">Inicio</a>
+                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Productos</a>
+                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Recetas</a>
+                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Nosotros</a>
+                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Encuéntranos</a>
+                    <a href="blog.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Blog</a>
+                    <a href="contactanos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors">Contáctanos</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-stevida-red transition-colors flex items-center">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                    </a>
+                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
+                        Tienda
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-stevida-green text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Split Hero Section -->
+        <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 min-h-screen flex items-center overflow-hidden">
+            <!-- Organic Wavy Divider behind content -->
+            <svg class="absolute left-1/2 top-0 bottom-0 h-full w-[300px] -translate-x-1/2 z-0" viewBox="0 0 300 1000" preserveAspectRatio="none">
+                <path d="M150,0 C250,200 50,400 150,600 C250,800 50,1000 150,1000 L300,1000 L300,0 Z" fill="#ffc400" opacity="0.3"></path>
+                <path d="M100,0 C200,300 0,500 100,700 C200,900 100,1000 100,1000 L300,1000 L300,0 Z" fill="#a2d3a6" opacity="0.4"></path>
+            </svg>
+
+            <!-- Botanical Illustration -->
+            <svg class="botanical-ill top-20 right-10 w-48 h-48 transform rotate-12" viewBox="0 0 100 100">
+                <path d="M50,90 C50,90 20,60 30,30 C40,10 60,10 70,30 C80,60 50,90 50,90 Z" />
+                <path d="M50,90 L50,10" />
+                <path d="M50,70 Q70,60 80,40" />
+                <path d="M50,50 Q30,40 20,20" />
+            </svg>
+
+            <div class="max-w-[1200px] mx-auto px-4 lg:px-8 relative z-10 w-full flex flex-col lg:flex-row items-center">
+                <!-- Left: Typography -->
+                <div class="w-full lg:w-1/2 pr-0 lg:pr-12 text-center lg:text-left mb-12 lg:mb-0">
+                    <span class="text-editorial-label text-stevida-green text-xs lg:text-sm mb-6 inline-block font-bold">Extracto 100% Natural</span>
+                    <h1 class="font-hero text-6xl lg:text-[88px] leading-[0.82] tracking-hero text-stevida-green uppercase mb-6 drop-shadow-sm">
+                        Víve lo<br>Natural
+                    </h1>
+                    <p class="font-script text-3xl lg:text-4xl text-stevida-green mb-10 leading-tight transform -rotate-2">
+                        Dale un toque de dulzura a tus comidas y bebidas con Stevida.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4">
+                        <a href="#" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-12 py-5 hover:bg-opacity-90 transition-all">
+                            Leer más
+                        </a>
+                        <a href="#" class="border-2 border-stevida-red text-stevida-red font-body text-[13px] uppercase tracking-widest rounded-full px-10 py-[18px] hover:bg-stevida-red hover:text-pure-white transition-all flex items-center">
+                            Descubrir <i class="fas fa-arrow-right ml-3"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Product / Lifestyle Photography -->
+                <div class="w-full lg:w-1/2 relative flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gotas de dulzura" class="w-full max-w-md rounded-2xl shadow-card rotate-2 z-10 object-cover aspect-[4/5]">
+                    <!-- Decorative blob behind image -->
+                    <svg class="absolute -bottom-10 -right-10 w-64 h-64 text-honey-gold z-0 transform -rotate-12" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M45.7,-76.1C58.9,-69.3,69.1,-55.3,77.3,-40.8C85.5,-26.3,91.7,-11.3,89.5,2.7C87.4,16.6,76.9,29.5,67.1,42.4C57.3,55.3,48.2,68.2,35.3,74.9C22.4,81.6,5.7,82.1,-10.1,79.5C-25.9,76.9,-40.8,71.2,-53.4,61.9C-66,52.6,-76.3,39.7,-81.4,25.2C-86.5,10.7,-86.4,-5.4,-81.1,-19.7C-75.8,-34,-65.3,-46.5,-52.3,-53.6C-39.3,-60.7,-23.8,-62.4,-8.1,-65.7C7.6,-69,25.2,-73.9,32.5,-82.9L45.7,-76.1Z" transform="translate(100 100)" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full border-2 border-stevida-green flex items-center justify-center text-stevida-green animate-bounce">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wave transition to Orange Section -->
+        <svg class="wave-divider -mt-1" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,0 C480,120 960,120 1440,0 L1440,120 L0,120 Z" fill="#e83c3c"></path>
+        </svg>
+
+        <!-- Features Section (Burnt Orange) -->
+        <section class="bg-stevida-red relative py-32 mt-[-2px]">
+            <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+                
+                <div class="text-center mb-16">
+                    <span class="text-editorial-label text-pure-white text-xs lg:text-sm mb-4 inline-block font-bold">Beneficios</span>
+                    <h2 class="font-display text-4xl lg:text-[56px] text-stevida-green uppercase tracking-display mb-6">
+                        Por qué elegir Stevida
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+                    
+                    <!-- Feature Card 1 -->
+                    <div class="bg-pure-white rounded-[8px] p-8 shadow-card flex flex-col items-center text-center transform transition duration-300 hover:-translate-y-2">
+                        <div class="text-stevida-red text-4xl mb-6">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3 class="font-display text-[32px] text-stevida-green uppercase tracking-display leading-none mb-4">Cuida tu salud</h3>
+                        <p class="font-body text-ink-black text-[16px] leading-relaxed">Ideal para personas que sufren diabetes o buscan un estilo de vida balanceado.</p>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="bg-pure-white rounded-[8px] p-8 shadow-card flex flex-col items-center text-center transform transition duration-300 hover:-translate-y-2">
+                        <div class="text-stevida-red text-4xl mb-6">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <h3 class="font-display text-[32px] text-stevida-green uppercase tracking-display leading-none mb-4">Cuida tu sonrisa</h3>
+                        <p class="font-body text-ink-black text-[16px] leading-relaxed">Mantén sana tu sonrisa endulzando de manera natural con Stevia.</p>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="bg-pure-white rounded-[8px] p-8 shadow-card flex flex-col items-center text-center transform transition duration-300 hover:-translate-y-2">
+                        <div class="text-stevida-red text-4xl mb-6">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="font-display text-[32px] text-stevida-green uppercase tracking-display leading-none mb-4">Cero Calorías</h3>
+                        <p class="font-body text-ink-black text-[16px] leading-relaxed">Ideal para preparar tus alimentos y bebidas favoritas sin culpa.</p>
+                    </div>
+
+                    <!-- Feature Card 4 -->
+                    <div class="bg-pure-white rounded-[8px] p-8 shadow-card flex flex-col items-center text-center transform transition duration-300 hover:-translate-y-2">
+                        <div class="text-stevida-red text-4xl mb-6">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="font-display text-[32px] text-stevida-green uppercase tracking-display leading-none mb-4">Pureza de Origen</h3>
+                        <p class="font-body text-ink-black text-[16px] leading-relaxed">Elabora deliciosos productos 100% naturales y nutritivos.</p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Botanical Illustration overlap -->
+            <svg class="botanical-ill -bottom-20 left-0 w-64 h-64 transform -rotate-12 stroke-pure-white opacity-20" viewBox="0 0 100 100">
+                <path d="M20,80 Q40,60 50,20 Q60,60 80,80 Z" />
+                <path d="M50,80 L50,20" />
+            </svg>
+        </section>
+
+        <!-- Wave transition back to Cream -->
+        <svg class="wave-divider -mt-[2px] transform rotate-180" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,0 C480,120 960,120 1440,0 L1440,120 L0,120 Z" fill="#e83c3c"></path>
+        </svg>
+
+        <!-- Gallery / Process Section (Cream) -->
+        <section class="bg-cream-paper relative py-32">
+            <!-- Decorative organic blob -->
+            <svg class="absolute top-20 right-0 w-96 h-96 text-mint-sage z-0 transform translate-x-1/3 opacity-60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M37.9,-58.3C49.7,-47.9,60.1,-37.2,66.6,-23.7C73.1,-10.2,75.6,6.1,70.9,20.4C66.2,34.7,54.3,47,40.9,53.4C27.5,59.8,13.7,60.3,-0.6,61.2C-15,62.1,-30,63.4,-44.3,57.5C-58.6,51.6,-72.2,38.5,-78.6,22.2C-85,5.9,-84.1,-13.6,-75.7,-29.4C-67.3,-45.2,-51.4,-57.3,-36.5,-65.4C-21.6,-73.5,-7.7,-77.6,4.6,-83.9C16.9,-90.2,33.8,-94.7,37.9,-58.3Z" transform="translate(100 100)" />
+            </svg>
+
+            <div class="max-w-[1200px] mx-auto px-4 lg:px-8 relative z-10">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="w-full lg:w-1/3">
+                        <span class="text-editorial-label text-stevida-red text-xs lg:text-sm mb-4 inline-block font-bold">Desde el campo</span>
+                        <h2 class="font-display text-4xl lg:text-[46px] text-stevida-green uppercase tracking-display leading-[1.18] mb-6">
+                            Tenemos una cadena productiva completa
+                        </h2>
+                        <p class="font-body text-ink-black text-[16px] leading-relaxed mb-8">
+                            Cada etapa de nuestro proceso está cuidadosamente monitoreada para asegurar que el extracto conserve todas las propiedades naturales y la dulzura que te encanta.
+                        </p>
+                        <a href="#" class="border-2 border-stevida-red text-stevida-red font-body text-[13px] uppercase tracking-widest rounded-full px-10 py-[18px] hover:bg-stevida-red hover:text-pure-white transition-all inline-flex items-center">
+                            Conoce más <i class="fas fa-arrow-right ml-3"></i>
+                        </a>
+                    </div>
+
+                    <div class="w-full lg:w-2/3">
+                        <div class="grid grid-cols-2 gap-4">
+                            <img src="https://images.unsplash.com/photo-1533461427508-410a6231bd40?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Planta" class="w-full h-64 object-cover rounded-[8px] shadow-card mt-8">
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Proceso" class="w-full h-64 object-cover rounded-[8px] shadow-card">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagonal / Rotating Text Section becomes a large typography showcase -->
+        <section class="bg-cream-paper relative py-20 overflow-hidden border-t border-ink-black/10">
+            <div class="max-w-[1200px] mx-auto px-4 lg:px-8 text-center relative z-10">
+                <span class="text-editorial-label text-stevida-green text-xs lg:text-sm mb-6 inline-block font-bold">Descubre los sabores más</span>
+                
+                <h2 class="font-mega text-6xl md:text-[88px] text-stevida-green leading-[0.82] mb-12">
+                    Nutritivos
+                </h2>
+                
+                <p class="font-script text-3xl text-stevida-green max-w-2xl mx-auto mb-10 transform -rotate-2">
+                    Nuestras recetas incluyen todo tipo de platos saludables. Encuentra la que mejor acompañe tu dieta diaria.
+                </p>
+
+                <a href="#" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-12 py-5 hover:bg-opacity-90 transition-all inline-block">
+                    Ver Recetas
+                </a>
+            </div>
+
+            <!-- Hand-drawn style decorative knife/herb -->
+            <svg class="botanical-ill top-10 left-10 w-32 h-32 transform -rotate-45" viewBox="0 0 100 100">
+                <!-- Simple knife illustration -->
+                <path d="M80,20 L60,40 L30,90 L20,80 L50,30 L70,10 Z" />
+            </svg>
+        </section>
+    </main>
+
+    <!-- Wave transition to Footer -->
+    <svg class="wave-divider -mt-1" viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,0 C480,120 960,120 1440,0 L1440,120 L0,120 Z" fill="#64b035"></path>
+    </svg>
+
+    <!-- Footer Section (Deep Indigo) -->
+        <footer class="bg-stevida-green text-pure-white pt-24 mt-[-2px] relative z-20">
+        <div class="max-w-[1200px] mx-auto px-4 lg:px-8 pb-16">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <!-- Brand Info -->
+                <div class="md:col-span-5">
+                    <span class="font-mega font-black text-4xl text-pure-white tracking-tight block mb-6">STEVIDA</span>
+                    <p class="font-body text-[14px] leading-relaxed text-pure-white/80 max-w-md">
+                        Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="md:col-span-3">
+                    <h4 class="font-nav text-[13px] text-honey-gold tracking-label uppercase mb-6 font-bold">Navegación</h4>
+                    <ul class="space-y-4">
+                        <li><a href="index.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Inicio</a></li>
+                        <li><a href="nuestros_productos.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Productos</a></li>
+                        <li><a href="recetas.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Recetas</a></li>
+                        <li><a href="quienes_somos.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Nosotros</a></li>
+                        <li><a href="encuentranos.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Encuéntranos</a></li>
+                        <li><a href="blog.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Blog</a></li>
+                        <li><a href="contactanos.html" class="font-body text-[14px] text-pure-white hover:text-stevida-red transition-colors">Contáctanos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="md:col-span-4">
+                    <h4 class="font-nav text-[13px] text-honey-gold tracking-label uppercase mb-6 font-bold">Contáctanos</h4>
+                    <ul class="space-y-4 font-body text-[14px] text-pure-white/80">
+                        <li class="flex items-start">
+                            <i class="fas fa-phone mt-1 w-6 text-stevida-red"></i>
+                            <span>(+593) 6258 5693 <br> (+593) 9845 10973</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 w-6 text-stevida-red"></i>
+                            <span>info@steviadelecuador.com.ec</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 w-6 text-stevida-red"></i>
+                            <span>Ibarra - Ecuador</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="border-t border-pure-white/10 py-6">
+            <div class="max-w-[1200px] mx-auto px-4 lg:px-8 flex flex-col md:flex-row justify-between items-center text-[12px] font-body text-pure-white/60">
+                <p>Copyright © 2026 Stevida. Todos los derechos reservados.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
