@@ -1,15 +1,16 @@
 /* =============================================================
    STEVIDA — Global Design System
    Based on DESIGN F.md — Pa'lais Style Reference
-   Updated: Stevida Green (#64b035) + Stevida Red (#e83c3c)
+   Updated: Stevida Green (#64b035) + Burnt Orange (#ed7328)
    ============================================================= */
 
 /* ───── CSS Custom Properties ───── */
 :root {
   /* Colors */
-  --color-stevida-green:  #64b035;
+  --color-stevida-green:  #5da430;
   --color-honey-gold:     #ffc400;
-  --color-stevida-red:    #e83c3c;
+  --color-burnt-orange:    #ed7328;
+  /* --color-burnt-orange:    #e83c3c;  Stevida red*/
   --color-sky-blue:       #6aa8dc;
   --color-warm-sand:      #d2b68c;
   --color-mint-sage:      #a2d3a6;
@@ -140,7 +141,7 @@ body {
 /* ───── Color Utilities ───── */
 
 .text-stevida-green  { color: var(--color-stevida-green); }
-.text-stevida-red    { color: var(--color-stevida-red); }
+.text-burnt-orange    { color: var(--color-burnt-orange); }
 .text-honey-gold     { color: var(--color-honey-gold); }
 .text-sky-blue       { color: var(--color-sky-blue); }
 .text-mint-sage      { color: var(--color-mint-sage); }
@@ -149,7 +150,7 @@ body {
 .text-ink-black      { color: var(--color-ink-black); }
 
 .bg-stevida-green    { background-color: var(--color-stevida-green); }
-.bg-stevida-red      { background-color: var(--color-stevida-red); }
+.bg-burnt-orange      { background-color: var(--color-burnt-orange); }
 .bg-honey-gold       { background-color: var(--color-honey-gold); }
 .bg-cream-paper      { background-color: var(--color-cream-paper); }
 .bg-pure-white       { background-color: var(--color-pure-white); }
@@ -230,12 +231,12 @@ body {
 }
 
 .nav-link:hover {
-  color: var(--color-stevida-red);
+  color: var(--color-burnt-orange);
 }
 
 .nav-link.active {
-  color: var(--color-stevida-red);
-  border-bottom: 2px solid var(--color-stevida-red);
+  color: var(--color-burnt-orange);
+  border-bottom: 2px solid var(--color-burnt-orange);
   padding-bottom: 4px;
 }
 
@@ -279,14 +280,14 @@ body {
 }
 .btn-primary:hover { opacity: 0.9; }
 
-/* Secondary — Stevida Red outlined */
+/* Secondary — Burnt Orange outlined */
 .btn-secondary {
   background-color: transparent;
-  color: var(--color-stevida-red);
-  border: 2px solid var(--color-stevida-red);
+  color: var(--color-burnt-orange);
+  border: 2px solid var(--color-burnt-orange);
 }
 .btn-secondary:hover {
-  background-color: var(--color-stevida-red);
+  background-color: var(--color-burnt-orange);
   color: var(--color-pure-white);
 }
 
@@ -365,7 +366,7 @@ body {
 }
 
 .form-input:focus {
-  border-color: var(--color-stevida-red);
+  border-color: var(--color-burnt-orange);
 }
 
 .form-label {
@@ -513,7 +514,7 @@ body {
 .section-cream  { background-color: var(--color-cream-paper); }
 .section-white  { background-color: var(--color-pure-white); }
 .section-green  { background-color: var(--color-stevida-green); }
-.section-red    { background-color: var(--color-stevida-red); }
+.section-red    { background-color: var(--color-burnt-orange); }
 
 /* ───── Blob Decorators ───── */
 
@@ -544,7 +545,7 @@ body {
 }
 
 .tag-red {
-  background-color: var(--color-stevida-red);
+  background-color: var(--color-burnt-orange);
   color: var(--color-pure-white);
 }
 

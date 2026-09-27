@@ -5,7 +5,7 @@
 
 Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
 
-Pa'lais reads like a hand-illustrated artisan cookbook dropped into a modern food-magazine layout. The canvas is a warm cream paper (#fbf9f6) with pure white cards layered on top, anchored by a single Stevida green brand voice (#64b035) that owns every headline, link, and primary button. That green is intentionally the primary saturated tone in the system; everything else is warm and edible — honey-gold (#ffc400), Stevida red (#e83c3c), warm sand (#d2b68c), mint sage (#a2d3a6) — and those warms appear almost exclusively as organic flowing blob shapes and botanical line-art, never as flat fills. Typography splits into two loud voices: bold condensed display fonts in all-caps Stevida green for headlines, and widely-tracked geometric sans (Axiforma / ITC Avant Garde) for labels and UI chrome with letter-spacing up to 0.27em. A handwritten script carries emotional taglines ('The future of cooking – today'). Components stay lightweight — soft 8px cards, generous 32px-radius pill buttons, hairline borders — letting the illustrations and photography do the storytelling.
+Pa'lais reads like a hand-illustrated artisan cookbook dropped into a modern food-magazine layout. The canvas is a warm cream paper (#fbf9f6) with pure white cards layered on top, anchored by a single Stevida green brand voice (#64b035) that owns every headline, link, and primary button. That green is intentionally the primary saturated tone in the system; everything else is warm and edible — honey-gold (#ffc400), Burnt Orange (#ed7328), warm sand (#d2b68c), mint sage (#a2d3a6) — and those warms appear almost exclusively as organic flowing blob shapes and botanical line-art, never as flat fills. Typography splits into two loud voices: bold condensed display fonts in all-caps Stevida green for headlines, and widely-tracked geometric sans (Axiforma / ITC Avant Garde) for labels and UI chrome with letter-spacing up to 0.27em. A handwritten script carries emotional taglines ('The future of cooking – today'). Components stay lightweight — soft 8px cards, generous 32px-radius pill buttons, hairline borders — letting the illustrations and photography do the storytelling.
 
 ## Tokens — Colors
 
@@ -13,7 +13,7 @@ Pa'lais reads like a hand-illustrated artisan cookbook dropped into a modern foo
 |------|-------|-------|------|
 | Stevida green | `#64b035` | `--color-stevida-green` | Primary brand color — headlines, navigation text, links, filled CTA buttons, and dark section backgrounds. The primary saturated hue in the system, it gives every action weight and authority |
 | Honey Gold | `#ffc400` | `--color-honey-gold` | Decorative accent — used exclusively in organic flowing blob shapes and illustration highlights, never as a fill or button. The warm burst of yellow is the system's signature punctuation against the cream canvas |
-| Stevida red | `#e83c3c` | `--color-stevida-red` | Red accent for outlined action borders, linked labels, and lightweight interactive emphasis. |
+| Burnt Orange | `#ed7328` | `--color-burnt-orange` | Orange accent for outlined action borders, linked labels, and lightweight interactive emphasis. |
 | Sky Blue | `#6aa8dc` | `--color-sky-blue` | Soft illustration blue — used in botanical line-art washes and supporting decorative blobs. Adds depth to the plant illustrations |
 | Warm Sand | `#d2b68c` | `--color-warm-sand` | Subtle warm accent — used sparingly in illustration details and supporting decorative shapes. Bridges the gap between the cream canvas and the more saturated red and gold accents |
 | Mint Sage | `#a2d3a6` | `--color-mint-sage` | Botanical green — appears in organic blob shapes and plant illustration washes. Soft enough to read as a pastel, it reinforces the plant-based brand without competing with Stevida green or red |
@@ -154,7 +154,7 @@ Stevida green (#64b035) background, Pure White (#ffffff) text, 32px border-radiu
 ### Outlined Red Secondary Button
 **Role:** Secondary or informational call-to-action — 'learn more' style with an arrow icon
 
-Transparent background with 2px Stevida red (#e83c3c) border, Stevida red text, 32px border-radius. Padding 24px × 48px. Always includes a right-arrow icon before or after the label. Used for 'MEET US' and similar exploration CTAs. This is the outlined-action variant — not filled.
+Transparent background with 2px Burnt Orange (#ed7328) border, Burnt Orange text, 32px border-radius. Padding 24px × 48px. Always includes a right-arrow icon before or after the label. Used for 'MEET US' and similar exploration CTAs. This is the outlined-action variant — not filled.
 
 ### Top Navigation Bar
 **Role:** Persistent site navigation
@@ -164,7 +164,7 @@ Horizontal bar, white or transparent background resting on the cream canvas. Log
 ### Recipe Card
 **Role:** Content card for individual recipes in the carousel/section
 
-8px border-radius, soft box-shadow rgba(0,0,0,0.16) -14px 10px 49px 0px (asymmetric, drifting down-right). White background. Full-bleed food photography at the top with a semi-transparent overlay containing the recipe title in white all-caps condensed display type and a 30-min time badge. Padding 16px. Cards sit directly on the Stevida red section background.
+8px border-radius, soft box-shadow rgba(0,0,0,0.16) -14px 10px 49px 0px (asymmetric, drifting down-right). White background. Full-bleed food photography at the top with a semi-transparent overlay containing the recipe title in white all-caps condensed display type and a 30-min time badge. Padding 16px. Cards sit directly on the Burnt Orange section background.
 
 ### Hero Section with Organic Wavy Divider
 **Role:** First-screen impact layout with split text and product image
@@ -174,7 +174,7 @@ Full-bleed cream (#fbf9f6) background. Left side: large condensed display headli
 ### Organic Blob Shape
 **Role:** Decorative SVG accent that defines the system's visual rhythm
 
-Free-form SVG path with no fixed dimensions, using a solid fill from the accent palette (Honey Gold, Stevida red, Mint Sage). Appears at section boundaries, behind product images, and as background washes. The blobs are not abstract — they evoke liquid, plant, or splash forms. They carry the warm color energy while the Stevida green type carries the structural weight.
+Free-form SVG path with no fixed dimensions, using a solid fill from the accent palette (Honey Gold, Burnt Orange, Mint Sage). Appears at section boundaries, behind product images, and as background washes. The blobs are not abstract — they evoke liquid, plant, or splash forms. They carry the warm color energy while the Stevida green type carries the structural weight.
 
 ### Botanical Line Illustration
 **Role:** Hand-drawn decorative element that establishes the botanical/editorial mood
@@ -199,7 +199,7 @@ Close-up, slightly overhead shots of prepared dishes (toast with spread, wraps, 
 ### Section Divider Curve
 **Role:** Organic separator between major page sections
 
-A large SVG path (typically 200–400px tall) that creates a flowing wave boundary between two color fields (e.g. cream → Stevida red, white → Stevida green). Filled with a single solid color matching the section below. Unlike a hard line, it creates a hand-painted, watercolor-edge effect — the signature transition device of the layout.
+A large SVG path (typically 200–400px tall) that creates a flowing wave boundary between two color fields (e.g. cream → Burnt Orange, white → Stevida green). Filled with a single solid color matching the section below. Unlike a hard line, it creates a hand-painted, watercolor-edge effect — the signature transition device of the layout.
 
 ### Scroll Indicator
 **Role:** Small downward-arrow icon below the hero to prompt scrolling
@@ -211,16 +211,16 @@ Simple circular outlined icon in Stevida green, ~48px diameter, 1.5px stroke, co
 ### Do
 - Use #64b035 Stevida green as the only filled-button background color — it is the primary anchor in the palette.
 - Apply Axiforma or ITC Avant Garde with 0.13–0.27em letter-spacing for all labels, nav items, and UI text in uppercase — the aggressive tracking is the system's typographic signature.
-- Render all decorative organic shapes as SVG paths in solid accent fills (#ffc400, #e83c3c, #a2d3a6) — never use CSS gradients or multiple colors in one blob.
+- Render all decorative organic shapes as SVG paths in solid accent fills (#ffc400, #ed7328, #a2d3a6) — never use CSS gradients or multiple colors in one blob.
 - Use 32px border-radius for all buttons and 8px for cards — the radius contrast between pill-buttons and soft-cornered cards is intentional and creates the system's tactile feel.
 - Layer Pure White (#ffffff) cards on the Cream Paper (#fbf9f6) canvas rather than using gray surfaces — the warm off-white base is what makes the system feel like a cookbook rather than a dashboard.
 - Combine bold condensed display type (hwt-artz / Bebas Neue substitute) in Stevida green all-caps with a handwritten script (Caveat substitute) for emotional subheadlines — this two-voice headline pattern is the brand's verbal-visual signature.
 - Use botanical line illustrations in #64b035 or #6aa8dc with 1–1.5px stroke and no fills as decorative connective tissue between sections.
 
 ### Don't
-- Don't use #ffc400 Honey Gold or #e83c3c Stevida red as filled button backgrounds — these accents are reserved for organic shapes and outlined secondary actions.
+- Don't use #ffc400 Honey Gold or #ed7328 Burnt Orange as filled button backgrounds — these accents are reserved for organic shapes and outlined secondary actions.
 - Don't apply letter-spacing tighter than 0.03em on display headlines or wider than 0.27em on labels — the tracking extremes are calibrated; flattening them kills the editorial cadence.
-- Don't use flat gray (#f5f5f5, #e0e0e0) for surface separation — the system achieves layering through cream → white → Stevida red → Stevida green, not through neutral grays.
+- Don't use flat gray (#f5f5f5, #e0e0e0) for surface separation — the system achieves layering through cream → white → Burnt Orange → Stevida green, not through neutral grays.
 - Don't add drop shadows to buttons or navigation — shadows appear only on recipe cards, and even there they are asymmetric and soft.
 - Don't set body text in the display fonts (hwt-artz, Delivery Note, Sandman) — those are reserved for headlines at 32px and above.
 - Don't place the script accent font (Caveat substitute) in UI chrome, labels, or buttons — it is an emotional headline voice only, used sparingly.
@@ -231,7 +231,7 @@ Simple circular outlined icon in Stevida green, ~48px diameter, 1.5px stroke, co
 |-------|------|-------|---------|
 | 1 | Cream Paper Canvas | `#fbf9f6` | Base page background and hero section — warm off-white that sets the editorial, paper-like atmosphere |
 | 2 | Pure White Card | `#ffffff` | Recipe cards, content panels, and inset surfaces that float above the cream canvas |
-| 3 | Stevida Red Section | `#e83c3c` | Full-bleed alternating section background (e.g. the recipes block) that breaks the cream rhythm with energy |
+| 3 | Burnt Orange Section | `#ed7328` | Full-bleed alternating section background (e.g. the recipes block) that breaks the cream rhythm with energy |
 | 4 | Stevida Green Section | `#64b035` | Dark or footer-level section for high-contrast moments, reinforcing the brand primary as a structural color |
 
 ## Elevation
@@ -245,7 +245,7 @@ Imagery is split between two distinct modes: (1) hand-drawn botanical line illus
 
 ## Layout
 
-The page uses a full-bleed cream canvas with content max-widthed to ~1200px centered. The hero is a split layout: condensed display headline + script tagline on the left, product photography on the right, divided by a flowing organic SVG blob (gold over sage) that replaces a straight vertical line. Below the hero, sections alternate between white and full-bleed Stevida red bands, each separated by organic wavy dividers rather than hard lines. Content sections are typically 2-column (text + image/illustration) or centered single-column stacks. The recipes section is a horizontal card carousel on a Stevida red background. Navigation is a minimal top bar with logo left, nav center, CTA right. Density is spacious — 64px section gaps and generous breathing room around illustrations let the decorative elements (blobs, line-art) feel curated rather than cluttered. The overall rhythm is: quiet cream → bold Stevida red → quiet cream → Stevida green footer.
+The page uses a full-bleed cream canvas with content max-widthed to ~1200px centered. The hero is a split layout: condensed display headline + script tagline on the left, product photography on the right, divided by a flowing organic SVG blob (gold over sage) that replaces a straight vertical line. Below the hero, sections alternate between white and full-bleed Burnt Orange bands, each separated by organic wavy dividers rather than hard lines. Content sections are typically 2-column (text + image/illustration) or centered single-column stacks. The recipes section is a horizontal card carousel on a Burnt Orange background. Navigation is a minimal top bar with logo left, nav center, CTA right. Density is spacious — 64px section gaps and generous breathing room around illustrations let the decorative elements (blobs, line-art) feel curated rather than cluttered. The overall rhythm is: quiet cream → bold Burnt Orange → quiet cream → Stevida green footer.
 
 ## Agent Prompt Guide
 
@@ -253,7 +253,7 @@ The page uses a full-bleed cream canvas with content max-widthed to ~1200px cent
 - Text: #000000 (body), #64b035 (headings, links, nav)
 - Background: #fbf9f6 (page canvas), #ffffff (cards)
 - Border: #000000 (hairline, 1px)
-- Accent: #ffc400 (honey blobs), #e83c3c (red blobs, secondary buttons)
+- Accent: #ffc400 (honey blobs), #ed7328 (red blobs, secondary buttons)
 - primary action: #64b035 (filled action)
 
 **Example Component Prompts**
@@ -261,15 +261,15 @@ The page uses a full-bleed cream canvas with content max-widthed to ~1200px cent
 
 2. *Primary Filled Button*: Render a pill button — 32px border-radius, background #64b035, text #ffffff, font Axiforma 13px uppercase letter-spacing 0.1em, padding 24px top/bottom × 48px left/right. Label: 'STORE LOCATOR'.
 
-3. *Outlined Secondary Button*: Render a pill button — 32px border-radius, 2px border in #e83c3c, transparent background, text #e83c3c, font Axiforma 14px uppercase letter-spacing 0.15em, padding 24px × 48px. Include a right-arrow icon. Label: 'MEET US'.
+3. *Outlined Secondary Button*: Render a pill button — 32px border-radius, 2px border in #ed7328, transparent background, text #ed7328, font Axiforma 14px uppercase letter-spacing 0.15em, padding 24px × 48px. Include a right-arrow icon. Label: 'MEET US'.
 
 4. *Recipe Card*: White #ffffff background, 8px border-radius, box-shadow rgba(0,0,0,0.16) -14px 10px 49px 0px. Full-bleed food photo at top, overlay with title in Bebas Neue 24px white all-caps and a 12px time badge in ITC Avant Garde with 0.2em tracking. Padding 16px.
 
-5. *Section Divider*: Insert a 200px-tall organic SVG wave path, solid fill #e83c3c, spanning the full viewport width between a white section and the next section. The wave should curve gently — not a straight line — to create a hand-painted edge.
+5. *Section Divider*: Insert a 200px-tall organic SVG wave path, solid fill #ed7328, spanning the full viewport width between a white section and the next section. The wave should curve gently — not a straight line — to create a hand-painted edge.
 
 ## Color Behavior Rules
 
-The balance is structural: #64b035 Stevida green is the primary brand color and it owns all type, links, and filled actions. Everything else (Honey Gold, Stevida red, Warm Sand, Mint Sage, Sky Blue) is warm or pastel and appears almost exclusively in organic blob shapes, illustration washes, and outlined secondary actions. Never cross these lanes — don't put accent colors in body text or buttons, and don't put Stevida green in decorative blobs. The Cream Paper canvas (#fbf9f6) is what makes this rule work: it is warm enough that the Stevida green reads as the deliberate structural counterpoint, and saturated enough that the white cards pop without needing gray separators.
+The balance is structural: #64b035 Stevida green is the primary brand color and it owns all type, links, and filled actions. Everything else (Honey Gold, Burnt Orange, Warm Sand, Mint Sage, Sky Blue) is warm or pastel and appears almost exclusively in organic blob shapes, illustration washes, and outlined secondary actions. Never cross these lanes — don't put accent colors in body text or buttons, and don't put Stevida green in decorative blobs. The Cream Paper canvas (#fbf9f6) is what makes this rule work: it is warm enough that the Stevida green reads as the deliberate structural counterpoint, and saturated enough that the white cards pop without needing gray separators.
 
 ## Illustration Integration
 
@@ -292,7 +292,7 @@ Botanical line-art illustrations should never sit in a contained box — they sh
   /* Colors */
   --color-stevida-green: #64b035;
   --color-honey-gold: #ffc400;
-  --color-stevida-red: #e83c3c;
+  --color-burnt-orange: #ed7328;
   --color-sky-blue: #6aa8dc;
   --color-warm-sand: #d2b68c;
   --color-mint-sage: #a2d3a6;
@@ -382,6 +382,6 @@ Botanical line-art illustrations should never sit in a contained box — they sh
   /* Surfaces */
   --surface-cream-paper-canvas: #fbf9f6;
   --surface-pure-white-card: #ffffff;
-  --surface-stevida-red-section: #e83c3c;
+  --surface-burnt-orange-section: #ed7328;
   --surface-stevida-green-section: #64b035;
 }
