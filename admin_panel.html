@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - STEVIDA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stevida-green': '#64b035',
+                        'honey-gold': '#ffc400',
+                        'burnt-orange': '#ed7328',
+                        'sky-blue': '#6aa8dc',
+                        'warm-sand': '#d2b68c',
+                        'mint-sage': '#a2d3a6',
+                        'ink-black': '#000000',
+                        'pure-white': '#ffffff',
+                        'cream-paper': '#fbf9f6',
+                        'admin-sidebar': '#1e293b'
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'hero': ['Oswald', 'sans-serif'],
+                        'mega': ['"Playfair Display"', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'nav': ['Jost', 'sans-serif'],
+                        'script': ['Caveat', 'cursive'],
+                    },
+                    boxShadow: {
+                        'card': 'rgba(0, 0, 0, 0.16) -14px 10px 49px 0px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+        
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+        }
+        
+        /* Custom scrollbar for sidebar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-cream-paper font-body text-ink-black flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-admin-sidebar text-pure-white flex flex-col shadow-card z-20">
+        <div class="h-20 flex items-center justify-center border-b border-slate-700 px-6">
+            <span class="font-mega font-black text-2xl tracking-tight text-pure-white">STEVIDA <span class="text-xs font-nav uppercase tracking-widest ml-1 text-honey-gold">Admin</span></span>
+        </div>
+        <div class="px-6 py-4 flex-1 overflow-y-auto">
+            <p class="text-editorial-label text-slate-400 mb-4">Menú Principal</p>
+            <nav class="space-y-2">
+                <button onclick="switchView('productos')" id="nav-productos" class="w-full flex items-center space-x-3 px-4 py-3 bg-stevida-green text-pure-white rounded-[8px] transition-colors font-medium text-[13px]">
+                    <i class="fas fa-box w-5 text-center"></i>
+                    <span>Productos</span>
+                </button>
+                <button onclick="switchView('promociones')" id="nav-promociones" class="w-full flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-pure-white rounded-[8px] transition-colors font-medium text-[13px]">
+                    <i class="fas fa-tags w-5 text-center"></i>
+                    <span>Promociones</span>
+                </button>
+                <button class="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 cursor-not-allowed rounded-[8px] font-medium text-[13px]">
+                    <i class="fas fa-chart-line w-5 text-center"></i>
+                    <span>Estadísticas</span>
+                </button>
+                <button class="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 cursor-not-allowed rounded-[8px] font-medium text-[13px]">
+                    <i class="fas fa-cog w-5 text-center"></i>
+                    <span>Configuración</span>
+                </button>
+            </nav>
+        </div>
+        
+        <div class="p-6 border-t border-slate-700">
+            <a href="index.html" class="flex items-center space-x-3 px-4 py-2 text-slate-300 hover:text-pure-white transition-colors font-medium text-[13px]">
+                <i class="fas fa-external-link-alt w-5 text-center"></i>
+                <span>Ver Tienda</span>
+            </a>
+            <div class="flex items-center space-x-3 px-4 py-2 mt-4 text-slate-300">
+                <div class="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-xs">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-pure-white text-[13px]">Admin Stevida</span>
+                    <span class="text-[10px] font-nav uppercase tracking-wider text-slate-400">Administrador</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        
+        <!-- Top Header -->
+        <header class="h-20 bg-pure-white shadow-sm flex items-center justify-between px-8 z-10 shrink-0">
+            <h2 id="top-title" class="text-3xl font-display text-stevida-green tracking-wide">Gestión de Productos</h2>
+            <div class="flex items-center space-x-6">
+                <div class="relative">
+                    <i class="fas fa-bell text-gray-400 hover:text-stevida-green cursor-pointer text-xl transition-colors"></i>
+                    <span class="absolute -top-1 -right-1 bg-burnt-orange text-pure-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border-2 border-pure-white">3</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            <!-- Decorative botanical blob in background -->
+            <svg class="absolute top-0 right-0 w-[400px] h-[400px] text-mint-sage opacity-20 pointer-events-none transform translate-x-1/4 -translate-y-1/4" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M43.7,-68.8C54.4,-57.1,59.3,-38.7,63.1,-21.8C66.9,-4.9,69.7,10.6,63.5,22.7C57.3,34.8,42.2,43.5,27.1,51C12,58.5,-3.1,64.8,-17.1,61.8C-31.1,58.8,-44,46.5,-55.1,32.3C-66.2,18.1,-75.5,2.1,-74.6,-13C-73.7,-28.1,-62.7,-42.2,-49.5,-53.4C-36.3,-64.6,-20.9,-72.9,-2.4,-69.9C16,-66.9,33.1,-80.5,43.7,-68.8Z" transform="translate(100 100)" />
+            </svg>
+
+            <!-- SECTION: PRODUCTOS -->
+            <div id="view-productos" class="view-section active relative z-10">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="relative w-96">
+                        <input type="text" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-3 rounded-[8px] border border-gray-200 bg-pure-white focus:outline-none focus:border-stevida-green focus:ring-1 focus:ring-stevida-green text-[14px]">
+                        <i class="fas fa-search absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+                    </div>
+                    <button onclick="openProductModal()" class="bg-stevida-green hover:bg-opacity-90 text-pure-white font-body text-[13px] uppercase tracking-widest py-3 px-6 rounded-full shadow-sm flex items-center transition-all">
+                        <i class="fas fa-plus mr-2"></i> Añadir Producto
+                    </button>
+                </div>
+
+                <div class="bg-pure-white rounded-[8px] shadow-card overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-100">
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Producto</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Categoría</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Precio</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Inventario</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Promoción</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-[14px]">
+                            <!-- Fila 1 -->
+                            <tr class="border-b border-gray-50 hover:bg-cream-paper transition-colors">
+                                <td class="py-3 px-6 flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-[8px] bg-cream-paper p-1 flex-shrink-0 border border-gray-100">
+                                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Polvo" class="w-full h-full object-contain mix-blend-multiply">
+                                    </div>
+                                    <span class="font-medium text-ink-black">Stevida en Polvo 250g</span>
+                                </td>
+                                <td class="py-3 px-6 text-gray-500">En Polvo</td>
+                                <td class="py-3 px-6 font-display tracking-wide text-lg text-stevida-green">$8.50</td>
+                                <td class="py-3 px-6">
+                                    <span class="bg-mint-sage/20 text-stevida-green py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">150 uds</span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <span class="bg-burnt-orange/10 text-burnt-orange py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">20% OFF</span>
+                                </td>
+                                <td class="py-3 px-6 text-right space-x-2">
+                                    <button onclick="openProductModal('Stevida en Polvo 250g', 'En Polvo', 8.50, 150, 'promo1')" class="text-sky-blue hover:text-stevida-green p-2 transition-colors"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-burnt-orange p-2 transition-colors" onclick="alert('Producto eliminado (Simulación)')"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Fila 2 -->
+                            <tr class="border-b border-gray-50 hover:bg-cream-paper transition-colors">
+                                <td class="py-3 px-6 flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-[8px] bg-cream-paper p-1 flex-shrink-0 border border-gray-100">
+                                        <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Liquida" class="w-full h-full object-contain mix-blend-multiply">
+                                    </div>
+                                    <span class="font-medium text-ink-black">Stevida Líquida Gotero 100ml</span>
+                                </td>
+                                <td class="py-3 px-6 text-gray-500">Líquida</td>
+                                <td class="py-3 px-6 font-display tracking-wide text-lg text-stevida-green">$6.00</td>
+                                <td class="py-3 px-6">
+                                    <span class="bg-mint-sage/20 text-stevida-green py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">85 uds</span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <span class="bg-gray-100 text-gray-500 py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">Ninguna</span>
+                                </td>
+                                <td class="py-3 px-6 text-right space-x-2">
+                                    <button onclick="openProductModal('Stevida Líquida Gotero 100ml', 'Líquida', 6.00, 85, '')" class="text-sky-blue hover:text-stevida-green p-2 transition-colors"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-burnt-orange p-2 transition-colors" onclick="alert('Producto eliminado (Simulación)')"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Fila 3 -->
+                            <tr class="border-b border-gray-50 hover:bg-cream-paper transition-colors">
+                                <td class="py-3 px-6 flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-[8px] bg-cream-paper p-1 flex-shrink-0 border border-gray-100">
+                                        <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Repostería" class="w-full h-full object-contain mix-blend-multiply">
+                                    </div>
+                                    <span class="font-medium text-ink-black">Pack Stevida Especial Repostería 500g</span>
+                                </td>
+                                <td class="py-3 px-6 text-gray-500">Repostería</td>
+                                <td class="py-3 px-6 font-display tracking-wide text-lg text-stevida-green">$12.50</td>
+                                <td class="py-3 px-6">
+                                    <span class="bg-honey-gold/20 text-honey-gold py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">12 uds</span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <span class="bg-gray-100 text-gray-500 py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">Ninguna</span>
+                                </td>
+                                <td class="py-3 px-6 text-right space-x-2">
+                                    <button onclick="openProductModal('Pack Stevida Especial Repostería 500g', 'Repostería', 12.50, 12, '')" class="text-sky-blue hover:text-stevida-green p-2 transition-colors"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-burnt-orange p-2 transition-colors" onclick="alert('Producto eliminado (Simulación)')"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION: PROMOCIONES -->
+            <div id="view-promociones" class="view-section relative z-10">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-gray-500 text-[14px]">Crea y gestiona reglas de descuento aplicables a productos.</p>
+                    <button onclick="openPromoModal()" class="bg-stevida-green hover:bg-opacity-90 text-pure-white font-body text-[13px] uppercase tracking-widest py-3 px-6 rounded-full shadow-sm flex items-center transition-all">
+                        <i class="fas fa-plus mr-2"></i> Añadir Promoción
+                    </button>
+                </div>
+
+                <div class="bg-pure-white rounded-[8px] shadow-card overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-100">
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Nombre de la Promoción</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Descuento</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Estado</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400">Fecha Fin</th>
+                                <th class="py-4 px-6 text-editorial-label text-gray-400 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-[14px]">
+                            <!-- Promo 1 -->
+                            <tr class="border-b border-gray-50 hover:bg-cream-paper transition-colors">
+                                <td class="py-4 px-6 font-medium text-ink-black">Feria de la Dulzura (20% OFF)</td>
+                                <td class="py-4 px-6 text-burnt-orange font-bold tracking-wide">-20% Porcentaje</td>
+                                <td class="py-4 px-6">
+                                    <span class="bg-mint-sage/20 text-stevida-green py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">Activa</span>
+                                </td>
+                                <td class="py-4 px-6 text-gray-500">31/10/2026</td>
+                                <td class="py-4 px-6 text-right space-x-2">
+                                    <button class="text-sky-blue hover:text-stevida-green p-2 transition-colors"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-burnt-orange p-2 transition-colors"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Promo 2 -->
+                            <tr class="border-b border-gray-50 hover:bg-cream-paper transition-colors">
+                                <td class="py-4 px-6 font-medium text-ink-black">Descuento Black Friday</td>
+                                <td class="py-4 px-6 text-burnt-orange font-bold tracking-wide">-40% Porcentaje</td>
+                                <td class="py-4 px-6">
+                                    <span class="bg-gray-100 text-gray-500 py-1 px-3 rounded-full text-[10px] font-nav font-bold tracking-wider uppercase">Inactiva</span>
+                                </td>
+                                <td class="py-4 px-6 text-gray-500">30/11/2026</td>
+                                <td class="py-4 px-6 text-right space-x-2">
+                                    <button class="text-sky-blue hover:text-stevida-green p-2 transition-colors"><i class="fas fa-edit"></i></button>
+                                    <button class="text-gray-400 hover:text-burnt-orange p-2 transition-colors"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODALS -->
+
+    <!-- Modal: Formulario Producto -->
+    <div id="modal-producto" class="fixed inset-0 bg-ink-black/40 modal-overlay z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-pure-white rounded-[8px] shadow-card w-full max-w-2xl max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300" id="modal-producto-content">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100">
+                <h3 id="modal-producto-title" class="text-2xl font-display text-stevida-green tracking-wide">Añadir Nuevo Producto</h3>
+                <button onclick="closeProductModal()" class="text-gray-400 hover:text-stevida-green text-xl transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex-1 font-body">
+                <form class="space-y-6">
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="col-span-2">
+                            <label class="text-editorial-label text-stevida-green block mb-2">Nombre del Producto</label>
+                            <input type="text" id="prod-nombre" placeholder="Ej. Stevida en Polvo 500g" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                        </div>
+                        
+                        <div>
+                            <label class="text-editorial-label text-stevida-green block mb-2">Categoría</label>
+                            <select id="prod-cat" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                                <option>En Polvo</option>
+                                <option>Líquida</option>
+                                <option>Repostería</option>
+                                <option>Hojas Secas</option>
+                                <option>Infusiones</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-editorial-label text-stevida-green block mb-2">Inventario (Stock)</label>
+                            <input type="number" id="prod-stock" placeholder="0" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                        </div>
+
+                        <div>
+                            <label class="text-editorial-label text-stevida-green block mb-2">Precio Normal ($)</label>
+                            <input type="number" step="0.01" id="prod-precio" placeholder="0.00" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                        </div>
+
+                        <div>
+                            <label class="text-editorial-label text-stevida-green block mb-2">Asignar Promoción (Opcional)</label>
+                            <select id="prod-promo" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                                <option value="">Sin promoción</option>
+                                <option value="promo1">Feria de la Dulzura (20% OFF)</option>
+                                <option value="promo2">Descuento Black Friday (40% OFF)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-editorial-label text-stevida-green block mb-2">Descripción Breve</label>
+                        <textarea rows="3" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors resize-none text-[14px]" placeholder="Describe los beneficios e información del producto..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="text-editorial-label text-stevida-green block mb-2">Imagen del Producto</label>
+                        <div class="border border-dashed border-gray-300 rounded-[8px] p-8 flex flex-col items-center justify-center bg-cream-paper hover:bg-mint-sage/10 transition-colors cursor-pointer text-stevida-green">
+                            <i class="fas fa-cloud-upload-alt text-3xl mb-3"></i>
+                            <span class="text-[13px] font-medium text-gray-500">Haz clic para subir una imagen (JPG, PNG)</span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            
+            <div class="p-6 border-t border-gray-100 bg-cream-paper flex justify-end space-x-4 rounded-b-[8px]">
+                <button onclick="closeProductModal()" class="border-2 border-gray-300 text-gray-600 font-body text-[13px] uppercase tracking-widest rounded-full py-2.5 px-6 hover:bg-gray-100 transition-all">Cancelar</button>
+                <button onclick="saveProduct()" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full py-2.5 px-6 hover:bg-opacity-90 transition-all shadow-sm">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Formulario Promoción -->
+    <div id="modal-promo" class="fixed inset-0 bg-ink-black/40 modal-overlay z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-pure-white rounded-[8px] shadow-card w-full max-w-md max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300" id="modal-promo-content">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100">
+                <h3 class="text-2xl font-display text-stevida-green tracking-wide">Crear Promoción</h3>
+                <button onclick="closePromoModal()" class="text-gray-400 hover:text-stevida-green text-xl transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex-1 font-body">
+                <form class="space-y-6">
+                    <div>
+                        <label class="text-editorial-label text-stevida-green block mb-2">Nombre de Promoción</label>
+                        <input type="text" placeholder="Ej. Cyber Monday" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-editorial-label text-stevida-green block mb-2">Tipo</label>
+                            <select class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                                <option>Porcentaje (%)</option>
+                                <option>Monto Fijo ($)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-editorial-label text-stevida-green block mb-2">Valor</label>
+                            <input type="number" placeholder="20" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-editorial-label text-stevida-green block mb-2">Fecha de Expiración</label>
+                        <input type="date" class="w-full bg-transparent border-b border-gray-300 py-2 text-ink-black focus:outline-none focus:border-stevida-green transition-colors text-[14px]">
+                    </div>
+                </form>
+            </div>
+            
+            <div class="p-6 border-t border-gray-100 bg-cream-paper flex justify-end space-x-4 rounded-b-[8px]">
+                <button onclick="closePromoModal()" class="border-2 border-gray-300 text-gray-600 font-body text-[13px] uppercase tracking-widest rounded-full py-2.5 px-6 hover:bg-gray-100 transition-all">Cancelar</button>
+                <button onclick="savePromo()" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full py-2.5 px-6 hover:bg-opacity-90 transition-all shadow-sm">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // SPA View Switcher
+        function switchView(viewName) {
+            // Update buttons
+            const inactiveClass = "w-full flex items-center space-x-3 px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-pure-white rounded-[8px] transition-colors font-medium text-[13px]";
+            document.getElementById('nav-productos').className = inactiveClass;
+            document.getElementById('nav-promociones').className = inactiveClass;
+            
+            const activeClass = "w-full flex items-center space-x-3 px-4 py-3 bg-stevida-green text-pure-white rounded-[8px] transition-colors font-medium text-[13px]";
+            document.getElementById('nav-' + viewName).className = activeClass;
+
+            // Update Views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewName).classList.add('active');
+            
+            // Update Title
+            if(viewName === 'productos') document.getElementById('top-title').innerText = 'Gestión de Productos';
+            if(viewName === 'promociones') document.getElementById('top-title').innerText = 'Gestión de Promociones';
+        }
+
+        // Modals Logic - Productos
+        const modalProducto = document.getElementById('modal-producto');
+        const modalProductoContent = document.getElementById('modal-producto-content');
+
+        function openProductModal(nombre = '', categoria = 'En Polvo', precio = '', stock = '', promo = '') {
+            const isEdit = nombre !== '';
+            document.getElementById('modal-producto-title').innerText = isEdit ? 'Editar Producto' : 'Añadir Nuevo Producto';
+            
+            // Pre-fill
+            document.getElementById('prod-nombre').value = nombre;
+            document.getElementById('prod-cat').value = categoria;
+            document.getElementById('prod-precio').value = precio;
+            document.getElementById('prod-stock').value = stock;
+            document.getElementById('prod-promo').value = promo;
+
+            modalProducto.classList.remove('hidden');
+            setTimeout(() => {
+                modalProducto.classList.remove('opacity-0');
+                modalProductoContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            modalProducto.classList.add('opacity-0');
+            modalProductoContent.classList.add('scale-95');
+            setTimeout(() => {
+                modalProducto.classList.add('hidden');
+            }, 300);
+        }
+
+        function saveProduct() {
+            alert('Producto guardado exitosamente (Simulación)');
+            closeProductModal();
+        }
+
+        // Modals Logic - Promociones
+        const modalPromo = document.getElementById('modal-promo');
+        const modalPromoContent = document.getElementById('modal-promo-content');
+
+        function openPromoModal() {
+            modalPromo.classList.remove('hidden');
+            setTimeout(() => {
+                modalPromo.classList.remove('opacity-0');
+                modalPromoContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closePromoModal() {
+            modalPromo.classList.add('opacity-0');
+            modalPromoContent.classList.add('scale-95');
+            setTimeout(() => {
+                modalPromo.classList.add('hidden');
+            }, 300);
+        }
+
+        function savePromo() {
+            alert('Promoción guardada exitosamente (Simulación)');
+            closePromoModal();
+        }
+    </script>
+</body>
+</html>

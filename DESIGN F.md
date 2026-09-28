@@ -13,7 +13,7 @@ Pa'lais reads like a hand-illustrated artisan cookbook dropped into a modern foo
 |------|-------|-------|------|
 | Stevida green | `#64b035` | `--color-stevida-green` | Primary brand color — headlines, navigation text, links, filled CTA buttons, and dark section backgrounds. The primary saturated hue in the system, it gives every action weight and authority |
 | Honey Gold | `#ffc400` | `--color-honey-gold` | Decorative accent — used exclusively in organic flowing blob shapes and illustration highlights, never as a fill or button. The warm burst of yellow is the system's signature punctuation against the cream canvas |
-| Burnt Orange | `#ed7328` | `--color-burnt-orange` | Orange accent for outlined action borders, linked labels, and lightweight interactive emphasis. |
+| Burnt Orange | `#ed7328` | `--color-burnt-orange` | Orange accent for outlined action borders, linked labels, and lightweight interactive emphasis. |0
 | Sky Blue | `#6aa8dc` | `--color-sky-blue` | Soft illustration blue — used in botanical line-art washes and supporting decorative blobs. Adds depth to the plant illustrations |
 | Warm Sand | `#d2b68c` | `--color-warm-sand` | Subtle warm accent — used sparingly in illustration details and supporting decorative shapes. Bridges the gap between the cream canvas and the more saturated red and gold accents |
 | Mint Sage | `#a2d3a6` | `--color-mint-sage` | Botanical green — appears in organic blob shapes and plant illustration washes. Soft enough to read as a pastel, it reinforces the plant-based brand without competing with Stevida green or red |
