@@ -56,7 +56,7 @@
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
-    --color-stevida-green: #64b035;
+    --color-stevida-green: #3F8227;
     --color-honey-gold: #ffc400;
     --color-burnt-orange: #CC412F;
     --color-sky-blue: #6aa8dc;
@@ -359,6 +359,9 @@
   }
   .hidden {
     display: none;
+  }
+  .inline {
+    display: inline;
   }
   .h-4 {
     height: var(--spacing-4);

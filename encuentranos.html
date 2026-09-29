@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -119,6 +119,57 @@
                 </div>
             </div>
         </section>
+
+        <!-- ══ MAPA DE PUNTOS DE VENTA ══ -->
+        <section style="background-color: var(--color-cream-paper); padding: 48px 0 80px;">
+            <div style="max-width: 70rem; margin-inline: auto; padding-inline: var(--spacing-32);">
+
+                <!-- Section heading -->
+                <div class="animate-fade-in" style="text-align: center; margin-bottom: 40px;">
+                    <span class="text-editorial-label" style="color: var(--color-burnt-orange); display: inline-block; margin-bottom: 12px;">
+                        Cobertura Nacional
+                    </span>
+                    <h2 style="font-family: var(--font-display); font-size: clamp(28px, 4vw, 42px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1.1; margin-bottom: 12px;">
+                        Encuentra nuestros puntos de venta a nivel nacional
+                    </h2>
+                    <p style="font-family: var(--font-body); font-size: 15px; color: rgba(0,0,0,0.55); max-width: 520px; margin-inline: auto; line-height: 1.7;">
+                        Ubica la tienda más cercana a ti y disfruta de los beneficios de Stevida donde estés.
+                    </p>
+                </div>
+
+                <!-- Map container — responsive height via style below -->
+                <div class="animate-fade-in delay-100 map-embed-wrapper" style="border-radius: var(--radius-cards); overflow: hidden; box-shadow: var(--shadow-card);">
+                    <iframe
+                        src="https://www.google.com/maps/d/embed?mid=1uqoNRGNnbr9Hq8s5qXKdayGTxZjKsUI&ehbc=2E312F"
+                        title="Mapa de puntos de venta STEVIDA"
+                        loading="lazy"
+                        style="border:0; display:block; width:100%; height:100%;"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <!-- CTA: open in Google Maps app -->
+                <div style="text-align: center; margin-top: 28px;">
+                    <a
+                        href="https://www.google.com/maps/d/viewer?mid=1uqoNRGNnbr9Hq8s5qXKdayGTxZjKsUI"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-secondary"
+                        style="padding: 14px 36px; display: inline-flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Abrir en la aplicación de Google Maps
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Responsive map height — placed here to avoid inline media queries -->
+        <style>
+            .map-embed-wrapper { height: 400px; }
+            @media (min-width: 1024px) { .map-embed-wrapper { height: 600px; } }
+        </style>
 
         <!-- Tiendas Naturistas Quito -->
         <section style="padding: 0 0 64px; background-color: var(--color-cream-paper);">
