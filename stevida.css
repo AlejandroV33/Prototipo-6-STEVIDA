@@ -476,14 +476,26 @@ body {
   .footer-inner { grid-template-columns: 5fr 3fr 4fr; }
 }
 
-.footer-logo {
-  font-family: var(--font-mega);
-  font-weight: 900;
-  font-size: 2.5rem;
-  color: var(--color-pure-white);
+/* Footer logo — now an SVG image (white via filter) */
+.footer-logo-img {
+  display: inline-block;
+  line-height: 0;
   text-decoration: none;
-  display: block;
   margin-bottom: var(--spacing-24);
+}
+
+.footer-logo-img img {
+  height: 60px;
+  width: auto;
+  display: block;
+  /* Renders the coloured SVG as white on the green footer */
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo-img:hover img {
+  opacity: 1;
 }
 
 .footer-tagline {
