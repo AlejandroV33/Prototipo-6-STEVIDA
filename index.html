@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -61,48 +61,67 @@
     <!-- ══════════════════════════════════════════════
          HEADER / NAVIGATION
     ══════════════════════════════════════════════ -->
+    <!-- â•â• HEADER â•â• -->
     <header class="site-header" id="site-header">
         <div class="header-inner">
+
             <!-- Logo -->
-            <a href="index.html" class="site-logo">STEVIDA</a>
+            <a href="index.html" class="site-logo" aria-label="Stevida - Ir al inicio">
+                <img src="Stevida logo final.svg" alt="Stevida" height="44">
+            </a>
 
             <!-- Desktop Navigation -->
-            <nav class="site-nav" aria-label="Navegación principal">
-                <a href="index.html"               class="nav-link active">Inicio</a>
-                <a href="nuestros_productos.html"   class="nav-link">Productos</a>
-                <a href="recetas.html"              class="nav-link">Recetas</a>
-                <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
-                <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
-                <a href="blog.html"                 class="nav-link">Blog</a>
-                <a href="contactanos.html"          class="nav-link">Contáctanos</a>
+            <nav class="site-nav" aria-label="Navegaci&#xF3;n principal">
+                <a href="index.html" class="nav-link active">Inicio</a>
+                <a href="nuestros_productos.html" class="nav-link">Tienda</a>
+                <a href="recetas.html" class="nav-link">Recetas</a>
+                <a href="quienes_somos.html" class="nav-link">Nosotros</a>
+                <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
+                <a href="blog.html" class="nav-link">Comunidad</a>
+                <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
             </nav>
 
-            <!-- Header Actions -->
+            <!-- Desktop icon actions: Cart + User -->
             <div class="header-actions">
-                <a href="carrito.html" aria-label="Carrito de compras" style="color: var(--color-stevida-green); font-size: 1.25rem; transition: color 0.2s;">
+                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
-                <a href="nuestros_productos.html" class="btn btn-primary" style="padding: 10px 28px; font-size: 12px;">
-                    Tienda
+                <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
+                    <i class="fas fa-user"></i>
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button class="md:hidden" id="mobile-menu-toggle" aria-label="Abrir menú" style="background: none; border: none; cursor: pointer; color: var(--color-stevida-green); font-size: 1.5rem; padding: 4px;">
-                <i class="fas fa-bars" id="menu-icon"></i>
-            </button>
+            <!-- Mobile: mini cart + hamburger -->
+            <div class="mobile-header-group">
+                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir men&#xFA;" aria-expanded="false">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+
         </div>
 
-        <!-- Mobile Navigation Drawer -->
-        <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil">
-            <a href="index.html"               class="nav-link active">Inicio</a>
-            <a href="nuestros_productos.html"   class="nav-link">Productos</a>
-            <a href="recetas.html"              class="nav-link">Recetas</a>
-            <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
-            <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
-            <a href="blog.html"                 class="nav-link">Blog</a>
-            <a href="contactanos.html"          class="nav-link">Contáctanos</a>
-            <a href="nuestros_productos.html" class="btn btn-primary" style="padding: 12px 32px; align-self: flex-start;">Tienda</a>
+        <!-- Mobile Drawer -->
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Navegaci&#xF3;n m&#xF3;vil">
+            <a href="index.html" class="nav-link active">Inicio</a>
+            <a href="nuestros_productos.html" class="nav-link">Tienda</a>
+            <a href="recetas.html" class="nav-link">Recetas</a>
+            <a href="quienes_somos.html" class="nav-link">Nosotros</a>
+            <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
+            <a href="blog.html" class="nav-link">Comunidad</a>
+            <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
+
+            <!-- Icon row -->
+            <div class="mobile-nav-icons">
+                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
         </nav>
     </header>
 
