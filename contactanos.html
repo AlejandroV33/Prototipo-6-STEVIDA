@@ -3,113 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contáctanos - Stevida</title>
+    <title>Contáctanos - Stevida | Escríbenos</title>
+    <meta name="description" content="Contáctanos para más información sobre Stevida, nuestros productos o cómo convertirte en distribuidor.">
     <link rel="stylesheet" href="output.css">
-
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        body { background-color: var(--color-cream-paper); }
-        .text-editorial-label { font-family: theme('fontFamily.nav'); letter-spacing: theme('letterSpacing.label'); text-transform: uppercase; }
-        .form-input:focus { outline: none; border-color: var(--color-burnt-orange); }
+        /* Form specific */
+        .contact-form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(0,0,0,0.12);
+            padding: 10px 0;
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--color-ink-black);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .contact-form-input:focus { border-color: var(--color-burnt-orange); }
+        .contact-form-input::placeholder { color: rgba(0,0,0,0.3); }
     </style>
 </head>
-<body class="font-body text-base">
+<body>
 
     <!-- Header -->
-        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="index.html" class="flex-shrink-0">
-                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="site-logo">STEVIDA</a>
+            <nav class="site-nav" aria-label="Navegación principal">
+                <a href="index.html"               class="nav-link">Inicio</a>
+                <a href="nuestros_productos.html"   class="nav-link">Productos</a>
+                <a href="recetas.html"              class="nav-link">Recetas</a>
+                <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
+                <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
+                <a href="blog.html"                 class="nav-link">Blog</a>
+                <a href="contactanos.html"          class="nav-link active">Contáctanos</a>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" aria-label="Carrito" style="color:var(--color-stevida-green);font-size:1.25rem;">
+                    <i class="fas fa-shopping-cart"></i>
                 </a>
-
-                <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-10">
-                    <a href="index.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Inicio</a>
-                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Productos</a>
-                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Recetas</a>
-                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Nosotros</a>
-                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Encuéntranos</a>
-                    <a href="blog.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Blog</a>
-                    <a href="contactanos.html" class="font-nav text-[13px] text-burnt-orange tracking-nav uppercase border-b-2 border-burnt-orange pb-1">Contáctanos</a>
-                </nav>
-
-                <!-- CTA Button -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors flex items-center">
-                        <i class="fas fa-shopping-cart text-lg"></i>
-                    </a>
-                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
-                        Tienda
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-stevida-green text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="nuestros_productos.html" class="btn btn-primary" style="padding:10px 28px;font-size:12px;">Tienda</a>
             </div>
+            <button id="mobile-menu-toggle" aria-label="Abrir menú" style="background:none;border:none;cursor:pointer;color:var(--color-stevida-green);font-size:1.5rem;padding:4px;" class="md:hidden">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
         </div>
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html"               class="nav-link">Inicio</a>
+            <a href="nuestros_productos.html"   class="nav-link">Productos</a>
+            <a href="recetas.html"              class="nav-link">Recetas</a>
+            <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
+            <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
+            <a href="blog.html"                 class="nav-link">Blog</a>
+            <a href="contactanos.html"          class="nav-link active">Contáctanos</a>
+            <a href="nuestros_productos.html" class="btn btn-primary" style="padding:12px 32px;align-self:flex-start;">Tienda</a>
+        </nav>
     </header>
 
-    <main class="pt-32 pb-24 max-w-[1200px] mx-auto px-4 lg:px-8">
-        <div class="flex flex-col lg:flex-row gap-16">
-            
-            <!-- Left: Info -->
-            <div class="w-full lg:w-1/2 relative">
-                <span class="text-editorial-label text-burnt-orange text-xs lg:text-sm mb-4 inline-block font-bold">Comunicación</span>
-                <h1 class="font-mega text-5xl lg:text-[72px] leading-[0.9] text-stevida-green mb-6">Déjanos un mensaje.</h1>
-                <p class="font-script text-3xl text-stevida-green mb-10 transform -rotate-2">
-                    Te responderemos lo más pronto que nos sea posible.
-                </p>
+    <main style="background-color: var(--color-cream-paper); padding-top: 100px; padding-bottom: 96px;">
+        <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
 
-                <div class="space-y-8 mt-12">
-                    <div class="flex items-start">
-                        <i class="fas fa-phone text-burnt-orange text-2xl mr-4"></i>
-                        <div>
-                            <p class="font-display text-2xl text-stevida-green tracking-widest">(+593) 62 585 693</p>
-                            <p class="font-display text-2xl text-stevida-green tracking-widest">(+593) 98 451 0973</p>
+            <!-- Two-column layout -->
+            <div style="display: flex; flex-direction: column; gap: 64px;">
+
+                <!-- Left: Info -->
+                <div style="width: 100%;">
+                    <span class="text-editorial-label animate-fade-in" style="color: var(--color-burnt-orange); margin-bottom: 16px; display: inline-block;">
+                        Comunicación
+                    </span>
+                    <h1 class="animate-fade-in delay-100" style="font-family: var(--font-mega); font-size: clamp(40px, 6vw, 72px); line-height: 0.95; color: var(--color-stevida-green); margin-bottom: 24px;">
+                        Déjanos un mensaje.
+                    </h1>
+                    <p class="animate-fade-in delay-200" style="font-family: var(--font-script); font-size: clamp(20px, 2.5vw, 28px); color: var(--color-stevida-green); margin-bottom: 48px; transform: rotate(-2deg); display: inline-block; line-height: 1.4;">
+                        Te responderemos lo más pronto que nos sea posible.
+                    </p>
+
+                    <!-- Contact details -->
+                    <div style="margin-top: 48px; display: flex; flex-direction: column; gap: 32px;">
+                        <div class="animate-fade-in delay-100" style="display: flex; align-items: flex-start; gap: 20px;">
+                            <i class="fas fa-phone" style="color: var(--color-burnt-orange); font-size: 1.5rem; margin-top: 4px; width: 28px;"></i>
+                            <div>
+                                <p style="font-family: var(--font-display); font-size: 22px; color: var(--color-stevida-green); letter-spacing: 0.05em; margin-bottom: 4px;">(+593) 62 585 693</p>
+                                <p style="font-family: var(--font-display); font-size: 22px; color: var(--color-stevida-green); letter-spacing: 0.05em;">(+593) 98 451 0973</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-envelope text-burnt-orange text-2xl mr-4"></i>
-                        <div>
-                            <p class="font-body text-lg text-stevida-green font-medium">asoecosol@hotmail.com</p>
-                            <p class="font-body text-lg text-stevida-green font-medium">info@steviadelecuador.com.ec</p>
+                        <div class="animate-fade-in delay-200" style="display: flex; align-items: flex-start; gap: 20px;">
+                            <i class="fas fa-envelope" style="color: var(--color-burnt-orange); font-size: 1.5rem; margin-top: 4px; width: 28px;"></i>
+                            <div>
+                                <p style="font-family: var(--font-body); font-size: 16px; color: var(--color-stevida-green); font-weight: 500; margin-bottom: 4px;">asociecosol@hotmail.com</p>
+                                <p style="font-family: var(--font-body); font-size: 16px; color: var(--color-stevida-green); font-weight: 500;">info@steviadelecuador.com.ec</p>
+                            </div>
+                        </div>
+                        <div class="animate-fade-in delay-300" style="display: flex; align-items: flex-start; gap: 20px;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--color-burnt-orange); font-size: 1.5rem; margin-top: 4px; width: 28px;"></i>
+                            <div>
+                                <p style="font-family: var(--font-body); font-size: 16px; color: var(--color-stevida-green); font-weight: 500;">Ibarra, Imbabura - Ecuador</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Right: Form -->
-            <div class="w-full lg:w-1/2">
-                <div class="bg-pure-white rounded-[8px] p-8 lg:p-12 shadow-card relative z-10">
-                    <form class="space-y-6">
-                        <div>
-                            <label class="text-editorial-label text-[10px] text-stevida-green block mb-2">Nombre completo</label>
-                            <input type="text" class="form-input w-full border-b border-gray-300 py-2 bg-transparent text-stevida-green font-body" required>
-                        </div>
-                        <div>
-                            <label class="text-editorial-label text-[10px] text-stevida-green block mb-2">Email</label>
-                            <input type="email" class="form-input w-full border-b border-gray-300 py-2 bg-transparent text-stevida-green font-body" required>
-                        </div>
-                        <div>
-                            <label class="text-editorial-label text-[10px] text-stevida-green block mb-2">Mensaje</label>
-                            <textarea rows="4" class="form-input w-full border-b border-gray-300 py-2 bg-transparent text-stevida-green font-body resize-none" required></textarea>
-                        </div>
-                        <button type="submit" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-12 py-4 hover:bg-opacity-90 transition-all w-full mt-4">
-                            Enviar Mensaje
-                        </button>
-                    </form>
+                <!-- Right: Form -->
+                <div style="width: 100%;">
+                    <div class="card animate-fade-in" style="padding: 40px;">
+                        <form style="display: flex; flex-direction: column; gap: 28px;" novalidate>
+
+                            <div>
+                                <label class="form-label" for="nombre">Nombre completo</label>
+                                <input type="text" id="nombre" name="nombre" class="contact-form-input" placeholder="Tu nombre" required autocomplete="name">
+                            </div>
+
+                            <div>
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" id="email" name="email" class="contact-form-input" placeholder="tu@email.com" required autocomplete="email">
+                            </div>
+
+                            <div>
+                                <label class="form-label" for="telefono">Teléfono (opcional)</label>
+                                <input type="tel" id="telefono" name="telefono" class="contact-form-input" placeholder="+593 ...">
+                            </div>
+
+                            <div>
+                                <label class="form-label" for="asunto">Asunto</label>
+                                <input type="text" id="asunto" name="asunto" class="contact-form-input" placeholder="¿En qué podemos ayudarte?">
+                            </div>
+
+                            <div>
+                                <label class="form-label" for="mensaje">Mensaje</label>
+                                <textarea id="mensaje" name="mensaje" rows="5" class="contact-form-input" placeholder="Escribe tu mensaje aquí..." required style="resize: vertical; min-height: 120px;"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="padding: 16px; width: 100%; font-size: 13px; margin-top: 8px;">
+                                Enviar Mensaje
+                            </button>
+
+                        </form>
+                    </div>
                 </div>
+
             </div>
         </div>
     </main>
+
+    <!-- Wave → Footer -->
+    <div class="wave-divider" aria-hidden="true" style="line-height:0;">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="display:block;width:100%;height:100px;">
+            <path d="M0,0 C360,100 1080,100 1440,0 L1440,100 L0,100 Z" fill="#64b035"></path>
+        </svg>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <span class="footer-logo">STEVIDA</span>
+                <p class="footer-tagline">Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.</p>
+            </div>
+            <div>
+                <h4 class="footer-heading">Navegación</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nuestros_productos.html">Productos</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
+                    <li><a href="quienes_somos.html">Nosotros</a></li>
+                    <li><a href="encuentranos.html">Encuéntranos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contactanos.html">Contáctanos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Contáctanos</h4>
+                <ul class="footer-contact-list">
+                    <li><i class="fas fa-phone icon"></i><span>(+593) 62 585 693<br>(+593) 98 451 0973</span></li>
+                    <li><i class="fas fa-envelope icon"></i><span>info@steviadelecuador.com.ec</span></li>
+                    <li><i class="fas fa-map-marker-alt icon"></i><span>Ibarra - Ecuador</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-inner">
+                <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="WhatsApp" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const toggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('mobile-nav');
+        const menuIcon = document.getElementById('menu-icon');
+        toggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+
+        /* Responsive two-col layout */
+        function adjustLayout() {
+            const wrapper = document.querySelector('main > div > div');
+            if (!wrapper) return;
+            const [left, right] = wrapper.children;
+            if (window.innerWidth >= 1024) {
+                wrapper.style.flexDirection = 'row';
+                left.style.width = '45%';
+                right.style.width = '55%';
+            } else {
+                wrapper.style.flexDirection = 'column';
+                left.style.width = '100%';
+                right.style.width = '100%';
+            }
+        }
+        adjustLayout();
+        window.addEventListener('resize', adjustLayout, { passive: true });
+    </script>
+
 </body>
 </html>

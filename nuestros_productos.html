@@ -5,89 +5,208 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos - Stevida</title>
     <link rel="stylesheet" href="output.css">
-
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         body {
             background-color: var(--color-cream-paper);
-            color: theme('colors.ink-black');
+            color: var(--color-ink-black);
             overflow-x: hidden;
         }
 
-        .wave-divider {
-            display: block;
+        /* Search input */
+        .search-input {
             width: 100%;
-            height: auto;
+            background-color: var(--color-pure-white);
+            border-radius: 9999px;
+            padding: 16px 32px;
+            border: 1px solid #e5e7eb;
+            outline: none;
+            font-family: var(--font-body);
+            color: var(--color-stevida-green);
+        }
+        .search-input:focus {
+            border-color: var(--color-stevida-green);
+        }
+        .search-input::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Category pill */
+        .pill {
+            flex-shrink: 0;
+            font-family: var(--font-nav);
+            font-size: 12px;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            border-radius: 9999px;
+            padding: 8px 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .pill-active {
+            background-color: var(--color-stevida-green);
+            color: var(--color-pure-white);
+        }
+        .pill-inactive {
+            background-color: var(--color-pure-white);
+            border: 1px solid #e5e7eb;
+            color: var(--color-stevida-green);
+        }
+        .pill-inactive:hover {
+            border-color: var(--color-burnt-orange);
+            color: var(--color-burnt-orange);
+        }
+
+        /* Product image hover */
+        .product-img {
+            width: 100%;
+            height: 192px;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+        .card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        /* Badge */
+        .badge {
             position: absolute;
-            left: 0;
-            right: 0;
+            top: 16px;
+            left: 16px;
+            font-family: var(--font-nav);
+            font-size: 10px;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            color: var(--color-pure-white);
             z-index: 10;
         }
 
-        .text-editorial-label {
-            font-family: theme('fontFamily.nav');
-            letter-spacing: theme('letterSpacing.label');
+        /* Buy button variants */
+        .btn-buy-primary {
+            width: 100%;
+            background-color: var(--color-stevida-green);
+            color: var(--color-pure-white);
+            font-family: var(--font-body);
+            font-size: 13px;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 9999px;
+            padding: 12px 0;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-buy-primary:hover { opacity: 0.9; }
+
+        .btn-buy-secondary {
+            width: 100%;
+            background-color: transparent;
+            color: var(--color-burnt-orange);
+            font-family: var(--font-body);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 9999px;
+            padding: 10px 0;
+            border: 2px solid var(--color-burnt-orange);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-buy-secondary:hover {
+            background-color: var(--color-burnt-orange);
+            color: var(--color-pure-white);
         }
 
-        /* Hide scrollbar */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Products grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+        }
+
+        /* Hero section */
+        .products-hero {
+            background-color: var(--color-cream-paper);
+            padding-top: 140px;
+            padding-bottom: 48px;
+            text-align: center;
+        }
     </style>
 </head>
-<body class="font-body text-base">
+<body>
 
-    <!-- Top Navigation -->
-        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="index.html" class="flex-shrink-0">
-                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+    <!-- Header -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="site-logo">STEVIDA</a>
+            <nav class="site-nav" aria-label="Navegación principal">
+                <a href="index.html"               class="nav-link">Inicio</a>
+                <a href="nuestros_productos.html"   class="nav-link active">Productos</a>
+                <a href="recetas.html"              class="nav-link">Recetas</a>
+                <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
+                <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
+                <a href="blog.html"                 class="nav-link">Blog</a>
+                <a href="contactanos.html"          class="nav-link">Contáctanos</a>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" aria-label="Carrito" style="color:var(--color-stevida-green);font-size:1.25rem;">
+                    <i class="fas fa-shopping-cart"></i>
                 </a>
-
-                <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-10">
-                    <a href="index.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Inicio</a>
-                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-burnt-orange tracking-nav uppercase border-b-2 border-burnt-orange pb-1">Productos</a>
-                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Recetas</a>
-                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Nosotros</a>
-                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Encuéntranos</a>
-                    <a href="blog.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Blog</a>
-                    <a href="contactanos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Contáctanos</a>
-                </nav>
-
-                <!-- CTA Button -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors flex items-center">
-                        <i class="fas fa-shopping-cart text-lg"></i>
-                    </a>
-                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
-                        Tienda
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-stevida-green text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="nuestros_productos.html" class="btn btn-primary" style="padding:10px 28px;font-size:12px;">Tienda</a>
             </div>
+            <button id="mobile-menu-toggle" aria-label="Abrir menú" style="background:none;border:none;cursor:pointer;color:var(--color-stevida-green);font-size:1.5rem;padding:4px;" class="md:hidden">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
         </div>
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html"               class="nav-link">Inicio</a>
+            <a href="nuestros_productos.html"   class="nav-link active">Productos</a>
+            <a href="recetas.html"              class="nav-link">Recetas</a>
+            <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
+            <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
+            <a href="blog.html"                 class="nav-link">Blog</a>
+            <a href="contactanos.html"          class="nav-link">Contáctanos</a>
+            <a href="nuestros_productos.html" class="btn btn-primary" style="padding:12px 32px;align-self:flex-start;">Tienda</a>
+        </nav>
     </header>
 
     <main>
-        
+
+        <!-- Page Hero -->
+        <section class="products-hero animate-fade-in">
+            <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+                <p class="text-editorial-label" style="color:var(--color-stevida-green);margin-bottom:12px;">Catálogo completo</p>
+                <h1 style="font-family:var(--font-display);font-size:clamp(3rem,8vw,5.5rem);letter-spacing:var(--tracking-display);color:var(--color-ink-black);line-height:1;margin-bottom:16px;">
+                    NUESTROS PRODUCTOS
+                </h1>
+                <p style="font-family:var(--font-script);font-size:1.6rem;color:var(--color-stevida-green);margin-bottom:0;">
+                    Dulzura natural, directo de la hoja de Stevia
+                </p>
+            </div>
+        </section>
+
         <!-- Search Section -->
-        <section class="pt-32 pb-8 max-w-[1200px] mx-auto px-4 lg:px-8">
-            <div class="flex justify-center">
-                <div class="relative w-full max-w-2xl">
-                    <input type="text" class="w-full bg-pure-white rounded-full py-4 px-8 shadow-sm font-body border border-gray-200 outline-none focus:border-stevida-green text-stevida-green placeholder-gray-400" placeholder="Buscar productos naturales...">
-                    <button class="absolute right-2 top-2 bottom-2 bg-stevida-green text-pure-white rounded-full px-6 flex items-center justify-center hover:bg-opacity-90">
+        <section style="padding:0 0 24px;max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px;">
+            <div style="display:flex;justify-content:center;">
+                <div style="position:relative;width:100%;max-width:672px;">
+                    <input
+                        type="text"
+                        class="search-input"
+                        placeholder="Buscar productos naturales..."
+                    >
+                    <button
+                        style="position:absolute;right:8px;top:8px;bottom:8px;background-color:var(--color-stevida-green);color:var(--color-pure-white);border-radius:9999px;padding:0 24px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                        aria-label="Buscar"
+                    >
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -95,88 +214,100 @@
         </section>
 
         <!-- Category Pills -->
-        <section class="max-w-[1200px] mx-auto px-4 lg:px-8 pb-12">
-            <div class="flex space-x-4 overflow-x-auto hide-scrollbar justify-start md:justify-center">
-                <a href="#" class="flex-shrink-0 bg-stevida-green text-pure-white font-nav text-[12px] tracking-label uppercase rounded-full px-6 py-2">Todos</a>
-                <a href="#" class="flex-shrink-0 bg-pure-white border border-gray-200 text-stevida-green font-nav text-[12px] tracking-label uppercase rounded-full px-6 py-2 hover:border-burnt-orange hover:text-burnt-orange transition-colors">En Polvo</a>
-                <a href="#" class="flex-shrink-0 bg-pure-white border border-gray-200 text-stevida-green font-nav text-[12px] tracking-label uppercase rounded-full px-6 py-2 hover:border-burnt-orange hover:text-burnt-orange transition-colors">Líquida</a>
-                <a href="#" class="flex-shrink-0 bg-pure-white border border-gray-200 text-stevida-green font-nav text-[12px] tracking-label uppercase rounded-full px-6 py-2 hover:border-burnt-orange hover:text-burnt-orange transition-colors">Repostería</a>
-                <a href="#" class="flex-shrink-0 bg-pure-white border border-gray-200 text-stevida-green font-nav text-[12px] tracking-label uppercase rounded-full px-6 py-2 hover:border-burnt-orange hover:text-burnt-orange transition-colors">Infusiones</a>
+        <section style="max-width:1200px;margin:0 auto;padding:0 24px 48px;">
+            <div class="hide-scrollbar" style="display:flex;gap:12px;overflow-x:auto;justify-content:flex-start;flex-wrap:nowrap;">
+                <a href="#" class="pill pill-active">Todos</a>
+                <a href="#" class="pill pill-inactive">En Polvo</a>
+                <a href="#" class="pill pill-inactive">Líquida</a>
+                <a href="#" class="pill pill-inactive">Repostería</a>
+                <a href="#" class="pill pill-inactive">Infusiones</a>
             </div>
         </section>
 
         <!-- Products Grid -->
-        <section class="pb-32 max-w-[1200px] mx-auto px-4 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                
+        <section style="max-width:1200px;margin:0 auto;padding:0 24px 80px;">
+            <div class="products-grid">
+
                 <!-- Product 1 -->
-                <article class="bg-pure-white rounded-[8px] shadow-card flex flex-col items-center p-6 relative group cursor-pointer" onclick="window.location.href='producto_detalle.html'">
-                    <div class="absolute top-4 left-4 bg-burnt-orange text-pure-white font-nav text-[10px] tracking-label uppercase font-bold px-3 py-1 rounded-full z-10">
-                        20% OFF
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <span class="badge" style="background-color:var(--color-burnt-orange);">20% OFF</span>
+                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                        <img
+                            src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Stevida en Polvo"
+                            class="product-img"
+                        >
                     </div>
-                    <div class="w-full h-48 mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Polvo" class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="text-center flex-1 flex flex-col w-full">
-                        <h3 class="font-body text-[16px] text-ink-black leading-tight mb-2 flex-1">Stevida en Polvo 100% Natural 250g</h3>
-                        <div class="flex items-end justify-center gap-2 mb-4">
-                            <span class="text-gray-400 line-through text-sm">$8.50</span>
-                            <span class="font-display text-3xl text-stevida-green">$6.80</span>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size:16px;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Stevida en Polvo 100% Natural 250g
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="color:#9ca3af;text-decoration:line-through;font-size:14px;">$8.50</span>
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$6.80</span>
                         </div>
-                        <button class="w-full bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full py-3 hover:bg-opacity-90 transition-all">
-                            Comprar
-                        </button>
+                        <button class="btn-buy-primary">Comprar</button>
                     </div>
                 </article>
 
                 <!-- Product 2 -->
-                <article class="bg-pure-white rounded-[8px] shadow-card flex flex-col items-center p-6 relative group cursor-pointer" onclick="window.location.href='producto_detalle.html'">
-                    <div class="w-full h-48 mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Liquida" class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300">
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                        <img
+                            src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Stevida Líquida"
+                            class="product-img"
+                        >
                     </div>
-                    <div class="text-center flex-1 flex flex-col w-full">
-                        <h3 class="font-body text-[16px] text-ink-black leading-tight mb-2 flex-1">Stevida Líquida Gotero 100ml</h3>
-                        <div class="flex items-end justify-center gap-2 mb-4">
-                            <span class="font-display text-3xl text-stevida-green">$4.20</span>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size:16px;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Stevida Líquida Gotero 100ml
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$4.20</span>
                         </div>
-                        <button class="w-full border-2 border-burnt-orange text-burnt-orange font-body text-[13px] uppercase tracking-widest rounded-full py-[10px] hover:bg-burnt-orange hover:text-pure-white transition-all">
-                            Comprar
-                        </button>
+                        <button class="btn-buy-secondary">Comprar</button>
                     </div>
                 </article>
 
                 <!-- Product 3 -->
-                <article class="bg-pure-white rounded-[8px] shadow-card flex flex-col items-center p-6 relative group cursor-pointer" onclick="window.location.href='producto_detalle.html'">
-                    <div class="w-full h-48 mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Repostería" class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300">
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                        <img
+                            src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Pack Repostería"
+                            class="product-img"
+                        >
                     </div>
-                    <div class="text-center flex-1 flex flex-col w-full">
-                        <h3 class="font-body text-[16px] text-ink-black leading-tight mb-2 flex-1">Pack Stevida Especial Repostería 500g</h3>
-                        <div class="flex items-end justify-center gap-2 mb-4">
-                            <span class="font-display text-3xl text-stevida-green">$12.50</span>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size:16px;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Pack Stevida Especial Repostería 500g
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$12.50</span>
                         </div>
-                        <button class="w-full border-2 border-burnt-orange text-burnt-orange font-body text-[13px] uppercase tracking-widest rounded-full py-[10px] hover:bg-burnt-orange hover:text-pure-white transition-all">
-                            Comprar
-                        </button>
+                        <button class="btn-buy-secondary">Comprar</button>
                     </div>
                 </article>
-                
+
                 <!-- Product 4 -->
-                <article class="bg-pure-white rounded-[8px] shadow-card flex flex-col items-center p-6 relative group cursor-pointer" onclick="window.location.href='producto_detalle.html'">
-                    <div class="absolute top-4 left-4 bg-sky-blue text-pure-white font-nav text-[10px] tracking-label uppercase font-bold px-3 py-1 rounded-full z-10">
-                        NUEVO
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <span class="badge" style="background-color: var(--color-sky-blue);">NUEVO</span>
+                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                        <img
+                            src="https://images.unsplash.com/photo-1576092762791-dd9e2220d565?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Té Verde con Stevida"
+                            class="product-img"
+                        >
                     </div>
-                    <div class="w-full h-48 mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1576092762791-dd9e2220d565?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Te" class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="text-center flex-1 flex flex-col w-full">
-                        <h3 class="font-body text-[16px] text-ink-black leading-tight mb-2 flex-1">Té Verde con Stevida Pack x20 bolsitas</h3>
-                        <div class="flex items-end justify-center gap-2 mb-4">
-                            <span class="font-display text-3xl text-stevida-green">$3.80</span>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size:16px;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Té Verde con Stevida Pack x20 bolsitas
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.80</span>
                         </div>
-                        <button class="w-full border-2 border-burnt-orange text-burnt-orange font-body text-[13px] uppercase tracking-widest rounded-full py-[10px] hover:bg-burnt-orange hover:text-pure-white transition-all">
-                            Comprar
-                        </button>
+                        <button class="btn-buy-secondary">Comprar</button>
                     </div>
                 </article>
 
@@ -185,69 +316,75 @@
 
     </main>
 
-    <!-- Wave transition to Footer -->
-    <svg class="wave-divider -mt-1 transform rotate-180" viewBox="0 0 1440 120" preserveAspectRatio="none">
-        <path d="M0,120 C480,0 960,0 1440,120 L1440,0 L0,0 Z" fill="#64b035"></path>
-    </svg>
+    <!-- Wave Divider (in flow, sibling before footer) -->
+    <div class="wave-divider" aria-hidden="true" style="line-height:0;margin-top:-2px;">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="display:block;width:100%;height:100px;">
+            <path d="M0,0 C360,100 1080,100 1440,0 L1440,100 L0,100 Z" fill="#64b035"></path>
+        </svg>
+    </div>
 
     <!-- Footer -->
-        <footer class="bg-stevida-green text-pure-white pt-24 mt-[-2px] relative z-20">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8 pb-16">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-                <!-- Brand Info -->
-                <div class="md:col-span-5">
-                    <span class="font-mega font-black text-4xl text-pure-white tracking-tight block mb-6">STEVIDA</span>
-                    <p class="font-body text-[14px] leading-relaxed text-pure-white/80 max-w-md">
-                        Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.
-                    </p>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="md:col-span-3">
-                    <h4 class="font-nav text-[13px] text-honey-gold tracking-label uppercase mb-6 font-bold">Navegación</h4>
-                    <ul class="space-y-4">
-                        <li><a href="index.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Inicio</a></li>
-                        <li><a href="nuestros_productos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Productos</a></li>
-                        <li><a href="recetas.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Recetas</a></li>
-                        <li><a href="quienes_somos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Nosotros</a></li>
-                        <li><a href="encuentranos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Encuéntranos</a></li>
-                        <li><a href="blog.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Blog</a></li>
-                        <li><a href="contactanos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Contáctanos</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div class="md:col-span-4">
-                    <h4 class="font-nav text-[13px] text-honey-gold tracking-label uppercase mb-6 font-bold">Contáctanos</h4>
-                    <ul class="space-y-4 font-body text-[14px] text-pure-white/80">
-                        <li class="flex items-start">
-                            <i class="fas fa-phone mt-1 w-6 text-burnt-orange"></i>
-                            <span>(+593) 6258 5693 <br> (+593) 9845 10973</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope mt-1 w-6 text-burnt-orange"></i>
-                            <span>info@steviadelecuador.com.ec</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 w-6 text-burnt-orange"></i>
-                            <span>Ibarra - Ecuador</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <span class="footer-logo">STEVIDA</span>
+                <p class="footer-tagline">Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.</p>
+            </div>
+            <div>
+                <h4 class="footer-heading">Navegación</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nuestros_productos.html">Productos</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
+                    <li><a href="quienes_somos.html">Nosotros</a></li>
+                    <li><a href="encuentranos.html">Encuéntranos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contactanos.html">Contáctanos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Contáctanos</h4>
+                <ul class="footer-contact-list">
+                    <li><i class="fas fa-phone icon"></i><span>(+593) 62 585 693<br>(+593) 98 451 0973</span></li>
+                    <li><i class="fas fa-envelope icon"></i><span>info@steviadelecuador.com.ec</span></li>
+                    <li><i class="fas fa-map-marker-alt icon"></i><span>Ibarra - Ecuador</span></li>
+                </ul>
             </div>
         </div>
-        
-        <!-- Bottom Bar -->
-        <div class="border-t border-pure-white/10 py-6">
-            <div class="max-w-[1200px] mx-auto px-4 lg:px-8 flex flex-col md:flex-row justify-between items-center text-[12px] font-body text-pure-white/60">
-                <p>Copyright © 2026 Stevida. Todos los derechos reservados.</p>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-whatsapp"></i></a>
+        <div class="footer-bottom">
+            <div class="footer-bottom-inner">
+                <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- WhatsApp FAB -->
+    <a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="WhatsApp" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const toggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('mobile-nav');
+        const menuIcon = document.getElementById('menu-icon');
+        toggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

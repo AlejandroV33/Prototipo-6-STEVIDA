@@ -3,196 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Stevida</title>
+    <title>Blog - Stevida | Artículos sobre Stevia y Salud Natural</title>
+    <meta name="description" content="Lee nuestros artículos sobre stevia, recetas saludables, bienestar y vida natural en el blog de Stevida.">
     <link rel="stylesheet" href="output.css">
-
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        body { background-color: var(--color-cream-paper); }
-        .text-editorial-label { font-family: theme('fontFamily.nav'); letter-spacing: theme('letterSpacing.label'); text-transform: uppercase; }
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        @media (min-width: 1024px) {
+            .blog-layout { grid-template-columns: 2fr 1fr; }
+        }
+
+        .sidebar-post {
+            display: flex;
+            height: 120px;
+            border-radius: var(--radius-cards);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            background-color: var(--color-pure-white);
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .sidebar-post:hover { transform: translateX(4px); }
     </style>
 </head>
-<body class="font-body text-base">
+<body>
 
     <!-- Header -->
-        <header class="fixed top-0 w-full bg-cream-paper/90 backdrop-blur-md z-50 transition-all duration-300">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="index.html" class="flex-shrink-0">
-                    <span class="font-mega font-black text-3xl text-stevida-green tracking-tight">STEVIDA</span>
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="site-logo">STEVIDA</a>
+            <nav class="site-nav" aria-label="Navegación principal">
+                <a href="index.html"               class="nav-link">Inicio</a>
+                <a href="nuestros_productos.html"   class="nav-link">Productos</a>
+                <a href="recetas.html"              class="nav-link">Recetas</a>
+                <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
+                <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
+                <a href="blog.html"                 class="nav-link active">Blog</a>
+                <a href="contactanos.html"          class="nav-link">Contáctanos</a>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" aria-label="Carrito" style="color:var(--color-stevida-green);font-size:1.25rem;">
+                    <i class="fas fa-shopping-cart"></i>
                 </a>
-
-                <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-10">
-                    <a href="index.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Inicio</a>
-                    <a href="nuestros_productos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Productos</a>
-                    <a href="recetas.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Recetas</a>
-                    <a href="quienes_somos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Nosotros</a>
-                    <a href="encuentranos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Encuéntranos</a>
-                    <a href="blog.html" class="font-nav text-[13px] text-burnt-orange tracking-nav uppercase border-b-2 border-burnt-orange pb-1">Blog</a>
-                    <a href="contactanos.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors">Contáctanos</a>
-                </nav>
-
-                <!-- CTA Button -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="carrito.html" class="font-nav text-[13px] text-stevida-green tracking-nav uppercase hover:text-burnt-orange transition-colors flex items-center">
-                        <i class="fas fa-shopping-cart text-lg"></i>
-                    </a>
-                    <a href="nuestros_productos.html" class="bg-stevida-green text-pure-white font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-opacity-90 transition-all">
-                        Tienda
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-stevida-green text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="nuestros_productos.html" class="btn btn-primary" style="padding:10px 28px;font-size:12px;">Tienda</a>
             </div>
+            <button id="mobile-menu-toggle" aria-label="Abrir menú" style="background:none;border:none;cursor:pointer;color:var(--color-stevida-green);font-size:1.5rem;padding:4px;" class="md:hidden">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
         </div>
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="index.html"               class="nav-link">Inicio</a>
+            <a href="nuestros_productos.html"   class="nav-link">Productos</a>
+            <a href="recetas.html"              class="nav-link">Recetas</a>
+            <a href="quienes_somos.html"        class="nav-link">Nosotros</a>
+            <a href="encuentranos.html"         class="nav-link">Encuéntranos</a>
+            <a href="blog.html"                 class="nav-link active">Blog</a>
+            <a href="contactanos.html"          class="nav-link">Contáctanos</a>
+            <a href="nuestros_productos.html" class="btn btn-primary" style="padding:12px 32px;align-self:flex-start;">Tienda</a>
+        </nav>
     </header>
 
-    <main class="pt-32 pb-24 max-w-[1200px] mx-auto px-4 lg:px-8">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            
-            <!-- Left: Main Post -->
-            <div class="lg:col-span-2">
-                <div class="bg-pure-white rounded-[8px] shadow-card overflow-hidden">
-                    <div class="h-80 overflow-hidden">
-                        <img src="https://www.stevidaecuador.com/wp-content/uploads/2019/08/stevia_planta-1024x680.jpg" alt="Planta de stevia" class="w-full h-full object-cover">
+    <main style="background-color: var(--color-cream-paper); padding-top: 100px; padding-bottom: 96px;">
+        <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
+
+            <!-- Page heading -->
+            <div style="margin-bottom: 48px;">
+                <span class="text-editorial-label animate-fade-in" style="color: var(--color-burnt-orange); margin-bottom: 12px; display: inline-block;">
+                    Artículos
+                </span>
+                <h1 class="animate-fade-in delay-100" style="font-family: var(--font-mega); font-size: clamp(36px, 5vw, 56px); color: var(--color-stevida-green); line-height: 1.1;">
+                    Blog Stevida
+                </h1>
+            </div>
+
+            <!-- Blog layout: main + sidebar -->
+            <div class="blog-layout">
+
+                <!-- Main article -->
+                <article class="card animate-fade-in" style="overflow: hidden;">
+                    <div style="height: 320px; overflow: hidden;">
+                        <img src="https://www.stevidaecuador.com/wp-content/uploads/2019/08/stevia_planta-1024x680.jpg"
+                             alt="Planta de Stevia"
+                             style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-                    <div class="p-8 lg:p-12">
-                        <div class="flex items-center gap-4 text-xs font-nav tracking-label uppercase text-burnt-orange font-bold mb-6">
-                            <span>Admin</span>
-                            <span>&bull;</span>
-                            <span>30 Ago, 2019</span>
+                    <div style="padding: 40px 48px;">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                            <span class="text-editorial-label" style="color: var(--color-burnt-orange);">Admin</span>
+                            <span style="color: rgba(0,0,0,0.3);">&bull;</span>
+                            <span class="text-editorial-label" style="color: var(--color-burnt-orange);">30 Ago, 2019</span>
                         </div>
-                        <h1 class="font-mega text-4xl lg:text-5xl text-stevida-green mb-6 leading-tight">¿Qué es el extracto de hoja de stevia?</h1>
-                        <div class="font-body text-ink-black/80 space-y-6 leading-relaxed">
+                        <h2 style="font-family: var(--font-mega); font-size: clamp(28px, 3.5vw, 42px); color: var(--color-stevida-green); margin-bottom: 24px; line-height: 1.2;">
+                            ¿Qué es el extracto de hoja de stevia?
+                        </h2>
+                        <div style="font-family: var(--font-body); font-size: 16px; color: rgba(0,0,0,0.75); line-height: 1.75; display: flex; flex-direction: column; gap: 20px;">
                             <p>El extracto de hoja de estevia proviene de la planta de estevia, que se origina en América del Sur. Los componentes primarios extraídos de la hoja de stevia se denominan glucósidos de esteviol. El extracto de estas plantas se usa en edulcorantes de stevia para proporcionar un sabor dulce sin calorías.</p>
                             <p><strong>¿Dulce como el azúcar?</strong> La stevia es de 200 a 350 veces más dulce que el azúcar, lo que significa que solo se necesita una cantidad muy pequeña para igualar la dulzura.</p>
                             <p><strong>¿Sabías?</strong> Si bien la planta de stevia puede parecerse a una planta de la familia de la menta, en realidad es parte de la familia del girasol.</p>
                         </div>
-                        
-                        <div class="mt-12 flex items-center justify-between border-t border-gray-100 pt-8">
-                            <button class="border-2 border-stevida-green text-stevida-green font-body text-[13px] uppercase tracking-widest rounded-full px-8 py-3 hover:bg-stevida-green hover:text-pure-white transition-all">
+
+                        <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                            <button class="btn btn-ghost" style="padding: 12px 32px;">
+                                <i class="fas fa-download" style="margin-right: 8px;"></i>
                                 Descargar PDF
                             </button>
-                            <div class="flex gap-4 text-stevida-green">
-                                <a href="#" class="hover:text-burnt-orange transition-colors"><i class="fab fa-facebook-f text-xl"></i></a>
-                                <a href="#" class="hover:text-burnt-orange transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                            <div style="display: flex; gap: 16px; color: var(--color-stevida-green);">
+                                <a href="#" style="color: var(--color-stevida-green); font-size: 1.25rem; transition: color 0.2s;" aria-label="Compartir en Facebook" onmouseover="this.style.color='var(--color-burnt-orange)'" onmouseout="this.style.color='var(--color-stevida-green)'">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" style="color: var(--color-stevida-green); font-size: 1.25rem; transition: color 0.2s;" aria-label="Compartir en Twitter" onmouseover="this.style.color='var(--color-burnt-orange)'" onmouseout="this.style.color='var(--color-stevida-green)'">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
+
+                <!-- Sidebar -->
+                <aside>
+                    <h3 class="animate-fade-in" style="font-family: var(--font-display); font-size: 24px; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 24px;">
+                        Artículos Recientes
+                    </h3>
+
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+                        <a href="#" class="sidebar-post animate-fade-in delay-100">
+                            <div style="width: 33%; height: 100%; overflow: hidden; flex-shrink: 0;">
+                                <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/03/27-300x300.png"
+                                     alt="Aderezo Stevida"
+                                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                            </div>
+                            <div style="padding: 16px; display: flex; flex-direction: column; justify-content: center;">
+                                <span class="text-editorial-label" style="color: var(--color-burnt-orange); margin-bottom: 6px; display: block; font-size: 10px;">Receta</span>
+                                <h4 style="font-family: var(--font-hero); font-size: 16px; color: var(--color-stevida-green); line-height: 1.3;">
+                                    Aderezo de Stevida y Limón
+                                </h4>
+                            </div>
+                        </a>
+
+                        <a href="#" class="sidebar-post animate-fade-in delay-200">
+                            <div style="width: 33%; height: 100%; overflow: hidden; flex-shrink: 0;">
+                                <img src="https://www.stevidaecuador.com/wp-content/uploads/2020/04/bizcocho-casero-esponjoso-300x173.jpg"
+                                     alt="Bizcocho"
+                                     style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div style="padding: 16px; display: flex; flex-direction: column; justify-content: center;">
+                                <span class="text-editorial-label" style="color: var(--color-burnt-orange); margin-bottom: 6px; display: block; font-size: 10px;">Receta</span>
+                                <h4 style="font-family: var(--font-hero); font-size: 16px; color: var(--color-stevida-green); line-height: 1.3;">
+                                    Bizcocho de Yogurt
+                                </h4>
+                            </div>
+                        </a>
+
+                        <a href="#" class="sidebar-post animate-fade-in delay-300">
+                            <div style="width: 33%; height: 100%; overflow: hidden; flex-shrink: 0;">
+                                <img src="https://www.stevidaecuador.com/wp-content/uploads/2019/08/Brownies_stevida-300x199.jpg"
+                                     alt="Brownies Stevida"
+                                     style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div style="padding: 16px; display: flex; flex-direction: column; justify-content: center;">
+                                <span class="text-editorial-label" style="color: var(--color-burnt-orange); margin-bottom: 6px; display: block; font-size: 10px;">Receta</span>
+                                <h4 style="font-family: var(--font-hero); font-size: 16px; color: var(--color-stevida-green); line-height: 1.3;">
+                                    Brownies con Stevia
+                                </h4>
+                            </div>
+                        </a>
+
+                    </div>
+                </aside>
+
             </div>
-
-            <!-- Right: Sidebar -->
-            <div class="lg:col-span-1 space-y-8">
-                <h3 class="font-display text-2xl text-stevida-green uppercase tracking-display">Artículos Recientes</h3>
-                
-                <!-- Sidebar Post 1 -->
-                <a href="#" class="group block bg-pure-white rounded-[8px] shadow-card overflow-hidden flex h-32">
-                    <div class="w-1/3 h-full overflow-hidden">
-                        <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/03/27-300x300.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="w-2/3 p-4 flex flex-col justify-center">
-                        <span class="text-editorial-label text-[10px] text-burnt-orange mb-1">Receta</span>
-                        <h4 class="font-hero text-lg text-stevida-green leading-tight">Aderezo de Stevida y Limón</h4>
-                    </div>
-                </a>
-
-                <!-- Sidebar Post 2 -->
-                <a href="#" class="group block bg-pure-white rounded-[8px] shadow-card overflow-hidden flex h-32">
-                    <div class="w-1/3 h-full overflow-hidden">
-                        <img src="https://www.stevidaecuador.com/wp-content/uploads/2020/04/bizcocho-casero-esponjoso-300x173.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="w-2/3 p-4 flex flex-col justify-center">
-                        <span class="text-editorial-label text-[10px] text-burnt-orange mb-1">Receta</span>
-                        <h4 class="font-hero text-lg text-stevida-green leading-tight">Bizcocho de Yogurt</h4>
-                    </div>
-                </a>
-
-                <!-- Sidebar Post 3 -->
-                <a href="#" class="group block bg-pure-white rounded-[8px] shadow-card overflow-hidden flex h-32">
-                    <div class="w-1/3 h-full overflow-hidden">
-                        <img src="https://www.stevidaecuador.com/wp-content/uploads/2019/08/Brownies_stevida-300x199.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="w-2/3 p-4 flex flex-col justify-center">
-                        <span class="text-editorial-label text-[10px] text-burnt-orange mb-1">Receta</span>
-                        <h4 class="font-hero text-lg text-stevida-green leading-tight">Brownies con Stevia</h4>
-                    </div>
-                </a>
-                
-            </div>
-            
         </div>
     </main>
 
+    <!-- Wave → Footer -->
+    <div class="wave-divider" aria-hidden="true" style="line-height:0;">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="display:block;width:100%;height:100px;">
+            <path d="M0,0 C360,100 1080,100 1440,0 L1440,100 L0,100 Z" fill="#64b035"></path>
+        </svg>
+    </div>
+
     <!-- Footer -->
-        <footer class="bg-stevida-green text-pure-white pt-24 mt-[-2px] relative z-20">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8 pb-16">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-                <!-- Brand Info -->
-                <div class="md:col-span-5">
-                    <span class="font-mega font-black text-4xl text-pure-white tracking-tight block mb-6">STEVIDA</span>
-                    <p class="font-body text-[14px] leading-relaxed text-pure-white/80 max-w-md">
-                        Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.
-                    </p>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="md:col-span-3">
-                    <h4 class="font-nav text-[13px] text-honey-gold tracking-label uppercase mb-6 font-bold">Navegación</h4>
-                    <ul class="space-y-4">
-                        <li><a href="index.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Inicio</a></li>
-                        <li><a href="nuestros_productos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Productos</a></li>
-                        <li><a href="recetas.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Recetas</a></li>
-                        <li><a href="quienes_somos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Nosotros</a></li>
-                        <li><a href="encuentranos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Encuéntranos</a></li>
-                        <li><a href="blog.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Blog</a></li>
-                        <li><a href="contactanos.html" class="font-body text-[14px] text-pure-white hover:text-burnt-orange transition-colors">Contáctanos</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div class="md:col-span-4">
-                    <h4 class="font-nav text-[13px] text-honey-gold tracking-label uppercase mb-6 font-bold">Contáctanos</h4>
-                    <ul class="space-y-4 font-body text-[14px] text-pure-white/80">
-                        <li class="flex items-start">
-                            <i class="fas fa-phone mt-1 w-6 text-burnt-orange"></i>
-                            <span>(+593) 6258 5693 <br> (+593) 9845 10973</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope mt-1 w-6 text-burnt-orange"></i>
-                            <span>info@steviadelecuador.com.ec</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 w-6 text-burnt-orange"></i>
-                            <span>Ibarra - Ecuador</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <span class="footer-logo">STEVIDA</span>
+                <p class="footer-tagline">Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.</p>
+            </div>
+            <div>
+                <h4 class="footer-heading">Navegación</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nuestros_productos.html">Productos</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
+                    <li><a href="quienes_somos.html">Nosotros</a></li>
+                    <li><a href="encuentranos.html">Encuéntranos</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contactanos.html">Contáctanos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Contáctanos</h4>
+                <ul class="footer-contact-list">
+                    <li><i class="fas fa-phone icon"></i><span>(+593) 62 585 693<br>(+593) 98 451 0973</span></li>
+                    <li><i class="fas fa-envelope icon"></i><span>info@steviadelecuador.com.ec</span></li>
+                    <li><i class="fas fa-map-marker-alt icon"></i><span>Ibarra - Ecuador</span></li>
+                </ul>
             </div>
         </div>
-        
-        <!-- Bottom Bar -->
-        <div class="border-t border-pure-white/10 py-6">
-            <div class="max-w-[1200px] mx-auto px-4 lg:px-8 flex flex-col md:flex-row justify-between items-center text-[12px] font-body text-pure-white/60">
-                <p>Copyright © 2026 Stevida. Todos los derechos reservados.</p>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-pure-white transition-colors text-lg"><i class="fab fa-whatsapp"></i></a>
+        <div class="footer-bottom">
+            <div class="footer-bottom-inner">
+                <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="WhatsApp" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const toggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('mobile-nav');
+        const menuIcon = document.getElementById('menu-icon');
+        toggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+    </script>
+
 </body>
 </html>

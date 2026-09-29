@@ -1,16 +1,15 @@
 /* =============================================================
    STEVIDA — Global Design System
    Based on DESIGN F.md — Pa'lais Style Reference
-   Updated: Stevida Green (#64b035) + Burnt Orange (#ed7328)
+   Tailwind v4 @theme — all tokens exposed as CSS variables
    ============================================================= */
 
-/* ───── CSS Custom Properties ───── */
+/* ───── @theme: Tokens exposed to Tailwind v4 ───── */
 @theme {
-  /* Colors */
-  --color-stevida-green:  #5da430;
+  /* ── Colors ── */
+  --color-stevida-green:  #64b035;
   --color-honey-gold:     #ffc400;
-  --color-burnt-orange:    #ed7328;
-  /* --color-burnt-orange:    #e83c3c;  Stevida red*/
+  --color-burnt-orange:   #ed7328;
   --color-sky-blue:       #6aa8dc;
   --color-warm-sand:      #d2b68c;
   --color-mint-sage:      #a2d3a6;
@@ -19,25 +18,33 @@
   --color-cream-paper:    #fbf9f6;
   --color-soft-shadow:    #d6d6d6;
 
-  /* Typography — substitutes from design spec */
-  --font-display: "Bebas Neue", sans-serif;           /* hwt-artz substitute */
-  --font-hero:    Oswald, sans-serif;                 /* Delivery Note substitute */
-  --font-mega:    "Playfair Display", serif;          /* Sandman_Fill substitute */
-  --font-body:    Inter, sans-serif;                  /* Axiforma substitute */
-  --font-nav:     Jost, sans-serif;                   /* ITC Avant Garde substitute */
-  --font-script:  Caveat, cursive;                    /* Script accent */
+  /* ── Font Families (substitutes from DESIGN F.md) ── */
+  --font-family-display:  "Bebas Neue", Oswald, sans-serif;   /* hwt-artz sub */
+  --font-family-hero:     Oswald, "Bebas Neue", sans-serif;   /* Delivery Note sub */
+  --font-family-mega:     "Playfair Display", serif;           /* Sandman_Fill sub */
+  --font-family-body:     Inter, "DM Sans", sans-serif;        /* Axiforma sub */
+  --font-family-nav:      Jost, Futura, sans-serif;            /* ITC Avant Garde sub */
+  --font-family-script:   Caveat, "Dancing Script", cursive;  /* Script accent */
 
-  /* Type Scale */
-  --text-caption:    12px;
-  --text-body-sm:    14px;
-  --text-body:       16px;
-  --text-subheading: 24px;
-  --text-heading-sm: 32px;
-  --text-heading:    46px;
-  --text-heading-lg: 56px;
-  --text-display:    88px;
+  /* Tailwind v4 font-* utilities need --font-{name} */
+  --font-display:  "Bebas Neue", Oswald, sans-serif;
+  --font-hero:     Oswald, "Bebas Neue", sans-serif;
+  --font-mega:     "Playfair Display", serif;
+  --font-body:     Inter, "DM Sans", sans-serif;
+  --font-nav:      Jost, Futura, sans-serif;
+  --font-script:   Caveat, "Dancing Script", cursive;
 
-  /* Leading */
+  /* ── Type Scale ── */
+  --text-caption:      12px;
+  --text-body-sm:      14px;
+  --text-body:         16px;
+  --text-subheading:   24px;
+  --text-heading-sm:   32px;
+  --text-heading:      46px;
+  --text-heading-lg:   56px;
+  --text-display:      88px;
+
+  /* ── Line Heights ── */
   --leading-caption:    1.6;
   --leading-body-sm:    1.67;
   --leading-body:       1.5;
@@ -46,13 +53,13 @@
   --leading-heading-lg: 1.14;
   --leading-display:    0.82;
 
-  /* Letter Spacing */
+  /* ── Letter Spacing ── */
   --tracking-label:   0.27em;
   --tracking-nav:     0.2em;
   --tracking-display: 0.043em;
   --tracking-hero:    0.031em;
 
-  /* Spacing Scale */
+  /* ── Spacing Scale ── */
   --spacing-4:   4px;
   --spacing-8:   8px;
   --spacing-12:  12px;
@@ -66,27 +73,27 @@
   --spacing-80:  80px;
   --spacing-128: 128px;
 
-  /* Layout */
+  /* ── Layout ── */
   --page-max-width: 1200px;
   --section-gap:    64px;
   --card-padding:   16px;
   --element-gap:    8px;
 
-  /* Border Radius */
+  /* ── Border Radius ── */
   --radius-tags:    16px;
   --radius-cards:   8px;
   --radius-inputs:  8px;
   --radius-buttons: 32px;
 
-  /* Shadows */
+  /* ── Shadows ── */
   --shadow-card: rgba(0, 0, 0, 0.16) -14px 10px 49px 0px;
   --shadow-nav:  rgba(0, 0, 0, 0.05) 0px 20px 27px 0px;
 }
 
-/* ───── Base Reset & Body ───── */
-*,
-*::before,
-*::after {
+/* =============================================================
+   BASE RESET & BODY
+   ============================================================= */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -107,29 +114,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ───── Typography Utilities ───── */
+/* =============================================================
+   TYPOGRAPHY COMPONENT CLASSES
+   ============================================================= */
 
-.font-display  { font-family: var(--font-display); }
-.font-hero     { font-family: var(--font-hero); }
-.font-mega     { font-family: var(--font-mega); }
-.font-body     { font-family: var(--font-body); }
-.font-nav      { font-family: var(--font-nav); }
-.font-script   { font-family: var(--font-script); }
-
-.text-display  { font-size: var(--text-display);    line-height: var(--leading-display); }
-.text-heading-lg { font-size: var(--text-heading-lg); line-height: var(--leading-heading-lg); }
-.text-heading  { font-size: var(--text-heading);    line-height: var(--leading-heading); }
-.text-heading-sm { font-size: var(--text-heading-sm); line-height: var(--leading-heading-sm); }
-.text-subheading { font-size: var(--text-subheading); }
-.text-body     { font-size: var(--text-body);       line-height: var(--leading-body); }
-.text-body-sm  { font-size: var(--text-body-sm);    line-height: var(--leading-body-sm); }
-.text-caption  { font-size: var(--text-caption);    line-height: var(--leading-caption); }
-
-.tracking-label   { letter-spacing: var(--tracking-label); }
-.tracking-nav     { letter-spacing: var(--tracking-nav); }
-.tracking-display { letter-spacing: var(--tracking-display); }
-
-/* Editorial label — used for all category/section eyebrows */
+/* Editorial label — section eyebrows, badges */
 .text-editorial-label {
   font-family: var(--font-nav);
   font-size: 11px;
@@ -138,25 +127,9 @@ body {
   text-transform: uppercase;
 }
 
-/* ───── Color Utilities ───── */
-
-.text-stevida-green  { color: var(--color-stevida-green); }
-.text-burnt-orange    { color: var(--color-burnt-orange); }
-.text-honey-gold     { color: var(--color-honey-gold); }
-.text-sky-blue       { color: var(--color-sky-blue); }
-.text-mint-sage      { color: var(--color-mint-sage); }
-.text-cream-paper    { color: var(--color-cream-paper); }
-.text-pure-white     { color: var(--color-pure-white); }
-.text-ink-black      { color: var(--color-ink-black); }
-
-.bg-stevida-green    { background-color: var(--color-stevida-green); }
-.bg-burnt-orange      { background-color: var(--color-burnt-orange); }
-.bg-honey-gold       { background-color: var(--color-honey-gold); }
-.bg-cream-paper      { background-color: var(--color-cream-paper); }
-.bg-pure-white       { background-color: var(--color-pure-white); }
-.bg-ink-black        { background-color: var(--color-ink-black); }
-
-/* ───── Layout ───── */
+/* =============================================================
+   LAYOUT HELPERS
+   ============================================================= */
 
 .site-container {
   max-width: var(--page-max-width);
@@ -170,7 +143,9 @@ body {
   }
 }
 
-/* ───── Header / Navigation ───── */
+/* =============================================================
+   HEADER / NAVIGATION
+   ============================================================= */
 
 .site-header {
   position: fixed;
@@ -200,7 +175,7 @@ body {
 .site-logo {
   font-family: var(--font-mega);
   font-weight: 900;
-  font-size: 1.875rem;    /* 30px */
+  font-size: 1.875rem;
   color: var(--color-stevida-green);
   text-decoration: none;
   letter-spacing: -0.01em;
@@ -210,13 +185,11 @@ body {
 .site-nav {
   display: none;
   gap: var(--spacing-40);
+  align-items: center;
 }
 
 @media (min-width: 768px) {
-  .site-nav {
-    display: flex;
-    align-items: center;
-  }
+  .site-nav { display: flex; }
 }
 
 .nav-link {
@@ -228,12 +201,9 @@ body {
   text-transform: uppercase;
   letter-spacing: var(--tracking-nav);
   transition: color 0.2s ease;
+  white-space: nowrap;
 }
-
-.nav-link:hover {
-  color: var(--color-burnt-orange);
-}
-
+.nav-link:hover { color: var(--color-burnt-orange); }
 .nav-link.active {
   color: var(--color-burnt-orange);
   border-bottom: 2px solid var(--color-burnt-orange);
@@ -245,14 +215,30 @@ body {
   align-items: center;
   gap: var(--spacing-24);
 }
-
 @media (min-width: 768px) {
-  .header-actions {
-    display: flex;
-  }
+  .header-actions { display: flex; }
 }
 
-/* ───── Buttons ───── */
+/* Mobile nav drawer */
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  padding: var(--spacing-24) var(--spacing-32);
+  background-color: var(--color-cream-paper);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 49;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav .nav-link { font-size: 15px; }
+
+/* =============================================================
+   BUTTONS
+   ============================================================= */
 
 .btn {
   display: inline-flex;
@@ -271,16 +257,15 @@ body {
   transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   border: none;
   outline: none;
+  white-space: nowrap;
 }
 
-/* Primary — Stevida Green fill */
 .btn-primary {
   background-color: var(--color-stevida-green);
   color: var(--color-pure-white);
 }
 .btn-primary:hover { opacity: 0.9; }
 
-/* Secondary — Burnt Orange outlined */
 .btn-secondary {
   background-color: transparent;
   color: var(--color-burnt-orange);
@@ -291,7 +276,6 @@ body {
   color: var(--color-pure-white);
 }
 
-/* Ghost — Stevida Green outlined */
 .btn-ghost {
   background-color: transparent;
   color: var(--color-stevida-green);
@@ -302,14 +286,15 @@ body {
   color: var(--color-pure-white);
 }
 
-/* White on dark background */
 .btn-white {
   background-color: var(--color-pure-white);
   color: var(--color-stevida-green);
 }
 .btn-white:hover { opacity: 0.9; }
 
-/* ───── Cards ───── */
+/* =============================================================
+   CARDS
+   ============================================================= */
 
 .card {
   background-color: var(--color-pure-white);
@@ -318,19 +303,24 @@ body {
   overflow: hidden;
 }
 
-/* ───── Wave / Section Divider ───── */
+/* =============================================================
+   SECTION WAVE DIVIDER
+   Proper flow-based implementation — NOT position: absolute
+   ============================================================= */
 
 .wave-divider {
   display: block;
   width: 100%;
   height: auto;
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 10;
+  /* negative margin pulls it flush against the previous section */
+  margin-top: -2px;
+  line-height: 0;
+  font-size: 0;
 }
 
-/* ───── Botanical Illustration ───── */
+/* =============================================================
+   BOTANICAL ILLUSTRATION
+   ============================================================= */
 
 .botanical-ill {
   position: absolute;
@@ -342,15 +332,19 @@ body {
   opacity: 0.6;
 }
 
-/* ───── Scrollbar Hide Utility ───── */
+/* =============================================================
+   BLOB DECORATORS
+   ============================================================= */
 
-.hide-scrollbar::-webkit-scrollbar { display: none; }
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.blob {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ───── Forms ───── */
+/* =============================================================
+   FORMS
+   ============================================================= */
 
 .form-input {
   width: 100%;
@@ -360,14 +354,11 @@ body {
   padding: var(--spacing-8) 0;
   font-family: var(--font-body);
   font-size: var(--text-body);
-  color: var(--color-stevida-green);
+  color: var(--color-ink-black);
   outline: none;
   transition: border-color 0.2s ease;
 }
-
-.form-input:focus {
-  border-color: var(--color-burnt-orange);
-}
+.form-input:focus { border-color: var(--color-burnt-orange); }
 
 .form-label {
   font-family: var(--font-nav);
@@ -380,7 +371,9 @@ body {
   margin-bottom: var(--spacing-8);
 }
 
-/* ───── Footer ───── */
+/* =============================================================
+   FOOTER
+   ============================================================= */
 
 .site-footer {
   background-color: var(--color-stevida-green);
@@ -395,11 +388,8 @@ body {
   grid-template-columns: 1fr;
   gap: var(--spacing-48);
 }
-
 @media (min-width: 768px) {
-  .footer-inner {
-    grid-template-columns: 5fr 3fr 4fr;
-  }
+  .footer-inner { grid-template-columns: 5fr 3fr 4fr; }
 }
 
 .footer-logo {
@@ -435,17 +425,13 @@ body {
   flex-direction: column;
   gap: var(--spacing-16);
 }
-
 .footer-nav-list a {
   font-size: var(--text-body-sm);
   color: rgba(255,255,255,0.85);
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
-.footer-nav-list a:hover {
-  color: var(--color-honey-gold);
-}
+.footer-nav-list a:hover { color: var(--color-honey-gold); }
 
 .footer-contact-list {
   list-style: none;
@@ -455,13 +441,11 @@ body {
   font-size: var(--text-body-sm);
   color: rgba(255,255,255,0.8);
 }
-
 .footer-contact-list li {
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-12);
 }
-
 .footer-contact-list .icon {
   color: var(--color-honey-gold);
   width: 20px;
@@ -473,7 +457,6 @@ body {
   border-top: 1px solid rgba(255,255,255,0.15);
   padding: var(--spacing-24) var(--spacing-32);
 }
-
 .footer-bottom-inner {
   max-width: var(--page-max-width);
   margin-inline: auto;
@@ -485,7 +468,6 @@ body {
   font-size: var(--text-caption);
   color: rgba(255,255,255,0.55);
 }
-
 @media (min-width: 768px) {
   .footer-bottom-inner {
     flex-direction: row;
@@ -493,38 +475,18 @@ body {
   }
 }
 
-.footer-social {
-  display: flex;
-  gap: var(--spacing-16);
-}
-
+.footer-social { display: flex; gap: var(--spacing-16); }
 .footer-social a {
   font-size: 1.125rem;
   color: rgba(255,255,255,0.6);
   text-decoration: none;
   transition: color 0.2s ease;
 }
+.footer-social a:hover { color: var(--color-pure-white); }
 
-.footer-social a:hover {
-  color: var(--color-pure-white);
-}
-
-/* ───── Section Backgrounds ───── */
-
-.section-cream  { background-color: var(--color-cream-paper); }
-.section-white  { background-color: var(--color-pure-white); }
-.section-green  { background-color: var(--color-stevida-green); }
-.section-red    { background-color: var(--color-burnt-orange); }
-
-/* ───── Blob Decorators ───── */
-
-.blob {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ───── Tag / Badge ───── */
+/* =============================================================
+   TAG / BADGE
+   ============================================================= */
 
 .tag {
   display: inline-flex;
@@ -538,23 +500,13 @@ body {
   border-radius: var(--radius-tags);
   padding: 4px 12px;
 }
+.tag-green { background-color: var(--color-stevida-green); color: var(--color-pure-white); }
+.tag-red   { background-color: var(--color-burnt-orange);  color: var(--color-pure-white); }
+.tag-sky   { background-color: var(--color-sky-blue);      color: var(--color-pure-white); }
 
-.tag-green {
-  background-color: var(--color-stevida-green);
-  color: var(--color-pure-white);
-}
-
-.tag-red {
-  background-color: var(--color-burnt-orange);
-  color: var(--color-pure-white);
-}
-
-.tag-sky {
-  background-color: var(--color-sky-blue);
-  color: var(--color-pure-white);
-}
-
-/* ───── Scroll Entrance Animations ───── */
+/* =============================================================
+   SCROLL ENTRANCE ANIMATIONS
+   ============================================================= */
 
 .animate-fade-in {
   opacity: 0;
@@ -562,17 +514,15 @@ body {
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.animate-fade-in.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.animate-fade-in.is-visible { opacity: 1; transform: translateY(0); }
 
 .delay-100 { transition-delay: 100ms; }
 .delay-200 { transition-delay: 200ms; }
 .delay-300 { transition-delay: 300ms; }
 
-/* ───── WhatsApp Floating Button ───── */
+/* =============================================================
+   WHATSAPP FAB
+   ============================================================= */
 
 .whatsapp-fab {
   position: fixed;
@@ -592,7 +542,11 @@ body {
   text-decoration: none;
   transition: transform 0.2s ease;
 }
+.whatsapp-fab:hover { transform: scale(1.1); }
 
-.whatsapp-fab:hover {
-  transform: scale(1.1);
-}
+/* =============================================================
+   SCROLLBAR HIDE
+   ============================================================= */
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
