@@ -8,4 +8,6 @@ pnpm-debug.log*
 .DS_Store
 
 # Archivos generados (Opcional: Si prefieres no subir el CSS generado y compilarlo en producción)
-# output.css
+output.css
+
+recursos/
