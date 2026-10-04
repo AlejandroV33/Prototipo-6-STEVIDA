@@ -6,8 +6,11 @@ pnpm-debug.log*
 
 # Mac
 .DS_Store
+.agents
 
 # Archivos generados (Opcional: Si prefieres no subir el CSS generado y compilarlo en producción)
 output.css
 
 recursos/
+.idea/
+.unlighthouse/
