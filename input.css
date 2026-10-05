@@ -653,6 +653,121 @@ body {
 }
 .whatsapp-fab:hover { transform: scale(1.1); }
 
+
+
+/* =============================================================
+   DESDE EL CAMPO — ASYMMETRIC PHOTO COMPOSITION
+   Desktop mirrors the reference: one horizontal image above,
+   a tall portrait on the lower-left and a smaller portrait lower-right.
+   ============================================================= */
+.field-gallery {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 1000px;
+  margin-inline: auto;
+  /* Reserves the canvas so absolutely-positioned photos never collapse
+     the section height. 1000 x 820 keeps the generous negative space. */
+  aspect-ratio: 1000 / 820;
+}
+
+.field-gallery__item {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-cards);
+  background-color: #ece9e4;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.4s ease;
+}
+
+/* Upper horizontal image: centered, but intentionally shifted right. */
+.field-gallery__item--wide {
+  top: 0;
+  left: 18%;
+  width: 52%;
+  aspect-ratio: 2.1 / 1;
+}
+
+/* Lower-left portrait: largest of the two vertical images. */
+.field-gallery__item--left {
+  top: 42%;
+  left: 0;
+  width: 27%;
+  aspect-ratio: 3 / 4;
+}
+
+/* Lower-right portrait: smaller and lower to keep the composition airy. */
+.field-gallery__item--right {
+  top: 62.1%; /* Alinea exactamente el borde inferior con el de la foto izquierda */
+  right: 16%;
+  width: 26%; /* Reducido en tamaño general */
+  aspect-ratio: 1 / 1; /* Formato horizontal, recorta agresivamente tomando más a lo ancho */
+}
+
+.field-gallery__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Avoid sticky hover effects on touch screens. */
+@media (hover: hover) and (pointer: fine) {
+  .field-gallery__item:hover {
+    z-index: 5;
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.14);
+  }
+}
+
+/* Tablet / mobile: preserve the same visual idea without absolute positioning. */
+@media (max-width: 768px) {
+  .field-gallery {
+    position: static;
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+  }
+
+  .field-gallery__item {
+    position: relative;
+    inset: auto;
+    width: auto;
+  }
+
+  .field-gallery__item--wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+
+  .field-gallery__item--left {
+    grid-column: 1;
+    aspect-ratio: 3 / 4;
+  }
+
+  .field-gallery__item--right {
+    grid-column: 2;
+    aspect-ratio: 4 / 3;
+    align-self: end;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .field-gallery {
+    gap: 12px;
+  }
+
+  .field-gallery__item--right {
+    margin-top: 0;
+  }
+}
+
 /* =============================================================
    SCROLLBAR HIDE
    ============================================================= */

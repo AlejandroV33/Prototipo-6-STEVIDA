@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stevida - Vive lo Natural | Endulzante 100% Natural de Stevia</title>
     <meta name="description"
-        content="Stevida es un endulzante 100% natural a base de stevia, sin calorías y sin azúcar. Ideal para personas con diabetes o que buscan un estilo de vida saludable.">
+          content="Stevida es un endulzante 100% natural a base de stevia, sin calorías y sin azúcar. Ideal para personas con diabetes o que buscan un estilo de vida saludable.">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="output.css">
+
+    <script>document.documentElement.classList.add('js');</script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+            rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -275,59 +277,318 @@
                 --rot-start: -1deg;
             }
         }
+
+        /* INLINE FAILSAFE — DESDE EL CAMPO */
+        /* =============================================================
+           DESDE EL CAMPO — REVEAL SIMPLE POR FLIP
+           Cada foto permanece en su posición final. Al entrar en viewport,
+           gira sobre su eje Y y se revela; no hay cartas ni desplazamientos.
+           ============================================================= */
+        .field-gallery {
+            position: relative;
+            isolation: isolate;
+            width: 100%;
+            max-width: 1000px;
+            margin-inline: auto;
+            aspect-ratio: 1000 / 820;
+            perspective: 1200px;
+        }
+
+        .field-gallery__item {
+            position: absolute;
+            margin: 0;
+            overflow: hidden;
+            border-radius: var(--radius-cards);
+            background-color: #ece9e4;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+            transform-origin: center center;
+        }
+
+        /* Con JS activo, la galería comienza completamente oculta. */
+        html.js .field-gallery__item {
+            opacity: 0;
+            transform: rotateY(-92deg) scale(0.97);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            will-change: transform, opacity;
+            transition:
+                    opacity 0.22s ease,
+                    transform 0.72s cubic-bezier(0.20, 0.78, 0.20, 1);
+        }
+
+        /* Cada imagen se revela EN SU MISMA POSICIÓN. */
+        html.js .field-gallery__item.is-revealed {
+            opacity: 1;
+            transform: rotateY(0deg) scale(1);
+        }
+
+        .field-gallery__image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Horizontal superior. */
+        .field-gallery__item--wide {
+            top: 0;
+            left: 18%;
+            width: 52%;
+            aspect-ratio: 2.1 / 1;
+        }
+
+        /* Vertical izquierda. */
+        .field-gallery__item--left {
+            top: 42%;
+            left: 0;
+            width: 27%;
+            aspect-ratio: 3 / 4;
+        }
+
+        /* Derecha inferior. */
+        .field-gallery__item--right {
+            top: 62.1%;
+            right: 16%;
+            width: 26%;
+            aspect-ratio: 1 / 1;
+        }
+
+        /* Hover solo cuando la foto ya fue revelada. */
+        @media (hover: hover) and (pointer: fine) {
+            html.js .field-gallery__item.is-revealed:hover,
+            .field-gallery__item:hover {
+                z-index: 5;
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 16px 38px rgba(0, 0, 0, 0.14);
+            }
+        }
+
+        /* Tablet / móvil: se conserva exactamente la composición responsive. */
+        @media (max-width: 768px) {
+            .field-gallery {
+                position: static;
+                aspect-ratio: auto;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+                align-items: start;
+            }
+
+            .field-gallery__item {
+                position: relative;
+                inset: auto;
+                width: auto;
+            }
+
+            .field-gallery__item--wide {
+                grid-column: 1 / -1;
+                aspect-ratio: 16 / 9;
+            }
+
+            .field-gallery__item--left {
+                grid-column: 1;
+                aspect-ratio: 3 / 4;
+            }
+
+            .field-gallery__item--right {
+                grid-column: 2;
+                aspect-ratio: 4 / 3;
+                align-self: end;
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .field-gallery {
+                gap: 12px;
+            }
+        }
+
+
+        /* =============================================================
+           DESCUBRE LOS SABORES — BACKGROUND FOTOGRÁFICO / PINCEL SUAVE
+           Cambia --recipes-bg-image en el <section> para probar imágenes.
+           ============================================================= */
+        .recipes-showcase {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: clamp(68px, 7.5vw, 96px) 0;
+            background-color: var(--color-cream-paper);
+            border-top: 1px solid rgba(0, 0, 0, 0.07);
+        }
+
+        /*
+           El fondo ocupa exactamente toda la altura de la sección:
+           comienza en la línea superior y termina donde empieza el footer.
+        */
+        .recipes-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background-image: var(--recipes-bg-image);
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            filter: saturate(0.86) contrast(0.94);
+            transform: scale(0.996);
+            transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* Fade superior simple + bordes laterales de pincel suave. */
+            -webkit-mask-image:
+                    linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.22) 2.5%,
+                    rgba(0, 0, 0, 0.68) 6%,
+                    #000 11%,
+                    #000 100%),
+                    linear-gradient(to right,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.10) 1.5%,
+                    rgba(0, 0, 0, 0.34) 3.5%,
+                    rgba(0, 0, 0, 0.76) 6.5%,
+                    #000 10.5%,
+                    #000 89.5%,
+                    rgba(0, 0, 0, 0.76) 93.5%,
+                    rgba(0, 0, 0, 0.34) 96.5%,
+                    rgba(0, 0, 0, 0.10) 98.5%,
+                    transparent 100%);
+            -webkit-mask-composite: source-in;
+
+            mask-image:
+                    linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.22) 2.5%,
+                    rgba(0, 0, 0, 0.68) 6%,
+                    #000 11%,
+                    #000 100%),
+                    linear-gradient(to right,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.10) 1.5%,
+                    rgba(0, 0, 0, 0.34) 3.5%,
+                    rgba(0, 0, 0, 0.76) 6.5%,
+                    #000 10.5%,
+                    #000 89.5%,
+                    rgba(0, 0, 0, 0.76) 93.5%,
+                    rgba(0, 0, 0, 0.34) 96.5%,
+                    rgba(0, 0, 0, 0.10) 98.5%,
+                    transparent 100%);
+            mask-composite: intersect;
+        }
+
+        .recipes-showcase::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+            background:
+                    linear-gradient(to bottom,
+                    rgba(251, 249, 246, 0.26) 0%,
+                    rgba(251, 249, 246, 0.10) 15%,
+                    rgba(251, 249, 246, 0.06) 100%),
+                    linear-gradient(90deg,
+                    rgba(251, 249, 246, 0.34) 0%,
+                    rgba(251, 249, 246, 0.15) 12%,
+                    rgba(251, 249, 246, 0.08) 28%,
+                    rgba(251, 249, 246, 0.08) 72%,
+                    rgba(251, 249, 246, 0.15) 88%,
+                    rgba(251, 249, 246, 0.34) 100%);
+        }
+
+        .recipes-showcase.is-bg-visible::before {
+            opacity: 0.30;
+            transform: scale(1);
+        }
+
+        .recipes-showcase.is-bg-visible::after {
+            opacity: 1;
+        }
+
+        .recipes-showcase__content {
+            max-width: var(--page-max-width);
+            margin-inline: auto;
+            padding-inline: var(--spacing-32);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .recipes-showcase {
+                padding: 64px 0 68px;
+            }
+
+            .recipes-showcase__content {
+                padding-inline: var(--spacing-16);
+            }
+
+            .recipes-showcase::before {
+                background-position: center;
+                -webkit-mask-image:
+                        linear-gradient(to bottom,
+                        transparent 0%,
+                        rgba(0, 0, 0, 0.34) 4%,
+                        #000 12%,
+                        #000 100%),
+                        linear-gradient(to right,
+                        transparent 0%,
+                        rgba(0, 0, 0, 0.30) 3%,
+                        rgba(0, 0, 0, 0.80) 7%,
+                        #000 12%,
+                        #000 88%,
+                        rgba(0, 0, 0, 0.80) 93%,
+                        rgba(0, 0, 0, 0.30) 97%,
+                        transparent 100%);
+                -webkit-mask-composite: source-in;
+
+                mask-image:
+                        linear-gradient(to bottom,
+                        transparent 0%,
+                        rgba(0, 0, 0, 0.34) 4%,
+                        #000 12%,
+                        #000 100%),
+                        linear-gradient(to right,
+                        transparent 0%,
+                        rgba(0, 0, 0, 0.30) 3%,
+                        rgba(0, 0, 0, 0.80) 7%,
+                        #000 12%,
+                        #000 88%,
+                        rgba(0, 0, 0, 0.80) 93%,
+                        rgba(0, 0, 0, 0.30) 97%,
+                        transparent 100%);
+                mask-composite: intersect;
+            }
+
+            .recipes-showcase.is-bg-visible::before {
+                opacity: 0.27;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-    <!-- ══════════════════════════════════════════════
-         HEADER / NAVIGATION
-    ══════════════════════════════════════════════ -->
-    <!-- â•â• HEADER â•â• -->
-    <header class="site-header" id="site-header">
-        <div class="header-inner">
+<!-- ══════════════════════════════════════════════
+     HEADER / NAVIGATION
+══════════════════════════════════════════════ -->
+<!-- â•â• HEADER â•â• -->
+<header class="site-header" id="site-header">
+    <div class="header-inner">
 
-            <!-- Logo -->
-            <a href="index.html" class="site-logo" aria-label="Stevida - Ir al inicio">
-                <img src="Stevida logo final.svg" alt="Stevida" height="44">
-            </a>
+        <!-- Logo -->
+        <a href="index.html" class="site-logo" aria-label="Stevida - Ir al inicio">
+            <img src="Stevida logo final.svg" alt="Stevida" height="44">
+        </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="site-nav" aria-label="Navegaci&#xF3;n principal">
-                <a href="index.html" class="nav-link active">Inicio</a>
-                <a href="tienda.html" class="nav-link">Tienda</a>
-                <a href="recetas.html" class="nav-link">Recetas</a>
-                <a href="nosotros.html" class="nav-link">Nosotros</a>
-                <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
-                <a href="comunidad.html" class="nav-link">Comunidad</a>
-                <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
-            </nav>
-
-            <!-- Desktop icon actions: Cart + User -->
-            <div class="header-actions">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
-                    <i class="fas fa-user"></i>
-                </a>
-            </div>
-
-            <!-- Mobile: mini cart + hamburger -->
-            <div class="mobile-header-group">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir men&#xFA;"
-                    aria-expanded="false">
-                    <i class="fas fa-bars" id="menu-icon"></i>
-                </button>
-            </div>
-
-        </div>
-
-        <!-- Mobile Drawer -->
-        <nav class="mobile-nav" id="mobile-nav" aria-label="Navegaci&#xF3;n m&#xF3;vil">
+        <!-- Desktop Navigation -->
+        <nav class="site-nav" aria-label="Navegaci&#xF3;n principal">
             <a href="index.html" class="nav-link active">Inicio</a>
             <a href="tienda.html" class="nav-link">Tienda</a>
             <a href="recetas.html" class="nav-link">Recetas</a>
@@ -335,675 +596,856 @@
             <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
             <a href="comunidad.html" class="nav-link">Comunidad</a>
             <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
-
-            <!-- Icon row -->
-            <div class="mobile-nav-icons">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
-                    <i class="fas fa-user"></i>
-                </a>
-            </div>
         </nav>
-    </header>
 
-    <main>
-        <!-- ══════════════════════════════════════════════
-             HERO — Split layout
-        ══════════════════════════════════════════════ -->
-        <section class="hero-section">
-            <!-- Organic wavy divider blob (decorative, behind content) -->
-            <svg class="blob"
-                style="left: 50%; top: 0; bottom: 0; height: 100%; width: 320px; transform: translateX(-50%);"
-                viewBox="0 0 300 1000" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M150,0 C250,200 50,400 150,600 C250,800 50,1000 150,1000 L300,1000 L300,0 Z" fill="#ffc400"
-                    opacity="0.25"></path>
-                <path d="M100,0 C200,300 0,500 100,700 C200,900 100,1000 100,1000 L300,1000 L300,0 Z" fill="#a2d3a6"
-                    opacity="0.35"></path>
-            </svg>
+        <!-- Desktop icon actions: Cart + User -->
+        <div class="header-actions">
+            <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
 
-            <!-- Botanical illustration (decorative) -->
-            <svg class="botanical-ill"
-                style="top: 100px; right: 40px; width: 180px; height: 180px; transform: rotate(12deg);"
-                viewBox="0 0 100 100" aria-hidden="true">
-                <path d="M50,90 C50,90 20,60 30,30 C40,10 60,10 70,30 C80,60 50,90 50,90 Z" />
-                <path d="M50,90 L50,10" />
-                <path d="M50,70 Q70,60 80,40" />
-                <path d="M50,50 Q30,40 20,20" />
-            </svg>
+        <!-- Mobile: mini cart + hamburger -->
+        <div class="mobile-header-group">
+            <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir men&#xFA;"
+                    aria-expanded="false">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+        </div>
 
-            <!-- Content container -->
-            <div
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegaci&#xF3;n m&#xF3;vil">
+        <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="tienda.html" class="nav-link">Tienda</a>
+        <a href="recetas.html" class="nav-link">Recetas</a>
+        <a href="nosotros.html" class="nav-link">Nosotros</a>
+        <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
+        <a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
+
+        <!-- Icon row -->
+        <div class="mobile-nav-icons">
+            <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- ══════════════════════════════════════════════
+         HERO — Split layout
+    ══════════════════════════════════════════════ -->
+    <section class="hero-section">
+        <!-- Organic wavy divider blob (decorative, behind content) -->
+        <svg class="blob"
+             style="left: 50%; top: 0; bottom: 0; height: 100%; width: 320px; transform: translateX(-50%);"
+             viewBox="0 0 300 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M150,0 C250,200 50,400 150,600 C250,800 50,1000 150,1000 L300,1000 L300,0 Z" fill="#ffc400"
+                  opacity="0.25"></path>
+            <path d="M100,0 C200,300 0,500 100,700 C200,900 100,1000 100,1000 L300,1000 L300,0 Z" fill="#a2d3a6"
+                  opacity="0.35"></path>
+        </svg>
+
+        <!-- Botanical illustration (decorative) -->
+        <svg class="botanical-ill max-md:hidden"
+             style="top: 100px; right: 40px; width: 180px; height: 180px; transform: rotate(12deg);"
+             viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M50,90 C50,90 20,60 30,30 C40,10 60,10 70,30 C80,60 50,90 50,90 Z" />
+            <path d="M50,90 L50,10" />
+            <path d="M50,70 Q70,60 80,40" />
+            <path d="M50,50 Q30,40 20,20" />
+        </svg>
+
+        <!-- Content container -->
+        <div
                 style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32); width: 100%; position: relative; z-index: 10;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 48px;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 48px;">
 
-                    <!-- Left: Copy -->
-                    <div style="width: 100%; text-align: center;">
+                <!-- Left: Copy -->
+                <div style="width: 100%; text-align: center;">
                         <span class="text-editorial-label animate-fade-in"
-                            style="color: var(--color-stevida-green); margin-bottom: 24px; display: inline-block;">
+                              style="color: var(--color-stevida-green); margin-bottom: 24px; display: inline-block;">
                             Extracto 100% Natural
                         </span>
-                        <h1 class="animate-fade-in delay-100"
-                            style="font-family: var(--font-hero); font-size: clamp(56px, 8vw, 88px); line-height: 0.88; letter-spacing: var(--tracking-hero); color: var(--color-stevida-green); text-transform: uppercase; margin-bottom: 24px;">
-                            Vive lo<br>Natural
-                        </h1>
-                        <p class="animate-fade-in delay-200"
-                            style="font-family: var(--font-script); font-size: clamp(24px, 3vw, 36px); color: var(--color-stevida-green); margin-bottom: 40px; line-height: 1.3; transform: rotate(-2deg);">
-                            Dale un toque de dulzura a tus comidas y bebidas con Stevida.
-                        </p>
-                        <div class="animate-fade-in delay-300"
-                            style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
-                            <a href="tienda.html" class="btn btn-primary" style="padding: 18px 48px;">
-                                Descubrir
-                            </a>
-                            <a href="nosotros.html" class="btn btn-secondary" style="padding: 16px 40px;">
-                                Conocer más <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
-                            </a>
-                        </div>
+                    <h1 class="animate-fade-in delay-100"
+                        style="font-family: var(--font-hero); font-size: clamp(56px, 8vw, 88px); line-height: 0.88; letter-spacing: var(--tracking-hero); color: var(--color-stevida-green); text-transform: uppercase; margin-bottom: 24px;">
+                        Vive lo<br>Natural
+                    </h1>
+                    <p class="animate-fade-in delay-200"
+                       style="font-family: var(--font-script); font-size: clamp(24px, 3vw, 36px); color: var(--color-stevida-green); margin-bottom: 40px; line-height: 1.3; transform: rotate(-2deg);">
+                        Dale un toque de dulzura a tus comidas y bebidas con Stevida.
+                    </p>
+                    <div class="animate-fade-in delay-300"
+                         style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+                        <a href="tienda.html" class="btn btn-primary" style="padding: 18px 48px;">
+                            Descubrir
+                        </a>
+                        <a href="nosotros.html" class="btn btn-secondary" style="padding: 16px 40px;">
+                            Conocer más <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                        </a>
                     </div>
+                </div>
 
-                    <!-- Right: Product image -->
-                    <div
+                <!-- Right: Product image -->
+                <div
                         style="width: 100%; max-width: 480px; position: relative; display: flex; justify-content: center;">
-                        <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Stevida — endulzante natural de stevia"
-                            style="width: 100%; max-width: 420px; border-radius: 16px; box-shadow: var(--shadow-card); transform: rotate(2deg); object-fit: cover; aspect-ratio: 4/5; position: relative; z-index: 10;">
-                        <!-- Honey-gold blob behind image -->
-                        <svg class="blob"
-                            style="bottom: -40px; right: -40px; width: 240px; height: 240px; color: var(--color-honey-gold);"
-                            viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path fill="currentColor"
-                                d="M45.7,-76.1C58.9,-69.3,69.1,-55.3,77.3,-40.8C85.5,-26.3,91.7,-11.3,89.5,2.7C87.4,16.6,76.9,29.5,67.1,42.4C57.3,55.3,48.2,68.2,35.3,74.9C22.4,81.6,5.7,82.1,-10.1,79.5C-25.9,76.9,-40.8,71.2,-53.4,61.9C-66,52.6,-76.3,39.7,-81.4,25.2C-86.5,10.7,-86.4,-5.4,-81.1,-19.7C-75.8,-34,-65.3,-46.5,-52.3,-53.6C-39.3,-60.7,-23.8,-62.4,-8.1,-65.7C7.6,-69,25.2,-73.9,32.5,-82.9L45.7,-76.1Z"
-                                transform="translate(100 100)" />
-                        </svg>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Scroll indicator -->
-            <div
-                style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 10;">
-                <div class="animate-bounce"
-                    style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--color-stevida-green); display: flex; align-items: center; justify-content: center; color: var(--color-stevida-green);">
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════════════════════════════════════════
-             FEATURES — Beneficios
-        ══════════════════════════════════════════════ -->
-        <section style="background-color: var(--color-cream-paper); padding: 120px 0 100px;">
-            <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
-
-                <!-- Section heading -->
-                <div style="text-align: center; margin-bottom: 56px;">
-                    <span class="text-editorial-label"
-                        style="color: var(--color-burnt-orange); margin-bottom: 14px; display: inline-block;">Beneficios</span>
-                    <h2
-                        style="font-family: var(--font-display); font-size: clamp(34px, 5vw, 52px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1.1;">
-                        Por qué elegir Stevida
-                    </h2>
-                </div>
-
-                <!-- Feature cards grid -->
-                <div class="features-grid">
-
-                    <div class="feature-card">
-                        <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <h3
-                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
-                            Cuida tu salud
-                        </h3>
-                        <p
-                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
-                            Ideal para personas que sufren diabetes o buscan un estilo de vida balanceado.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
-                            <i class="fas fa-smile"></i>
-                        </div>
-                        <h3
-                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
-                            Cuida tu sonrisa
-                        </h3>
-                        <p
-                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
-                            Mantén sana tu sonrisa endulzando de manera natural con Stevia.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <h3
-                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
-                            Cero Calorías
-                        </h3>
-                        <p
-                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
-                            Ideal para preparar tus alimentos y bebidas favoritas sin culpa.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                        <h3
-                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
-                            Pureza de Origen
-                        </h3>
-                        <p
-                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
-                            Elabora deliciosos productos 100% naturales y nutritivos.
-                        </p>
-                    </div>
-
-                </div>
-
-                <!-- ── Línea decorativa con hojas caídas ── -->
-                <div class="decorative-line" aria-hidden="true"
-                    style="position: relative; margin-top: 64px; height: 80px;">
-
-                    <!-- Línea horizontal — más gruesa y notoria -->
-                    <div
-                        style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, rgba(237,115,40,0.45) 12%, rgba(237,115,40,0.65) 45%, rgba(237,115,40,0.65) 55%, rgba(237,115,40,0.45) 88%, transparent);">
-                    </div>
-
-                    <!-- SVG con hojas caídas — tamaños variados, algunos en grupos -->
-                    <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMid meet"
-                        style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;" fill="none"
-                        stroke="var(--color-burnt-orange)" stroke-linecap="round" stroke-linejoin="round">
-
-                        <!-- ·· GRUPO 1 — extremo izquierdo, 2 hojas juntas ·· -->
-                        <!-- Hoja 1a — grande, muy inclinada -->
-                        <g transform="translate(52,40) rotate(-48)">
-                            <path d="M0,18 C-7,8 -7,-8 0,-18 C7,-8 7,8 0,18 Z" stroke-width="1.6" />
-                            <line x1="0" y1="18" x2="0" y2="-18" stroke-width="1.2" />
-                            <line x1="0" y1="6" x2="-5" y2="-1" stroke-width="1" />
-                            <line x1="0" y1="6" x2="5" y2="-1" stroke-width="1" />
-                            <line x1="0" y1="-3" x2="-4" y2="-10" stroke-width="0.9" />
-                            <line x1="0" y1="-3" x2="4" y2="-10" stroke-width="0.9" />
-                        </g>
-                        <!-- Hoja 1b — pequeña, junto a la anterior -->
-                        <g transform="translate(76,48) rotate(-15)">
-                            <path d="M0,9 C-3.5,4 -3.5,-4 0,-9 C3.5,-4 3.5,4 0,9 Z" stroke-width="1.1" />
-                            <line x1="0" y1="9" x2="0" y2="-9" stroke-width="0.9" />
-                            <line x1="0" y1="2" x2="-3" y2="-2" stroke-width="0.7" />
-                            <line x1="0" y1="2" x2="3" y2="-2" stroke-width="0.7" />
-                        </g>
-
-                        <!-- ·· GRUPO 2 — cuarto izquierdo, 3 hojas en racimo ·· -->
-                        <!-- Hoja 2a — mediana, plana -->
-                        <g transform="translate(230,35) rotate(18)">
-                            <path d="M0,13 C-5,6 -5,-6 0,-13 C5,-6 5,6 0,13 Z" stroke-width="1.4" />
-                            <line x1="0" y1="13" x2="0" y2="-13" stroke-width="1" />
-                            <line x1="0" y1="4" x2="-4" y2="-2" stroke-width="0.9" />
-                            <line x1="0" y1="4" x2="4" y2="-2" stroke-width="0.9" />
-                            <line x1="0" y1="-3" x2="-3" y2="-8" stroke-width="0.8" />
-                        </g>
-                        <!-- Hoja 2b — pequeña, al lado -->
-                        <g transform="translate(252,44) rotate(42)">
-                            <path d="M0,8 C-3,3.5 -3,-3.5 0,-8 C3,-3.5 3,3.5 0,8 Z" stroke-width="1" />
-                            <line x1="0" y1="8" x2="0" y2="-8" stroke-width="0.8" />
-                            <line x1="0" y1="2" x2="-2.5" y2="-2" stroke-width="0.7" />
-                            <line x1="0" y1="2" x2="2.5" y2="-2" stroke-width="0.7" />
-                        </g>
-                        <!-- Hoja 2c — muy pequeña, escondida arriba -->
-                        <g transform="translate(243,22) rotate(-28)">
-                            <path d="M0,7 C-2.5,3 -2.5,-3 0,-7 C2.5,-3 2.5,3 0,7 Z" stroke-width="0.9" />
-                            <line x1="0" y1="7" x2="0" y2="-7" stroke-width="0.7" />
-                        </g>
-
-                        <!-- ·· HOJA SUELTA — tercio izquierdo, grande y caída ·· -->
-                        <g transform="translate(420,32) rotate(-62)">
-                            <path d="M0,20 C-8,9 -8,-9 0,-20 C8,-9 8,9 0,20 Z" stroke-width="1.7" />
-                            <line x1="0" y1="20" x2="0" y2="-20" stroke-width="1.3" />
-                            <line x1="0" y1="7" x2="-6" y2="0" stroke-width="1.1" />
-                            <line x1="0" y1="7" x2="6" y2="0" stroke-width="1.1" />
-                            <line x1="0" y1="-2" x2="-5" y2="-9" stroke-width="1" />
-                            <line x1="0" y1="-2" x2="5" y2="-9" stroke-width="1" />
-                            <line x1="0" y1="-10" x2="-3" y2="-16" stroke-width="0.8" />
-                        </g>
-
-                        <!-- ·· GRUPO 3 — centro, 2 hojas apiladas ·· -->
-                        <!-- Hoja 3a — grande, casi vertical -->
-                        <g transform="translate(570,38) rotate(8)">
-                            <path d="M0,17 C-6,7 -6,-7 0,-17 C6,-7 6,7 0,17 Z" stroke-width="1.6" />
-                            <line x1="0" y1="17" x2="0" y2="-17" stroke-width="1.2" />
-                            <line x1="0" y1="5" x2="-5" y2="-1" stroke-width="1" />
-                            <line x1="0" y1="5" x2="5" y2="-1" stroke-width="1" />
-                            <line x1="0" y1="-4" x2="-4" y2="-11" stroke-width="0.9" />
-                            <line x1="0" y1="-4" x2="4" y2="-11" stroke-width="0.9" />
-                        </g>
-                        <!-- Hoja 3b — mediana, junto a la anterior -->
-                        <g transform="translate(593,28) rotate(-35)">
-                            <path d="M0,12 C-4.5,5 -4.5,-5 0,-12 C4.5,-5 4.5,5 0,12 Z" stroke-width="1.3" />
-                            <line x1="0" y1="12" x2="0" y2="-12" stroke-width="1" />
-                            <line x1="0" y1="3" x2="-3.5" y2="-2" stroke-width="0.8" />
-                            <line x1="0" y1="3" x2="3.5" y2="-2" stroke-width="0.8" />
-                            <line x1="0" y1="-4" x2="-3" y2="-9" stroke-width="0.7" />
-                        </g>
-
-                        <!-- ·· HOJA SUELTA — centro-derecha, pequeña, muy ladeada ·· -->
-                        <g transform="translate(730,42) rotate(75)">
-                            <path d="M0,10 C-4,4 -4,-4 0,-10 C4,-4 4,4 0,10 Z" stroke-width="1.2" />
-                            <line x1="0" y1="10" x2="0" y2="-10" stroke-width="0.9" />
-                            <line x1="0" y1="2" x2="-3" y2="-2" stroke-width="0.7" />
-                            <line x1="0" y1="2" x2="3" y2="-2" stroke-width="0.7" />
-                        </g>
-
-                        <!-- ·· GRUPO 4 — tres cuartos derecho, 3 hojas en abanico ·· -->
-                        <!-- Hoja 4a — mediana -->
-                        <g transform="translate(848,30) rotate(-42)">
-                            <path d="M0,14 C-5.5,6 -5.5,-6 0,-14 C5.5,-6 5.5,6 0,14 Z" stroke-width="1.5" />
-                            <line x1="0" y1="14" x2="0" y2="-14" stroke-width="1.1" />
-                            <line x1="0" y1="4" x2="-4" y2="-2" stroke-width="0.9" />
-                            <line x1="0" y1="4" x2="4" y2="-2" stroke-width="0.9" />
-                            <line x1="0" y1="-4" x2="-3" y2="-10" stroke-width="0.8" />
-                        </g>
-                        <!-- Hoja 4b — pequeña, más a la derecha -->
-                        <g transform="translate(870,45) rotate(20)">
-                            <path d="M0,9 C-3.5,4 -3.5,-4 0,-9 C3.5,-4 3.5,4 0,9 Z" stroke-width="1.1" />
-                            <line x1="0" y1="9" x2="0" y2="-9" stroke-width="0.8" />
-                            <line x1="0" y1="2" x2="-3" y2="-2" stroke-width="0.7" />
-                            <line x1="0" y1="2" x2="3" y2="-2" stroke-width="0.7" />
-                        </g>
-                        <!-- Hoja 4c — muy pequeña, detrás -->
-                        <g transform="translate(858,18) rotate(55)">
-                            <path d="M0,7 C-2.5,3 -2.5,-3 0,-7 C2.5,-3 2.5,3 0,7 Z" stroke-width="0.9" />
-                            <line x1="0" y1="7" x2="0" y2="-7" stroke-width="0.7" />
-                            <line x1="0" y1="1" x2="-2" y2="-2" stroke-width="0.6" />
-                            <line x1="0" y1="1" x2="2" y2="-2" stroke-width="0.6" />
-                        </g>
-
-                        <!-- ·· GRUPO 5 — extremo derecho, 2 hojas ·· -->
-                        <!-- Hoja 5a — grande -->
-                        <g transform="translate(1080,36) rotate(-25)">
-                            <path d="M0,16 C-6,7 -6,-7 0,-16 C6,-7 6,7 0,16 Z" stroke-width="1.5" />
-                            <line x1="0" y1="16" x2="0" y2="-16" stroke-width="1.2" />
-                            <line x1="0" y1="5" x2="-5" y2="-1" stroke-width="1" />
-                            <line x1="0" y1="5" x2="5" y2="-1" stroke-width="1" />
-                            <line x1="0" y1="-4" x2="-4" y2="-10" stroke-width="0.9" />
-                            <line x1="0" y1="-4" x2="4" y2="-10" stroke-width="0.9" />
-                        </g>
-                        <!-- Hoja 5b — pequeña, ligeramente adelantada -->
-                        <g transform="translate(1108,46) rotate(38)">
-                            <path d="M0,8 C-3,3.5 -3,-3.5 0,-8 C3,-3.5 3,3.5 0,8 Z" stroke-width="1" />
-                            <line x1="0" y1="8" x2="0" y2="-8" stroke-width="0.8" />
-                            <line x1="0" y1="2" x2="-2.5" y2="-2" stroke-width="0.7" />
-                            <line x1="0" y1="2" x2="2.5" y2="-2" stroke-width="0.7" />
-                        </g>
-
+                    <img src="Recursos/INICIO/te-frutos-rojos.jpg"
+                         alt="Stevida — endulzante natural de stevia"
+                         style="width: 100%; max-width: 420px; border-radius: 16px; box-shadow: var(--shadow-card); transform: rotate(2deg); object-fit: cover; aspect-ratio: 4/5; position: relative; z-index: 10;">
+                    <!-- Honey-gold blob behind image -->
+                    <svg class="blob"
+                         style="bottom: -40px; right: -40px; width: 240px; height: 240px; color: var(--color-honey-gold);"
+                         viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M45.7,-76.1C58.9,-69.3,69.1,-55.3,77.3,-40.8C85.5,-26.3,91.7,-11.3,89.5,2.7C87.4,16.6,76.9,29.5,67.1,42.4C57.3,55.3,48.2,68.2,35.3,74.9C22.4,81.6,5.7,82.1,-10.1,79.5C-25.9,76.9,-40.8,71.2,-53.4,61.9C-66,52.6,-76.3,39.7,-81.4,25.2C-86.5,10.7,-86.4,-5.4,-81.1,-19.7C-75.8,-34,-65.3,-46.5,-52.3,-53.6C-39.3,-60.7,-23.8,-62.4,-8.1,-65.7C7.6,-69,25.2,-73.9,32.5,-82.9L45.7,-76.1Z"
+                              transform="translate(100 100)" />
                     </svg>
                 </div>
 
             </div>
-        </section>
+        </div>
 
-        <!-- ══════════════════════════════════════════════
-             PROCESS / GALLERY — Cream background -->
+        <!-- Scroll indicator -->
+        <div
+                style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 10;">
+            <div class="animate-bounce"
+                 style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--color-stevida-green); display: flex; align-items: center; justify-content: center; color: var(--color-stevida-green);">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
 
-        <path d="M80 340 C80 300 78 270 80 240" />
-        <!-- Rama principal izq -->
-        <path d="M80 270 C68 255 48 248 28 252" />
-        <!-- Rama principal der -->
-        <path d="M80 260 C92 244 114 238 134 244" />
-        <!-- Ramas secundarias izq -->
-        <path d="M28 252 C16 240 10 228 8 212" />
-        <path d="M28 252 C20 246 18 234 22 220" />
-        <path d="M48 248 C40 232 36 218 40 204" />
-        <!-- Ramas secundarias der -->
-        <path d="M134 244 C144 232 150 218 148 202" />
-        <path d="M114 238 C120 224 122 210 118 196" />
-        <!-- Rama central alta -->
-        <path d="M80 240 C80 210 78 188 80 160" />
-        <!-- Sub-ramas centrales -->
-        <path d="M80 210 C70 196 56 188 40 190" />
-        <path d="M80 200 C92 186 106 178 122 182" />
-        <path d="M80 180 C72 168 64 156 60 140" />
-        <path d="M80 172 C88 160 96 148 100 132" />
-        <!-- Punta del árbol -->
-        <path d="M80 160 C80 140 79 120 80 100" />
-        <path d="M80 130 C73 118 66 108 60 96" />
-        <path d="M80 122 C87 110 94 100 100 90" />
-        <path d="M80 100 C80 86 80 74 80 62" />
-        <path d="M80 78 C74 68 68 60 62 52" />
-        <path d="M80 72 C86 62 92 54 98 46" />
-        <!-- Ramitas finales izq -->
-        <path d="M8 212 C4 202 2 194 4 184" />
-        <path d="M8 212 C0 206 -4 198 -2 188" />
-        <path d="M22 220 C14 210 10 200 12 188" />
-        <path d="M40 190 C32 180 28 170 30 158" />
-        <path d="M40 190 C34 184 30 176 32 166" />
-        <!-- Ramitas finales der -->
-        <path d="M148 202 C154 192 158 182 156 170" />
-        <path d="M148 202 C156 196 160 188 158 178" />
-        <path d="M122 182 C128 172 130 162 128 150" />
-        <!-- Ramitas cima -->
-        <path d="M60 96 C54 86 50 76 52 66" />
-        <path d="M100 90 C106 80 110 70 108 60" />
-        <path d="M62 52 C58 44 56 36 58 28" />
-        <path d="M98 46 C102 38 106 30 104 22" />
-        <path d="M80 62 C80 52 80 42 80 32" />
+    <!-- ══════════════════════════════════════════════
+         FEATURES — Beneficios
+    ══════════════════════════════════════════════ -->
+    <section style="background-color: var(--color-cream-paper); padding: 120px 0 100px;">
+        <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
+
+            <!-- Section heading -->
+            <div style="text-align: center; margin-bottom: 56px;">
+                    <span class="text-editorial-label"
+                          style="color: var(--color-burnt-orange); margin-bottom: 14px; display: inline-block;">Beneficios</span>
+                <h2
+                        style="font-family: var(--font-display); font-size: clamp(34px, 5vw, 52px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1.1;">
+                    Por qué elegir Stevida
+                </h2>
+            </div>
+
+            <!-- Feature cards grid -->
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3
+                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                        Cuida tu salud
+                    </h3>
+                    <p
+                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                        Ideal para personas que sufren diabetes o buscan un estilo de vida balanceado.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3
+                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                        Cuida tu sonrisa
+                    </h3>
+                    <p
+                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                        Mantén sana tu sonrisa endulzando de manera natural con Stevia.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3
+                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                        Cero Calorías
+                    </h3>
+                    <p
+                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                        Ideal para preparar tus alimentos y bebidas favoritas sin culpa.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3
+                            style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                        Pureza de Origen
+                    </h3>
+                    <p
+                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                        Elabora deliciosos productos 100% naturales y nutritivos.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- ── Línea decorativa con hojas caídas ── -->
+            <div class="decorative-line" aria-hidden="true"
+                 style="position: relative; margin-top: 64px; height: 80px;">
+
+                <!-- Línea horizontal — más gruesa y notoria -->
+                <div
+                        style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, rgba(237,115,40,0.45) 12%, rgba(237,115,40,0.65) 45%, rgba(237,115,40,0.65) 55%, rgba(237,115,40,0.45) 88%, transparent);">
+                </div>
+
+                <!-- SVG con hojas caídas — tamaños variados, algunos en grupos -->
+                <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMid meet"
+                     style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;" fill="none"
+                     stroke="var(--color-burnt-orange)" stroke-linecap="round" stroke-linejoin="round">
+
+                    <!-- ·· GRUPO 1 — extremo izquierdo, 2 hojas juntas ·· -->
+                    <!-- Hoja 1a — grande, muy inclinada -->
+                    <g transform="translate(52,40) rotate(-48)">
+                        <path d="M0,18 C-7,8 -7,-8 0,-18 C7,-8 7,8 0,18 Z" stroke-width="1.6" />
+                        <line x1="0" y1="18" x2="0" y2="-18" stroke-width="1.2" />
+                        <line x1="0" y1="6" x2="-5" y2="-1" stroke-width="1" />
+                        <line x1="0" y1="6" x2="5" y2="-1" stroke-width="1" />
+                        <line x1="0" y1="-3" x2="-4" y2="-10" stroke-width="0.9" />
+                        <line x1="0" y1="-3" x2="4" y2="-10" stroke-width="0.9" />
+                    </g>
+                    <!-- Hoja 1b — pequeña, junto a la anterior -->
+                    <g transform="translate(76,48) rotate(-15)">
+                        <path d="M0,9 C-3.5,4 -3.5,-4 0,-9 C3.5,-4 3.5,4 0,9 Z" stroke-width="1.1" />
+                        <line x1="0" y1="9" x2="0" y2="-9" stroke-width="0.9" />
+                        <line x1="0" y1="2" x2="-3" y2="-2" stroke-width="0.7" />
+                        <line x1="0" y1="2" x2="3" y2="-2" stroke-width="0.7" />
+                    </g>
+
+                    <!-- ·· GRUPO 2 — cuarto izquierdo, 3 hojas en racimo ·· -->
+                    <!-- Hoja 2a — mediana, plana -->
+                    <g transform="translate(230,35) rotate(18)">
+                        <path d="M0,13 C-5,6 -5,-6 0,-13 C5,-6 5,6 0,13 Z" stroke-width="1.4" />
+                        <line x1="0" y1="13" x2="0" y2="-13" stroke-width="1" />
+                        <line x1="0" y1="4" x2="-4" y2="-2" stroke-width="0.9" />
+                        <line x1="0" y1="4" x2="4" y2="-2" stroke-width="0.9" />
+                        <line x1="0" y1="-3" x2="-3" y2="-8" stroke-width="0.8" />
+                    </g>
+                    <!-- Hoja 2b — pequeña, al lado -->
+                    <g transform="translate(252,44) rotate(42)">
+                        <path d="M0,8 C-3,3.5 -3,-3.5 0,-8 C3,-3.5 3,3.5 0,8 Z" stroke-width="1" />
+                        <line x1="0" y1="8" x2="0" y2="-8" stroke-width="0.8" />
+                        <line x1="0" y1="2" x2="-2.5" y2="-2" stroke-width="0.7" />
+                        <line x1="0" y1="2" x2="2.5" y2="-2" stroke-width="0.7" />
+                    </g>
+                    <!-- Hoja 2c — muy pequeña, escondida arriba -->
+                    <g transform="translate(243,22) rotate(-28)">
+                        <path d="M0,7 C-2.5,3 -2.5,-3 0,-7 C2.5,-3 2.5,3 0,7 Z" stroke-width="0.9" />
+                        <line x1="0" y1="7" x2="0" y2="-7" stroke-width="0.7" />
+                    </g>
+
+                    <!-- ·· HOJA SUELTA — tercio izquierdo, grande y caída ·· -->
+                    <g transform="translate(420,32) rotate(-62)">
+                        <path d="M0,20 C-8,9 -8,-9 0,-20 C8,-9 8,9 0,20 Z" stroke-width="1.7" />
+                        <line x1="0" y1="20" x2="0" y2="-20" stroke-width="1.3" />
+                        <line x1="0" y1="7" x2="-6" y2="0" stroke-width="1.1" />
+                        <line x1="0" y1="7" x2="6" y2="0" stroke-width="1.1" />
+                        <line x1="0" y1="-2" x2="-5" y2="-9" stroke-width="1" />
+                        <line x1="0" y1="-2" x2="5" y2="-9" stroke-width="1" />
+                        <line x1="0" y1="-10" x2="-3" y2="-16" stroke-width="0.8" />
+                    </g>
+
+                    <!-- ·· GRUPO 3 — centro, 2 hojas apiladas ·· -->
+                    <!-- Hoja 3a — grande, casi vertical -->
+                    <g transform="translate(570,38) rotate(8)">
+                        <path d="M0,17 C-6,7 -6,-7 0,-17 C6,-7 6,7 0,17 Z" stroke-width="1.6" />
+                        <line x1="0" y1="17" x2="0" y2="-17" stroke-width="1.2" />
+                        <line x1="0" y1="5" x2="-5" y2="-1" stroke-width="1" />
+                        <line x1="0" y1="5" x2="5" y2="-1" stroke-width="1" />
+                        <line x1="0" y1="-4" x2="-4" y2="-11" stroke-width="0.9" />
+                        <line x1="0" y1="-4" x2="4" y2="-11" stroke-width="0.9" />
+                    </g>
+                    <!-- Hoja 3b — mediana, junto a la anterior -->
+                    <g transform="translate(593,28) rotate(-35)">
+                        <path d="M0,12 C-4.5,5 -4.5,-5 0,-12 C4.5,-5 4.5,5 0,12 Z" stroke-width="1.3" />
+                        <line x1="0" y1="12" x2="0" y2="-12" stroke-width="1" />
+                        <line x1="0" y1="3" x2="-3.5" y2="-2" stroke-width="0.8" />
+                        <line x1="0" y1="3" x2="3.5" y2="-2" stroke-width="0.8" />
+                        <line x1="0" y1="-4" x2="-3" y2="-9" stroke-width="0.7" />
+                    </g>
+
+                    <!-- ·· HOJA SUELTA — centro-derecha, pequeña, muy ladeada ·· -->
+                    <g transform="translate(730,42) rotate(75)">
+                        <path d="M0,10 C-4,4 -4,-4 0,-10 C4,-4 4,4 0,10 Z" stroke-width="1.2" />
+                        <line x1="0" y1="10" x2="0" y2="-10" stroke-width="0.9" />
+                        <line x1="0" y1="2" x2="-3" y2="-2" stroke-width="0.7" />
+                        <line x1="0" y1="2" x2="3" y2="-2" stroke-width="0.7" />
+                    </g>
+
+                    <!-- ·· GRUPO 4 — tres cuartos derecho, 3 hojas en abanico ·· -->
+                    <!-- Hoja 4a — mediana -->
+                    <g transform="translate(848,30) rotate(-42)">
+                        <path d="M0,14 C-5.5,6 -5.5,-6 0,-14 C5.5,-6 5.5,6 0,14 Z" stroke-width="1.5" />
+                        <line x1="0" y1="14" x2="0" y2="-14" stroke-width="1.1" />
+                        <line x1="0" y1="4" x2="-4" y2="-2" stroke-width="0.9" />
+                        <line x1="0" y1="4" x2="4" y2="-2" stroke-width="0.9" />
+                        <line x1="0" y1="-4" x2="-3" y2="-10" stroke-width="0.8" />
+                    </g>
+                    <!-- Hoja 4b — pequeña, más a la derecha -->
+                    <g transform="translate(870,45) rotate(20)">
+                        <path d="M0,9 C-3.5,4 -3.5,-4 0,-9 C3.5,-4 3.5,4 0,9 Z" stroke-width="1.1" />
+                        <line x1="0" y1="9" x2="0" y2="-9" stroke-width="0.8" />
+                        <line x1="0" y1="2" x2="-3" y2="-2" stroke-width="0.7" />
+                        <line x1="0" y1="2" x2="3" y2="-2" stroke-width="0.7" />
+                    </g>
+                    <!-- Hoja 4c — muy pequeña, detrás -->
+                    <g transform="translate(858,18) rotate(55)">
+                        <path d="M0,7 C-2.5,3 -2.5,-3 0,-7 C2.5,-3 2.5,3 0,7 Z" stroke-width="0.9" />
+                        <line x1="0" y1="7" x2="0" y2="-7" stroke-width="0.7" />
+                        <line x1="0" y1="1" x2="-2" y2="-2" stroke-width="0.6" />
+                        <line x1="0" y1="1" x2="2" y2="-2" stroke-width="0.6" />
+                    </g>
+
+                    <!-- ·· GRUPO 5 — extremo derecho, 2 hojas ·· -->
+                    <!-- Hoja 5a — grande -->
+                    <g transform="translate(1080,36) rotate(-25)">
+                        <path d="M0,16 C-6,7 -6,-7 0,-16 C6,-7 6,7 0,16 Z" stroke-width="1.5" />
+                        <line x1="0" y1="16" x2="0" y2="-16" stroke-width="1.2" />
+                        <line x1="0" y1="5" x2="-5" y2="-1" stroke-width="1" />
+                        <line x1="0" y1="5" x2="5" y2="-1" stroke-width="1" />
+                        <line x1="0" y1="-4" x2="-4" y2="-10" stroke-width="0.9" />
+                        <line x1="0" y1="-4" x2="4" y2="-10" stroke-width="0.9" />
+                    </g>
+                    <!-- Hoja 5b — pequeña, ligeramente adelantada -->
+                    <g transform="translate(1108,46) rotate(38)">
+                        <path d="M0,8 C-3,3.5 -3,-3.5 0,-8 C3,-3.5 3,3.5 0,8 Z" stroke-width="1" />
+                        <line x1="0" y1="8" x2="0" y2="-8" stroke-width="0.8" />
+                        <line x1="0" y1="2" x2="-2.5" y2="-2" stroke-width="0.7" />
+                        <line x1="0" y1="2" x2="2.5" y2="-2" stroke-width="0.7" />
+                    </g>
+
+                </svg>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PROCESS / GALLERY — Cream background
+    ══════════════════════════════════════════════ -->
+    <section
+            style="background-color: var(--color-cream-paper); padding: 80px 0; position: relative; overflow: hidden;">
+        <!-- Mint blob (decorative) -->
+        <svg class="blob"
+             style="top: 40px; right: 0; width: 380px; height: 380px; color: var(--color-mint-sage); transform: translateX(33%); opacity: 0.5;"
+             viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill="currentColor"
+                  d="M37.9,-58.3C49.7,-47.9,60.1,-37.2,66.6,-23.7C73.1,-10.2,75.6,6.1,70.9,20.4C66.2,34.7,54.3,47,40.9,53.4C27.5,59.8,13.7,60.3,-0.6,61.2C-15,62.1,-30,63.4,-44.3,57.5C-58.6,51.6,-72.2,38.5,-78.6,22.2C-85,5.9,-84.1,-13.6,-75.7,-29.4C-67.3,-45.2,-51.4,-57.3,-36.5,-65.4C-21.6,-73.5,-7.7,-77.6,4.6,-83.9C16.9,-90.2,33.8,-94.7,37.9,-58.3Z"
+                  transform="translate(100 100)" />
         </svg>
 
-
-
-        <!-- ══════════════════════════════════════════════
-             PROCESS / GALLERY — Cream background
-        ══════════════════════════════════════════════ -->
-        <section
-            style="background-color: var(--color-cream-paper); padding: 80px 0; position: relative; overflow: hidden;">
-            <!-- Mint blob (decorative) -->
-            <svg class="blob"
-                style="top: 40px; right: 0; width: 380px; height: 380px; color: var(--color-mint-sage); transform: translateX(33%); opacity: 0.5;"
-                viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path fill="currentColor"
-                    d="M37.9,-58.3C49.7,-47.9,60.1,-37.2,66.6,-23.7C73.1,-10.2,75.6,6.1,70.9,20.4C66.2,34.7,54.3,47,40.9,53.4C27.5,59.8,13.7,60.3,-0.6,61.2C-15,62.1,-30,63.4,-44.3,57.5C-58.6,51.6,-72.2,38.5,-78.6,22.2C-85,5.9,-84.1,-13.6,-75.7,-29.4C-67.3,-45.2,-51.4,-57.3,-36.5,-65.4C-21.6,-73.5,-7.7,-77.6,4.6,-83.9C16.9,-90.2,33.8,-94.7,37.9,-58.3Z"
-                    transform="translate(100 100)" />
-            </svg>
-
-            <div
+        <div
                 style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32); position: relative; z-index: 10;">
-                <div style="display: flex; flex-direction: column; gap: 64px; align-items: center;">
+            <div style="display: flex; flex-direction: column; gap: 64px; align-items: center;">
 
-                    <!-- Text column -->
-                    <div style="width: 100%; max-width: 480px;">
+                <!-- Text column -->
+                <div style="width: 100%; max-width: 480px;">
                         <span class="text-editorial-label animate-fade-in"
-                            style="color: var(--color-burnt-orange); margin-bottom: 16px; display: inline-block;">
+                              style="color: var(--color-burnt-orange); margin-bottom: 16px; display: inline-block;">
                             Desde el campo
                         </span>
-                        <h2 class="animate-fade-in delay-100"
-                            style="font-family: var(--font-display); font-size: clamp(32px, 4vw, 46px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1.18; margin-bottom: 24px;">
-                            Tenemos una cadena productiva completa
-                        </h2>
-                        <p class="animate-fade-in delay-200"
-                            style="font-family: var(--font-body); font-size: 1rem; color: var(--color-ink-black); line-height: 1.6; margin-bottom: 32px;">
-                            Cada etapa de nuestro proceso está cuidadosamente monitoreada para asegurar que el extracto
-                            conserve todas las propiedades naturales y la dulzura que te encanta.
-                        </p>
-                        <a href="nosotros.html" class="btn btn-secondary animate-fade-in delay-300"
-                            style="padding: 16px 40px;">
-                            Conoce más <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
-                        </a>
-                    </div>
+                    <h2 class="animate-fade-in delay-100"
+                        style="font-family: var(--font-display); font-size: clamp(32px, 4vw, 46px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1.18; margin-bottom: 24px;">
+                        Tenemos una cadena productiva completa
+                    </h2>
+                    <p class="animate-fade-in delay-200"
+                       style="font-family: var(--font-body); font-size: 1rem; color: var(--color-ink-black); line-height: 1.6; margin-bottom: 32px;">
+                        Cada etapa de nuestro proceso está cuidadosamente monitoreada para asegurar que el extracto
+                        conserve todas las propiedades naturales y la dulzura que te encanta.
+                    </p>
+                    <a href="nosotros.html" class="btn btn-secondary animate-fade-in delay-300"
+                       style="padding: 16px 40px;">
+                        Conoce más <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                    </a>
+                </div>
 
-                    <!-- Images column -->
-                    <div style="width: 100%;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                            <img src="https://images.unsplash.com/photo-1533461427508-410a6231bd40?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                                alt="Planta de stevia"
-                                style="width: 100%; height: 240px; object-fit: cover; border-radius: var(--radius-cards); box-shadow: var(--shadow-card); margin-top: 32px;">
-                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                                alt="Proceso de extracción"
-                                style="width: 100%; height: 240px; object-fit: cover; border-radius: var(--radius-cards); box-shadow: var(--shadow-card);">
-                        </div>
-                    </div>
+                <!-- Images column — reveal simple en su misma posición -->
+                <div class="field-gallery" aria-label="Galería del proceso productivo de Stevida">
+
+                    <!-- 1. Horizontal superior -->
+                    <figure class="field-gallery__item field-gallery__item--wide">
+                        <img src="Recursos/INICIO/Stevida_campo.jpg"
+                             alt="Campo Stevida"
+                             class="field-gallery__image">
+                    </figure>
+
+                    <!-- 2. Vertical izquierda -->
+                    <figure class="field-gallery__item field-gallery__item--left">
+                        <img src="Recursos/INICIO/Stevida_gal_5.jpg"
+                             alt="Cultivos Stevida"
+                             class="field-gallery__image">
+                    </figure>
+
+                    <!-- 3. Derecha inferior -->
+                    <figure class="field-gallery__item field-gallery__item--right">
+                        <img src="Recursos/INICIO/Stevida_gal_6.jpg"
+                             alt="Hojas Stevida"
+                             class="field-gallery__image">
+                    </figure>
 
                 </div>
+
+                <script>
+                    /*
+                     * Desde el campo — reveal contextual.
+                     * - Entrada normal o recarga por encima: espera a que el usuario baje hasta la galería.
+                     * - Reload / back-forward restaurado dentro o por debajo: reproduce la secuencia al cargar.
+                     * - Las fotos siempre se revelan en orden y una sola vez por carga.
+                     */
+                    (() => {
+                        const gallery = document.querySelector('.field-gallery');
+                        if (!gallery) return;
+
+                        const items = [...gallery.querySelectorAll('.field-gallery__item')];
+                        if (!items.length) return;
+
+                        const REVEAL_GAP = 280;
+                        const SCROLL_EPSILON = 2;
+                        const ready = new Set();
+
+                        let observer = null;
+                        let nextIndex = 0;
+                        let revealTimer = 0;
+                        let scrollFrame = 0;
+                        let lastY = window.scrollY;
+                        let hasScrolledDown = false;
+                        let forceSequence = false;
+                        let finished = false;
+
+                        const getNavigationType = () => {
+                            const entry = performance.getEntriesByType?.('navigation')?.[0];
+                            if (entry?.type) return entry.type;
+                            if (performance.navigation?.type === 1) return 'reload';
+                            if (performance.navigation?.type === 2) return 'back_forward';
+                            return 'navigate';
+                        };
+
+                        const revealAll = () => {
+                            items.forEach(item => item.classList.add('is-revealed'));
+                        };
+
+                        function cleanup() {
+                            observer?.disconnect();
+                            observer = null;
+                            window.removeEventListener('scroll', onScroll);
+                            if (revealTimer) {
+                                clearTimeout(revealTimer);
+                                revealTimer = 0;
+                            }
+                            if (scrollFrame) {
+                                cancelAnimationFrame(scrollFrame);
+                                scrollFrame = 0;
+                            }
+                        }
+
+                        function finishImmediately() {
+                            if (finished) return;
+                            finished = true;
+                            revealAll();
+                            cleanup();
+                        }
+
+                        function revealNext(force = forceSequence) {
+                            if (finished || revealTimer || nextIndex >= items.length) return;
+
+                            const item = items[nextIndex];
+                            if (!force && (!ready.has(item) || !hasScrolledDown)) return;
+
+                            item.classList.add('is-revealed');
+                            nextIndex += 1;
+
+                            if (nextIndex >= items.length) {
+                                finished = true;
+                                cleanup();
+                                return;
+                            }
+
+                            revealTimer = window.setTimeout(() => {
+                                revealTimer = 0;
+                                revealNext(force);
+                            }, REVEAL_GAP);
+                        }
+
+                        function processScroll() {
+                            scrollFrame = 0;
+                            if (finished) return;
+
+                            const currentY = window.scrollY;
+                            const delta = currentY - lastY;
+                            lastY = currentY;
+
+                            /* Una entrada normal desde abajo/subiendo no reproduce el reveal. */
+                            if (!forceSequence && delta < -SCROLL_EPSILON && nextIndex === 0) {
+                                finishImmediately();
+                                return;
+                            }
+
+                            if (delta <= SCROLL_EPSILON) return;
+
+                            hasScrolledDown = true;
+                            const rect = gallery.getBoundingClientRect();
+
+                            /* Si se salta toda la galería en una entrada normal, evita dejar fotos ocultas. */
+                            if (!forceSequence && rect.bottom < 0 && nextIndex === 0) {
+                                finishImmediately();
+                                return;
+                            }
+
+                            revealNext();
+                        }
+
+                        function onScroll() {
+                            if (!scrollFrame) scrollFrame = requestAnimationFrame(processScroll);
+                        }
+
+                        function init() {
+                            const rect = gallery.getBoundingClientRect();
+                            const viewportH = window.innerHeight;
+                            const navType = getNavigationType();
+                            const isRestoredNavigation = navType !== 'navigate' || location.hash !== '';
+                            const galleryVisible = rect.bottom > 0 && rect.top < viewportH;
+                            const galleryAlreadyPassed = rect.bottom <= 0;
+
+                            /*
+                             * Importante: una recarga arriba de la galería NO fuerza la animación.
+                             * Solo se fuerza si el navegador restaura al usuario dentro de ella o por debajo.
+                             */
+                            forceSequence = isRestoredNavigation && (galleryVisible || galleryAlreadyPassed);
+
+                            if (!('IntersectionObserver' in window)) {
+                                /* Fallback seguro: nunca dejar contenido invisible. */
+                                finishImmediately();
+                                return;
+                            }
+
+                            observer = new IntersectionObserver((entries) => {
+                                for (const entry of entries) {
+                                    if (!entry.isIntersecting) continue;
+                                    ready.add(entry.target);
+                                    observer.unobserve(entry.target);
+                                }
+                                revealNext();
+                            }, {
+                                threshold: 0.18,
+                                rootMargin: '0px 0px -12% 0px'
+                            });
+
+                            items.forEach(item => observer.observe(item));
+                            window.addEventListener('scroll', onScroll, { passive: true });
+
+                            if (forceSequence) {
+                                requestAnimationFrame(() => revealNext(true));
+                            }
+                        }
+
+                        /* Da tiempo al navegador para restaurar correctamente scrollY antes de decidir. */
+                        const start = () => requestAnimationFrame(() => requestAnimationFrame(init));
+                        if (document.readyState === 'complete') start();
+                        else window.addEventListener('load', start, { once: true });
+                    })();
+                </script>
+
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ══════════════════════════════════════════════
-             TYPOGRAPHY SHOWCASE — Cream / Editorial
-        ══════════════════════════════════════════════ -->
-        <section
-            style="background-color: var(--color-cream-paper); padding: 80px 0; overflow: hidden; border-top: 1px solid rgba(0,0,0,0.07); position: relative;">
-            <div
-                style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32); text-align: center; position: relative; z-index: 10;">
-
+    <!-- ══════════════════════════════════════════════
+         RECIPES SHOWCASE — fondo fotográfico translúcido
+         Para probar otra imagen, cambia SOLO --recipes-bg-image.
+    ══════════════════════════════════════════════ -->
+    <section class="recipes-showcase" data-recipes-background
+             style="--recipes-bg-image: url('Recursos/INICIO/Stevida_campo.jpg');">
+        <div class="recipes-showcase__content">
                 <span class="text-editorial-label animate-fade-in"
-                    style="color: var(--color-stevida-green); margin-bottom: 24px; display: inline-block;">
+                      style="color: var(--color-stevida-green); margin-bottom: 24px; display: inline-block;">
                     Descubre los sabores más
                 </span>
 
-                <h2 class="animate-fade-in delay-100"
-                    style="font-family: var(--font-mega); font-size: clamp(56px, 8vw, 88px); color: var(--color-stevida-green); line-height: 0.82; margin-bottom: 48px;">
-                    Nutritivos
-                </h2>
+            <h2 class="animate-fade-in delay-100"
+                style="font-family: var(--font-mega); font-size: clamp(56px, 8vw, 88px); color: var(--color-stevida-green); line-height: 0.82; margin-bottom: 48px;">
+                Nutritivos
+            </h2>
 
-                <p class="animate-fade-in delay-200"
-                    style="font-family: var(--font-script); font-size: clamp(22px, 3vw, 32px); color: var(--color-stevida-green); max-width: 600px; margin: 0 auto 40px; transform: rotate(-2deg); line-height: 1.4;">
-                    Nuestras recetas incluyen todo tipo de platos saludables. Encuentra la que mejor acompañe tu dieta
-                    diaria.
-                </p>
+            <p class="animate-fade-in delay-200"
+               style="font-family: var(--font-script); font-size: clamp(22px, 3vw, 32px); color: var(--color-stevida-green); max-width: 600px; margin: 0 auto 40px; transform: rotate(-2deg); line-height: 1.4;">
+                Nuestras recetas incluyen todo tipo de platos saludables. Encuentra la que mejor acompañe tu dieta
+                diaria.
+            </p>
 
-                <a href="recetas.html" class="btn btn-primary animate-fade-in delay-300" style="padding: 18px 48px;">
-                    Ver Recetas
-                </a>
-            </div>
+            <a href="recetas.html" class="btn btn-primary animate-fade-in delay-300" style="padding: 18px 48px;">
+                Ver Recetas
+            </a>
+        </div>
+    </section>
 
-            <!-- Decorative botanical knife -->
-            <svg class="botanical-ill"
-                style="top: 24px; left: 24px; width: 120px; height: 120px; transform: rotate(-45deg);"
-                viewBox="0 0 100 100" aria-hidden="true">
-                <path d="M80,20 L60,40 L30,90 L20,80 L50,30 L70,10 Z" />
-            </svg>
-        </section>
-
-    </main>
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <!-- Brand info -->
-            <div>
-                <a href="index.html" class="footer-logo-img" aria-label="Stevida - Inicio"><img
-                        src="Stevida logo final.svg" alt="Stevida"
-                        style="height:60px;width:auto;filter:brightness(0) invert(1);display:block;"></a>
-                <p class="footer-tagline">
-                    Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por
-                    mujeres y hombres líderes desde el 2010.
-                </p>
-            </div>
-
-            <!-- Navigation links -->
-            <div>
-                <h4 class="footer-heading">Navegación</h4>
-                <ul class="footer-nav-list">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="tienda.html">Tienda</a></li>
-                    <li><a href="recetas.html">Recetas</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="encuentranos.html">Encuéntranos</a></li>
-                    <li><a href="comunidad.html">Comunidad</a></li>
-                    <li><a href="contactanos.html">Contáctanos</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact info -->
-            <div>
-                <h4 class="footer-heading">Contáctanos</h4>
-                <ul class="footer-contact-list">
-                    <li>
-                        <i class="fas fa-phone icon"></i>
-                        <span>(+593) 62 585 693<br>(+593) 98 451 0973</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope icon"></i>
-                        <span>info@steviadelecuador.com.ec</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-map-marker-alt icon"></i>
-                        <span>Ibarra - Ecuador</span>
-                    </li>
-                </ul>
-            </div>
+</main>
+<footer class="site-footer">
+    <div class="footer-inner">
+        <!-- Brand info -->
+        <div>
+            <a href="index.html" class="footer-logo-img" aria-label="Stevida - Inicio"><img
+                    src="Stevida logo final.svg" alt="Stevida"
+                    style="height:60px;width:auto;filter:brightness(0) invert(1);display:block;"></a>
+            <p class="footer-tagline">
+                Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por
+                mujeres y hombres líderes desde el 2010.
+            </p>
         </div>
 
-        <!-- Bottom bar -->
-        <div class="footer-bottom">
-            <div class="footer-bottom-inner">
-                <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                </div>
+        <!-- Navigation links -->
+        <div>
+            <h4 class="footer-heading">Navegación</h4>
+            <ul class="footer-nav-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="recetas.html">Recetas</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="encuentranos.html">Encuéntranos</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="contactanos.html">Contáctanos</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact info -->
+        <div>
+            <h4 class="footer-heading">Contáctanos</h4>
+            <ul class="footer-contact-list">
+                <li>
+                    <i class="fas fa-phone icon"></i>
+                    <span>(+593) 62 585 693<br>(+593) 98 451 0973</span>
+                </li>
+                <li>
+                    <i class="fas fa-envelope icon"></i>
+                    <span>info@steviadelecuador.com.ec</span>
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt icon"></i>
+                    <span>Ibarra - Ecuador</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+            <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- WhatsApp FAB -->
-    <a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="Contáctanos por WhatsApp" target="_blank"
-        rel="noopener">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="Contáctanos por WhatsApp" target="_blank"
+   rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
-    <script>
-        /* ── Mobile menu toggle ── */
-        const toggle = document.getElementById('mobile-menu-toggle');
-        const nav = document.getElementById('mobile-nav');
-        const menuIcon = document.getElementById('menu-icon');
+<script>
+    /* ── Mobile menu toggle ── */
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const nav = document.getElementById('mobile-nav');
+    const menuIcon = document.getElementById('menu-icon');
 
-        toggle.addEventListener('click', () => {
-            const isOpen = nav.classList.toggle('open');
-            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-            toggle.setAttribute('aria-expanded', isOpen);
-        });
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        toggle.setAttribute('aria-expanded', isOpen);
+    });
 
-        /* ── Header shadow on scroll ── */
-        const header = document.getElementById('site-header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 10);
-        }, { passive: true });
+    /* ── Header shadow on scroll ── */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
 
-        /* ── Scroll entrance animations ── */
-        const observer = new IntersectionObserver((entries) => {
+    /* ── Scroll entrance animations ── */
+    const entranceElements = document.querySelectorAll('.animate-fade-in');
+    if ('IntersectionObserver' in window) {
+        const entranceObserver = new IntersectionObserver((entries, currentObserver) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                currentObserver.unobserve(entry.target);
             });
         }, { threshold: 0.15 });
 
-        document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+        entranceElements.forEach(el => entranceObserver.observe(el));
+    } else {
+        entranceElements.forEach(el => el.classList.add('is-visible'));
+    }
 
-        /* ── Tarjetas de Beneficios ── */
-        const featureCards = document.querySelectorAll('.feature-card');
-        const gridContainer = document.querySelector('.features-grid');
-        const decorativeLine = document.querySelector('.decorative-line');
-        const mobileMQ = window.matchMedia('(max-width: 599px)');
-
-        /* Ajustes del celular */
-        const MOBILE_START = 0.5;  // el efecto arranca cuando el grid sube al 50% de la pantalla
-        const MOBILE_DISTANCE = 280;  // px de scroll que tarda cada tarjeta en acomodarse (mayor = más lento)
-        const MOBILE_STAGGER = 150;  // px de scroll de diferencia entre una tarjeta y la siguiente
-
-        let desktopPlayed = false;
-        let ticking = false;
-        let cardOffsets = [];
-
-        /* ESCRITORIO / TABLET: se dispara UNA vez al ver la línea de hojas y corre por tiempo */
-        function checkDesktopTrigger() {
-            if (desktopPlayed || mobileMQ.matches || !decorativeLine) return;
-            const rect = decorativeLine.getBoundingClientRect();
-            if (rect.height === 0) return;
-            // También cubre el caso de que el usuario salte más allá de la línea (rect.top < 0)
-            if (rect.top < window.innerHeight - 8) {
-                desktopPlayed = true;
-                featureCards.forEach(card => card.classList.add('is-visible'));
-            }
-        }
-
-        /* CELULAR: distancia de cada tarjeta hasta la posición de la primera */
-        function measureCards() {
-            if (!mobileMQ.matches || !featureCards.length) return;
-            const firstTop = featureCards[0].offsetTop;
-            cardOffsets = Array.from(featureCards, card => firstTop - card.offsetTop);
-            updateMobileCards();
-        }
-
-        /* CELULAR: el progreso de cada tarjeta depende del scroll */
-        function updateMobileCards() {
-            if (!mobileMQ.matches || !gridContainer || !cardOffsets.length) return;
-            const scrolled = window.innerHeight * MOBILE_START - gridContainer.getBoundingClientRect().top;
-
-            featureCards.forEach((card, i) => {
-                let p = 1; // la tarjeta 1 no se mueve
-                if (i > 0) {
-                    const raw = (scrolled - (i - 1) * MOBILE_STAGGER) / MOBILE_DISTANCE;
-                    const t = Math.min(1, Math.max(0, raw));
-                    p = 1 - (1 - t) * (1 - t); // ease-out suave
-                }
-                card.style.setProperty('--dy', cardOffsets[i] + 'px');
-                card.style.setProperty('--p', p.toFixed(4));
-            });
-        }
-
-        function onScroll() {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(() => {
-                ticking = false;
-                updateMobileCards();
-                checkDesktopTrigger();
-            });
-        }
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', () => { measureCards(); onScroll(); }, { passive: true });
-        window.addEventListener('load', measureCards);
-        if (document.fonts) document.fonts.ready.then(measureCards);
-
-        mobileMQ.addEventListener('change', (e) => {
-            if (e.matches) {
-                measureCards();
-            } else {
-                featureCards.forEach(card => {
-                    card.style.removeProperty('--p');
-                    card.style.removeProperty('--dy');
+    /* ── Fondo de “Descubre los sabores”: entrada suave independiente del texto ── */
+    const recipesBackground = document.querySelector('[data-recipes-background]');
+    if (recipesBackground) {
+        if ('IntersectionObserver' in window) {
+            const recipesBackgroundObserver = new IntersectionObserver((entries, bgObserver) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-bg-visible');
+                    bgObserver.unobserve(entry.target);
                 });
-                checkDesktopTrigger();
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+            recipesBackgroundObserver.observe(recipesBackground);
+        } else {
+            recipesBackground.classList.add('is-bg-visible');
+        }
+    }
+
+    /* ── Tarjetas de Beneficios ── */
+    const featureCards = document.querySelectorAll('.feature-card');
+    const gridContainer = document.querySelector('.features-grid');
+    const decorativeLine = document.querySelector('.decorative-line');
+    const mobileMQ = window.matchMedia('(max-width: 599px)');
+
+    /* Ajustes del celular */
+    const MOBILE_START = 0.5;  // el efecto arranca cuando el grid sube al 50% de la pantalla
+    const MOBILE_DISTANCE = 280;  // px de scroll que tarda cada tarjeta en acomodarse (mayor = más lento)
+    const MOBILE_STAGGER = 150;  // px de scroll de diferencia entre una tarjeta y la siguiente
+
+    let desktopPlayed = false;
+    let ticking = false;
+    let cardOffsets = [];
+
+    /* ESCRITORIO / TABLET: se dispara UNA vez al ver la línea de hojas y corre por tiempo */
+    function checkDesktopTrigger() {
+        if (desktopPlayed || mobileMQ.matches || !decorativeLine) return;
+        const rect = decorativeLine.getBoundingClientRect();
+        if (rect.height === 0) return;
+        // También cubre el caso de que el usuario salte más allá de la línea (rect.top < 0)
+        if (rect.top < window.innerHeight - 8) {
+            desktopPlayed = true;
+            featureCards.forEach(card => card.classList.add('is-visible'));
+        }
+    }
+
+    /* CELULAR: distancia de cada tarjeta hasta la posición de la primera */
+    function measureCards() {
+        if (!mobileMQ.matches || !featureCards.length) return;
+        const firstTop = featureCards[0].offsetTop;
+        cardOffsets = Array.from(featureCards, card => firstTop - card.offsetTop);
+        updateMobileCards();
+    }
+
+    let maxScrolled = -Infinity;
+
+    /* CELULAR: el progreso de cada tarjeta depende del scroll */
+    function updateMobileCards() {
+        if (!mobileMQ.matches || !gridContainer || !cardOffsets.length) return;
+        
+        // Guardamos el máximo scroll alcanzado para que la animación no retroceda
+        let currentScrolled = window.innerHeight * MOBILE_START - gridContainer.getBoundingClientRect().top;
+        if (currentScrolled > maxScrolled) {
+            maxScrolled = currentScrolled;
+        }
+
+        featureCards.forEach((card, i) => {
+            let p = 1; // la tarjeta 1 no se mueve
+            if (i > 0) {
+                const raw = (maxScrolled - (i - 1) * MOBILE_STAGGER) / MOBILE_DISTANCE;
+                const t = Math.min(1, Math.max(0, raw));
+                p = 1 - (1 - t) * (1 - t); // ease-out suave
             }
+            card.style.setProperty('--dy', cardOffsets[i] + 'px');
+            card.style.setProperty('--p', p.toFixed(4));
         });
+    }
 
-        measureCards();
-        checkDesktopTrigger();
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            ticking = false;
+            updateMobileCards();
+            checkDesktopTrigger();
+        });
+    }
 
-        /* ── Responsive hero layout ── */
-        function adjustHeroLayout() {
-            const heroContent = document.querySelector('.hero-section > div[style*="max-width"]');
-            if (!heroContent) return;
-            const inner = heroContent.querySelector('div[style*="flex-direction"]');
-            if (!inner) return;
-            if (window.innerWidth >= 1024) {
-                inner.style.flexDirection = 'row';
-                inner.style.alignItems = 'center';
-                const leftCol = inner.querySelector('div:first-child');
-                const rightCol = inner.querySelector('div:last-child');
-                if (leftCol) { leftCol.style.width = '50%'; leftCol.style.textAlign = 'left'; }
-                if (rightCol) { rightCol.style.width = '50%'; }
-            } else {
-                inner.style.flexDirection = 'column';
-                const leftCol = inner.querySelector('div:first-child');
-                const rightCol = inner.querySelector('div:last-child');
-                if (leftCol) { leftCol.style.width = '100%'; leftCol.style.textAlign = 'center'; }
-                if (rightCol) { rightCol.style.width = '100%'; }
-            }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { measureCards(); onScroll(); }, { passive: true });
+    window.addEventListener('load', measureCards);
+    if (document.fonts) document.fonts.ready.then(measureCards);
+
+    mobileMQ.addEventListener('change', (e) => {
+        if (e.matches) {
+            measureCards();
+        } else {
+            featureCards.forEach(card => {
+                card.style.removeProperty('--p');
+                card.style.removeProperty('--dy');
+            });
+            checkDesktopTrigger();
         }
+    });
 
-        adjustHeroLayout();
-        window.addEventListener('resize', adjustHeroLayout, { passive: true });
+    measureCards();
+    checkDesktopTrigger();
 
-        /* ── Process section responsive ── */
-        function adjustProcessLayout() {
-            const processInner = document.querySelector('section[style*="cream-paper"] .process-flex');
-            if (!processInner) return;
-            if (window.innerWidth >= 1024) {
-                processInner.style.flexDirection = 'row';
-            } else {
-                processInner.style.flexDirection = 'column';
-            }
+    /* ── Responsive hero layout ── */
+    function adjustHeroLayout() {
+        const heroContent = document.querySelector('.hero-section > div[style*="max-width"]');
+        if (!heroContent) return;
+        const inner = heroContent.querySelector('div[style*="flex-direction"]');
+        if (!inner) return;
+        if (window.innerWidth >= 1024) {
+            inner.style.flexDirection = 'row';
+            inner.style.alignItems = 'center';
+            const leftCol = inner.querySelector('div:first-child');
+            const rightCol = inner.querySelector('div:last-child');
+            if (leftCol) { leftCol.style.width = '50%'; leftCol.style.textAlign = 'left'; }
+            if (rightCol) { rightCol.style.width = '50%'; }
+        } else {
+            inner.style.flexDirection = 'column';
+            const leftCol = inner.querySelector('div:first-child');
+            const rightCol = inner.querySelector('div:last-child');
+            if (leftCol) { leftCol.style.width = '100%'; leftCol.style.textAlign = 'center'; }
+            if (rightCol) { rightCol.style.width = '100%'; }
         }
-    </script>
+    }
+
+    adjustHeroLayout();
+    window.addEventListener('resize', adjustHeroLayout, { passive: true });
+
+    /* ── Process section responsive ── */
+    function adjustProcessLayout() {
+        const processInner = document.querySelector('section[style*="cream-paper"] .process-flex');
+        if (!processInner) return;
+        if (window.innerWidth >= 1024) {
+            processInner.style.flexDirection = 'row';
+        } else {
+            processInner.style.flexDirection = 'column';
+        }
+    }
+</script>
 
 </body>
 
