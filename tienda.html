@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -63,22 +63,31 @@
             color: var(--color-burnt-orange);
         }
 
+        /* Product Card Styling */
+        .card {
+            background-color: var(--color-cream-paper);
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 20px 27px 0px;
+            padding: 16px;
+        }
+
         /* Product image hover */
         .product-img {
             width: 100%;
-            height: 192px;
-            object-fit: contain;
-            transition: transform 0.3s;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.4s ease;
         }
         .card:hover .product-img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         /* Badge */
         .badge {
             position: absolute;
-            top: 16px;
-            left: 16px;
+            top: 24px;
+            left: 24px;
             font-family: var(--font-nav);
             font-size: 0.625rem;
             letter-spacing: var(--tracking-label);
@@ -90,40 +99,24 @@
             z-index: 10;
         }
 
-        /* Buy button variants */
-        .btn-buy-primary {
+        /* Add to cart button */
+        .btn-add-cart {
             width: 100%;
-            background-color: var(--color-stevida-green);
-            color: var(--color-pure-white);
+            background-color: transparent;
+            color: var(--color-ink-black);
             font-family: var(--font-body);
             font-size: 0.8125rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            border-radius: 9999px;
+            border-radius: 32px;
             padding: 12px 0;
             border: none;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.3s ease;
         }
-        .btn-buy-primary:hover { opacity: 0.9; }
-
-        .btn-buy-secondary {
-            width: 100%;
-            background-color: transparent;
-            color: var(--color-burnt-orange);
-            font-family: var(--font-body);
-            font-size: 0.8125rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border-radius: 9999px;
-            padding: 10px 0;
-            border: 2px solid var(--color-burnt-orange);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-buy-secondary:hover {
-            background-color: var(--color-burnt-orange);
-            color: var(--color-pure-white);
+        .btn-add-cart:hover {
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
         }
 
         /* Products grid */
@@ -259,7 +252,7 @@
                 <!-- Product 1 -->
                 <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
                     <span class="badge" style="background-color:var(--color-burnt-orange);">20% OFF</span>
-                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
                         <img
                             src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                             alt="Stevida en Polvo"
@@ -274,13 +267,13 @@
                             <span style="color:#9ca3af;text-decoration:line-through;font-size: 0.875rem;">$8.50</span>
                             <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$6.80</span>
                         </div>
-                        <button class="btn-buy-primary">Comprar</button>
+                        <button class="btn-add-cart">Añadir al carrito</button>
                     </div>
                 </article>
 
                 <!-- Product 2 -->
                 <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
                         <img
                             src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                             alt="Stevida Líquida"
@@ -294,13 +287,13 @@
                         <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
                             <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$4.20</span>
                         </div>
-                        <button class="btn-buy-secondary">Comprar</button>
+                        <button class="btn-add-cart">Añadir al carrito</button>
                     </div>
                 </article>
 
                 <!-- Product 3 -->
                 <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
                         <img
                             src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                             alt="Pack Repostería"
@@ -314,14 +307,14 @@
                         <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
                             <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$12.50</span>
                         </div>
-                        <button class="btn-buy-secondary">Comprar</button>
+                        <button class="btn-add-cart">Añadir al carrito</button>
                     </div>
                 </article>
 
                 <!-- Product 4 -->
                 <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
                     <span class="badge" style="background-color: var(--color-sky-blue);">NUEVO</span>
-                    <div style="width:100%;height:192px;margin-bottom:24px;overflow:hidden;">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
                         <img
                             src="https://images.unsplash.com/photo-1576092762791-dd9e2220d565?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                             alt="Té Verde con Stevida"
@@ -335,7 +328,106 @@
                         <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
                             <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.80</span>
                         </div>
-                        <button class="btn-buy-secondary">Comprar</button>
+                        <button class="btn-add-cart">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Product 5 -->
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                        <img src="https://images.unsplash.com/photo-1622484211147-75e1823eb5ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Extracto Natural Stevida 50ml
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.50</span>
+                        </div>
+                        <button class="btn-add-cart">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Product 6 -->
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <span class="badge" style="background-color: var(--color-sky-blue);">OFERTA</span>
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                        <img src="https://images.unsplash.com/photo-1599305090598-fe179d501227?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Caja de Sobres Stevida x50
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$5.20</span>
+                        </div>
+                        <button class="btn-add-cart">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Product 7 -->
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Mermelada Light con Stevida
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$4.90</span>
+                        </div>
+                        <button class="btn-add-cart">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Product 8 -->
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                        <img src="https://images.unsplash.com/photo-1596647414819-21b79f64e03d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Chocolate Amargo 70% Stevida
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$6.10</span>
+                        </div>
+                        <button class="btn-add-cart">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Product 9 -->
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <span class="badge" style="background-color:var(--color-burnt-orange);">15% OFF</span>
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Pack Desayuno Stevida
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="color:#9ca3af;text-decoration:line-through;font-size: 0.875rem;">$15.00</span>
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$12.75</span>
+                        </div>
+                        <button class="btn-add-cart">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Product 10 -->
+                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Galletas de Avena Stevida
+                        </h3>
+                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
+                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.20</span>
+                        </div>
+                        <button class="btn-add-cart">Añadir al carrito</button>
                     </div>
                 </article>
 
