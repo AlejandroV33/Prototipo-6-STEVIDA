@@ -895,12 +895,14 @@
                     </figure>
 
                 </div>
+
                 <script>
                     /*
                      * Desde el campo — reveal contextual.
-                     * - Entrada normal o recarga por encima: espera a que el usuario baje hasta la galería.
-                     * - Reload / back-forward restaurado dentro o por debajo: reproduce la secuencia al cargar.
-                     * - Las fotos siempre se revelan en orden y una sola vez por carga.
+                     * - Si la galería aún no se alcanza: espera a que el usuario llegue (sin importar cuánto suba o baje antes).
+                     * - Si al cargar (recarga/restauración) el usuario ya está en la galería o por debajo: reproduce la secuencia.
+                     * - Si la galería queda por encima del viewport sin haberse revelado: reproduce la secuencia en silencio.
+                     * - Las fotos se revelan en orden y una sola vez por carga.
                      */
                     (() => {
                         const gallery = document.querySelector('.field-gallery');
@@ -910,29 +912,14 @@
                         if (!items.length) return;
 
                         const REVEAL_GAP = 280;
-                        const SCROLL_EPSILON = 2;
                         const ready = new Set();
 
                         let observer = null;
                         let nextIndex = 0;
                         let revealTimer = 0;
                         let scrollFrame = 0;
-                        let lastY = window.scrollY;
-                        let hasScrolledDown = false;
                         let forceSequence = false;
                         let finished = false;
-
-                        const getNavigationType = () => {
-                            const entry = performance.getEntriesByType?.('navigation')?.[0];
-                            if (entry?.type) return entry.type;
-                            if (performance.navigation?.type === 1) return 'reload';
-                            if (performance.navigation?.type === 2) return 'back_forward';
-                            return 'navigate';
-                        };
-
-                        const revealAll = () => {
-                            items.forEach(item => item.classList.add('is-revealed'));
-                        };
 
                         function cleanup() {
                             observer?.disconnect();
@@ -951,15 +938,15 @@
                         function finishImmediately() {
                             if (finished) return;
                             finished = true;
-                            revealAll();
+                            items.forEach(item => item.classList.add('is-revealed'));
                             cleanup();
                         }
 
-                        function revealNext(force = forceSequence) {
+                        function revealNext() {
                             if (finished || revealTimer || nextIndex >= items.length) return;
 
                             const item = items[nextIndex];
-                            if (!force && (!ready.has(item) || !hasScrolledDown)) return;
+                            if (!forceSequence && !ready.has(item)) return;
 
                             item.classList.add('is-revealed');
                             nextIndex += 1;
@@ -972,56 +959,29 @@
 
                             revealTimer = window.setTimeout(() => {
                                 revealTimer = 0;
-                                revealNext(force);
+                                revealNext();
                             }, REVEAL_GAP);
                         }
 
-                        function processScroll() {
-                            scrollFrame = 0;
-                            if (finished) return;
-
-                            const currentY = window.scrollY;
-                            const delta = currentY - lastY;
-                            lastY = currentY;
-
-                            /* Una entrada normal desde abajo/subiendo no reproduce el reveal. */
-                            if (!forceSequence && delta < -SCROLL_EPSILON && nextIndex === 0) {
-                                finishImmediately();
-                                return;
-                            }
-
-                            if (delta <= SCROLL_EPSILON) return;
-
-                            hasScrolledDown = true;
-                            const rect = gallery.getBoundingClientRect();
-
-                            /* Si se salta toda la galería en una entrada normal, evita dejar fotos ocultas. */
-                            if (!forceSequence && rect.bottom < 0 && nextIndex === 0) {
-                                finishImmediately();
-                                return;
-                            }
-
+                        /* Reproduce la secuencia sin esperar a que cada foto sea visible. */
+                        function startForcedSequence() {
+                            if (finished || forceSequence) return;
+                            forceSequence = true;
                             revealNext();
                         }
 
+                        /* Si la galería quedó completamente por encima del viewport, ya no tiene sentido esperarla. */
+                        function checkPassed() {
+                            scrollFrame = 0;
+                            if (finished || forceSequence) return;
+                            if (gallery.getBoundingClientRect().bottom <= 0) startForcedSequence();
+                        }
+
                         function onScroll() {
-                            if (!scrollFrame) scrollFrame = requestAnimationFrame(processScroll);
+                            if (!scrollFrame) scrollFrame = requestAnimationFrame(checkPassed);
                         }
 
                         function init() {
-                            const rect = gallery.getBoundingClientRect();
-                            const viewportH = window.innerHeight;
-                            const navType = getNavigationType();
-                            const isRestoredNavigation = navType !== 'navigate' || location.hash !== '';
-                            const galleryVisible = rect.bottom > 0 && rect.top < viewportH;
-                            const galleryAlreadyPassed = rect.bottom <= 0;
-
-                            /*
-                             * Importante: una recarga arriba de la galería NO fuerza la animación.
-                             * Solo se fuerza si el navegador restaura al usuario dentro de ella o por debajo.
-                             */
-                            forceSequence = isRestoredNavigation && (galleryVisible || galleryAlreadyPassed);
-
                             if (!('IntersectionObserver' in window)) {
                                 /* Fallback seguro: nunca dejar contenido invisible. */
                                 finishImmediately();
@@ -1043,18 +1003,21 @@
                             items.forEach(item => observer.observe(item));
                             window.addEventListener('scroll', onScroll, { passive: true });
 
-                            if (forceSequence) {
-                                requestAnimationFrame(() => revealNext(true));
-                            }
+                            /*
+                             * Al cargar: si la galería ya está visible o quedó por encima del viewport
+                             * (recarga con scroll restaurado, ancla, etc.), reproduce la secuencia automáticamente.
+                             * Si está por debajo, el IntersectionObserver espera a que el usuario llegue.
+                             */
+                            const rect = gallery.getBoundingClientRect();
+                            if (rect.top < window.innerHeight) startForcedSequence();
                         }
 
-                        /* Da tiempo al navegador para restaurar correctamente scrollY antes de decidir. */
+                        /* Da tiempo al navegador para restaurar scrollY antes de decidir. */
                         const start = () => requestAnimationFrame(() => requestAnimationFrame(init));
                         if (document.readyState === 'complete') start();
                         else window.addEventListener('load', start, { once: true });
                     })();
                 </script>
-
             </div>
         </div>
     </section>
