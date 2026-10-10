@@ -1,307 +1,535 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stevida en Polvo 250g - Endulzante Natural | Stevida</title>
     <meta name="description" content="Stevida en Polvo 100% Natural 250g. Sin calorías, sin azúcar. Ideal para personas con diabetes o quienes buscan un estilo de vida saludable.">
+
     <link rel="stylesheet" href="output.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Star rating */
-        .star { color: var(--color-honey-gold); }
-        .star-half { color: var(--color-honey-gold); }
 
-        /* Quantity input */
+    <style>
+        /* ── Input de cantidad: sin flechas nativas ── */
         input[type=number] {
             -moz-appearance: textfield;
+            appearance: textfield;
         }
         input[type=number]::-webkit-outer-spin-button,
         input[type=number]::-webkit-inner-spin-button {
             -webkit-appearance: none;
+            margin: 0;
         }
 
-        /* Product layout */
+        /* ── Layout de producto (responsive solo con CSS) ── */
         .product-layout {
             display: flex;
             flex-direction: column;
-            gap: 0;
+            overflow: hidden;
+        }
+        .product-media {
+            width: 100%;
+            padding: 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            background-color: var(--color-pure-white);
+        }
+        .product-info {
+            width: 100%;
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 32px;
         }
         @media (min-width: 1024px) {
             .product-layout { flex-direction: row; }
+            .product-media {
+                width: 45%;
+                border-bottom: none;
+                border-right: 1px solid rgba(0, 0, 0, 0.06);
+            }
+            .product-info { width: 55%; }
         }
+
+        /* ── Carrusel de imágenes ── */
+        .carousel-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .carousel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .carousel-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--color-pure-white);
+            border: 1.5px solid rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-ink-black);
+            font-size: 0.75rem;
+            transition: background-color 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
+            z-index: 10;
+        }
+        .carousel-btn:hover {
+            background-color: var(--color-stevida-green);
+            color: var(--color-pure-white);
+            border-color: var(--color-stevida-green);
+        }
+        .carousel-btn-prev { left: 8px; }
+        .carousel-btn-next { right: 8px; }
+        .carousel-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.18);
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .carousel-dot.active {
+            background-color: var(--color-stevida-green);
+            transform: scale(1.3);
+        }
+
+        /* ── Etiquetas de categoría (contorno azul cielo) ── */
+        .tag-category {
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--font-nav);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-sky-blue);
+            border: 1.5px solid var(--color-sky-blue);
+            background-color: transparent;
+            border-radius: 9999px;
+            padding: 5px 14px;
+        }
+
+        /* ── Calificación interactiva del formulario ── */
+        .rating-star {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: rgba(0, 0, 0, 0.15);
+            transition: color 0.15s, transform 0.15s;
+        }
+        .rating-star:hover { transform: scale(1.15); }
+        .rating-star.is-on { color: var(--color-honey-gold, #ffc400); }
     </style>
 </head>
 <body>
-    <!-- â•â• HEADER â•â• -->
-    <header class="site-header" id="site-header">
-        <div class="header-inner">
 
-            <!-- Logo -->
-            <a href="index.html" class="site-logo" aria-label="Stevida - Ir al inicio">
-                <img src="Stevida logo final.svg" alt="Stevida" height="44">
-            </a>
+<!-- ══ HEADER ══ -->
+<header class="site-header" id="site-header">
+    <div class="header-inner">
 
-            <!-- Desktop Navigation -->
-            <nav class="site-nav" aria-label="Navegaci&#xF3;n principal">
-                <a href="index.html" class="nav-link">Inicio</a>
-                <a href="tienda.html" class="nav-link active">Tienda</a>
-                <a href="recetas.html" class="nav-link">Recetas</a>
-                <a href="nosotros.html" class="nav-link">Nosotros</a>
-                <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
-                <a href="comunidad.html" class="nav-link">Comunidad</a>
-                <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
-            </nav>
+        <!-- Logo -->
+        <a href="index.html" class="site-logo" aria-label="Stevida - Ir al inicio">
+            <img src="Stevida logo final.svg" alt="Stevida" height="44">
+        </a>
 
-            <!-- Desktop icon actions: Cart + User -->
-            <div class="header-actions">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
-                    <i class="fas fa-user"></i>
-                </a>
-            </div>
-
-            <!-- Mobile: mini cart + hamburger -->
-            <div class="mobile-header-group">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir men&#xFA;" aria-expanded="false">
-                    <i class="fas fa-bars" id="menu-icon"></i>
-                </button>
-            </div>
-
-        </div>
-
-        <!-- Mobile Drawer -->
-        <nav class="mobile-nav" id="mobile-nav" aria-label="Navegaci&#xF3;n m&#xF3;vil">
+        <!-- Navegación escritorio -->
+        <nav class="site-nav" aria-label="Navegación principal">
             <a href="index.html" class="nav-link">Inicio</a>
             <a href="tienda.html" class="nav-link active">Tienda</a>
             <a href="recetas.html" class="nav-link">Recetas</a>
             <a href="nosotros.html" class="nav-link">Nosotros</a>
-            <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
+            <a href="encuentranos.html" class="nav-link">Encuéntranos</a>
             <a href="comunidad.html" class="nav-link">Comunidad</a>
-            <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
-
-            <!-- Icon row -->
-            <div class="mobile-nav-icons">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
-                    <i class="fas fa-user"></i>
-                </a>
-            </div>
+            <a href="contactanos.html" class="nav-link">Contáctanos</a>
         </nav>
-    </header>
 
-    <main style="background-color: var(--color-cream-paper); padding-top: 100px; padding-bottom: 96px;">
-        <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
+        <!-- Acciones escritorio: carrito + usuario -->
+        <div class="header-actions">
+            <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
 
-            <!-- Breadcrumb -->
-            <nav style="margin-bottom: 32px; font-family: var(--font-nav); font-size: 0.75rem; color: rgba(0,0,0,0.4); letter-spacing: 0.1em; text-transform: uppercase;" aria-label="Breadcrumb">
-                <a href="index.html" style="color: rgba(0,0,0,0.4); text-decoration: none;">Inicio</a>
-                <span style="margin: 0 8px;">/</span>
-                <a href="tienda.html" style="color: rgba(0,0,0,0.4); text-decoration: none;">Productos</a>
-                <span style="margin: 0 8px;">/</span>
-                <span style="color: var(--color-stevida-green);">Stevida en Polvo</span>
-            </nav>
+        <!-- Móvil: mini carrito + hamburguesa -->
+        <div class="mobile-header-group">
+            <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+        </div>
 
-            <!-- Product card -->
-            <div class="card product-layout" style="overflow: hidden;">
+    </div>
 
-                <!-- Left: Image -->
-                <div style="width: 100%; padding: 40px; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; position: relative; background-color: var(--color-pure-white);">
-                    <!-- Badge -->
-                    <div style="position: absolute; top: 20px; left: 20px; background-color: var(--color-burnt-orange); color: var(--color-pure-white); font-family: var(--font-nav); font-size: 0.625rem; font-weight: 700; letter-spacing: var(--tracking-label); text-transform: uppercase; padding: 6px 14px; border-radius: var(--radius-buttons); z-index: 10;">
-                        20% OFF
-                    </div>
-                    <div style="width: 100%; max-width: 380px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
-                        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                             alt="Stevida en Polvo 100% Natural 250g"
-                             style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                    </div>
+    <!-- Menú móvil -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="tienda.html" class="nav-link active">Tienda</a>
+        <a href="recetas.html" class="nav-link">Recetas</a>
+        <a href="nosotros.html" class="nav-link">Nosotros</a>
+        <a href="encuentranos.html" class="nav-link">Encuéntranos</a>
+        <a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="contactanos.html" class="nav-link">Contáctanos</a>
+
+        <div class="mobile-nav-icons">
+            <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<!-- ══ PRODUCTO ══ -->
+<main style="background-color: var(--color-cream-paper); padding-top: 100px; padding-bottom: 96px;">
+    <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
+
+        <!-- Breadcrumb -->
+        <nav style="margin-bottom: 32px; font-family: var(--font-nav); font-size: 0.75rem; color: rgba(0,0,0,0.4); letter-spacing: 0.1em; text-transform: uppercase;" aria-label="Breadcrumb">
+            <a href="index.html" style="color: rgba(0,0,0,0.4); text-decoration: none;">Inicio</a>
+            <span style="margin: 0 8px;">/</span>
+            <a href="tienda.html" style="color: rgba(0,0,0,0.4); text-decoration: none;">Productos</a>
+            <span style="margin: 0 8px;">/</span>
+            <span style="color: var(--color-stevida-green);">Stevida en Polvo</span>
+        </nav>
+
+        <!-- Tarjeta de producto -->
+        <div class="card product-layout">
+
+            <!-- Izquierda: carrusel -->
+            <div class="product-media">
+                <!-- Insignia -->
+                <div style="position: absolute; top: 20px; left: 20px; background-color: var(--color-burnt-orange); color: var(--color-pure-white); font-family: var(--font-nav); font-size: 0.625rem; font-weight: 700; letter-spacing: var(--tracking-label); text-transform: uppercase; padding: 6px 14px; border-radius: var(--radius-buttons); z-index: 10;">
+                    20% OFF
                 </div>
 
-                <!-- Right: Details -->
-                <div style="width: 100%; padding: 40px 48px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px;">
-
-                    <div>
-                        <!-- Title -->
-                        <h1 style="font-family: var(--font-hero); font-size: clamp(32px, 4vw, 48px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-hero); line-height: 1.1; margin-bottom: 20px;">
-                            Stevida en Polvo 100% Natural 250g
-                        </h1>
-
-                        <!-- Stars -->
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
-                            <div style="display: flex; gap: 3px;">
-                                <i class="fas fa-star star"></i>
-                                <i class="fas fa-star star"></i>
-                                <i class="fas fa-star star"></i>
-                                <i class="fas fa-star star"></i>
-                                <i class="fas fa-star-half-alt star-half"></i>
-                            </div>
-                            <span style="font-family: var(--font-body); font-size: 0.8125rem; color: rgba(0,0,0,0.4); margin-left: 4px;">(124 reseñas)</span>
+                <div class="carousel-wrap" id="carousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                 alt="Stevida en Polvo 100% Natural 250g — vista 1">
                         </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                 alt="Stevida en Polvo 100% Natural 250g — vista 2" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                 alt="Stevida en Polvo 100% Natural 250g — vista 3" loading="lazy">
+                        </div>
+                    </div>
 
-                        <!-- Price -->
-                        <div style="margin-bottom: 32px;">
-                            <span style="font-family: var(--font-body); font-size: 1rem; color: rgba(0,0,0,0.35); text-decoration: line-through; display: block; margin-bottom: 4px;">$8.50</span>
-                            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-                                <span style="font-family: var(--font-display); font-size: clamp(40px, 5vw, 56px); color: var(--color-stevida-green);">$6.80</span>
-                                <span style="font-family: var(--font-nav); font-size: 0.6875rem; font-weight: 700; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-burnt-orange); border: 1.5px solid var(--color-burnt-orange); padding: 5px 14px; border-radius: var(--radius-buttons);">
+                    <button type="button" class="carousel-btn carousel-btn-prev" id="carouselPrev" aria-label="Imagen anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="carousel-btn carousel-btn-next" id="carouselNext" aria-label="Imagen siguiente">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+
+            <!-- Derecha: detalles -->
+            <div class="product-info">
+
+                <div>
+                    <h1 style="font-family: var(--font-hero); font-size: clamp(32px, 4vw, 48px); color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-hero); line-height: 1.1; margin-bottom: 20px;">
+                        Stevida en Polvo 100% Natural 250g
+                    </h1>
+
+                    <!-- Precio -->
+                    <div style="margin-bottom: 32px;">
+                        <span style="font-family: var(--font-body); font-size: 1.25rem; color: rgba(0,0,0,0.35); text-decoration: line-through; display: block; margin-bottom: 4px;">$8.50</span>
+                        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                            <span style="font-family: var(--font-display); font-size: clamp(40px, 5vw, 56px); color: var(--color-stevida-green);">$6.80</span>
+                            <span style="font-family: var(--font-nav); font-size: 0.6875rem; font-weight: 700; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-burnt-orange); border: 1.5px solid var(--color-burnt-orange); padding: 5px 14px; border-radius: var(--radius-buttons);">
                                     Envío Gratis
                                 </span>
-                            </div>
-                        </div>
-
-                        <!-- Description -->
-                        <p style="font-family: var(--font-body); font-size: 0.9375rem; color: rgba(0,0,0,0.65); line-height: 1.75; margin-bottom: 32px;">
-                            Este endulzante 100% natural a base de Stevia es ideal para darle el mejor sabor a tus bebidas y postres sin aportar calorías. Cuida tu salud de forma deliciosa y natural. No afecta los niveles de glucosa en la sangre.
-                        </p>
-
-                        <!-- Tags -->
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-                            <span class="tag tag-green">Sin Calorías</span>
-                            <span class="tag tag-green">Sin Azúcar</span>
-                            <span class="tag" style="background-color: var(--color-sky-blue); color: var(--color-pure-white);">Apto Diabéticos</span>
-                            <span class="tag tag-red">Orgánico</span>
                         </div>
                     </div>
 
-                    <!-- Add to cart -->
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        <!-- Quantity -->
-                        <div style="display: flex; align-items: center; gap: 20px;">
-                            <label style="font-family: var(--font-nav); font-size: 0.75rem; font-weight: 700; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-stevida-green);">
-                                Cantidad
-                            </label>
-                            <div style="display: flex; align-items: center; border: 1.5px solid rgba(0,0,0,0.15); border-radius: var(--radius-buttons); background-color: var(--color-pure-white); padding: 0 4px;">
-                                <button onclick="changeQty(-1)" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer; color: rgba(0,0,0,0.4); font-size: 0.875rem; display: flex; align-items: center; justify-content: center;" aria-label="Disminuir cantidad">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <input type="number" id="qty" value="1" min="1" max="99" style="width: 40px; text-align: center; font-family: var(--font-body); font-weight: 700; font-size: 1rem; color: var(--color-stevida-green); border: none; outline: none; background: transparent; padding: 8px 0;" aria-label="Cantidad">
-                                <button onclick="changeQty(1)" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer; color: rgba(0,0,0,0.4); font-size: 0.875rem; display: flex; align-items: center; justify-content: center;" aria-label="Aumentar cantidad">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Descripción -->
+                    <p style="font-family: var(--font-body); font-size: 0.9375rem; color: rgba(0,0,0,0.65); line-height: 1.75; margin-bottom: 32px;">
+                        Este endulzante 100% natural a base de Stevia es ideal para darle el mejor sabor a tus bebidas y postres sin aportar calorías. Cuida tu salud de forma deliciosa y natural. No afecta los niveles de glucosa en la sangre.
+                    </p>
 
-                        <!-- Buttons -->
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <button class="btn btn-primary" style="padding: 16px; width: 100%; font-size: 0.8125rem;">
-                                Comprar Ahora
+                    <!-- Etiquetas -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                        <span class="tag-category">Sin Calorías</span>
+                        <span class="tag-category">Sin Azúcar</span>
+                        <span class="tag-category">Apto Diabéticos</span>
+                        <span class="tag-category">Orgánico</span>
+                    </div>
+                </div>
+
+                <!-- Agregar al carrito -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                    <!-- Cantidad -->
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <label for="qty" style="font-family: var(--font-nav); font-size: 0.75rem; font-weight: 700; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-stevida-green);">
+                            Cantidad
+                        </label>
+                        <div style="display: flex; align-items: center; border: 1.5px solid rgba(0,0,0,0.15); border-radius: var(--radius-buttons); background-color: var(--color-pure-white); padding: 0 4px;">
+                            <button type="button" onclick="changeQty(-1)" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer; color: rgba(0,0,0,0.4); font-size: 0.875rem; display: flex; align-items: center; justify-content: center;" aria-label="Disminuir cantidad">
+                                <i class="fas fa-minus"></i>
                             </button>
-                            <button class="btn btn-ghost" style="padding: 16px; width: 100%; font-size: 0.8125rem;">
-                                <i class="fas fa-shopping-cart" style="margin-right: 8px;"></i>
-                                Agregar al Carrito
+                            <input type="number" id="qty" value="1" min="1" max="99" style="width: 40px; text-align: center; font-family: var(--font-body); font-weight: 700; font-size: 1rem; color: var(--color-stevida-green); border: none; outline: none; background: transparent; padding: 8px 0;">
+                            <button type="button" onclick="changeQty(1)" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer; color: rgba(0,0,0,0.4); font-size: 0.875rem; display: flex; align-items: center; justify-content: center;" aria-label="Aumentar cantidad">
+                                <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
 
+                    <!-- Botones -->
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <button type="button" class="btn btn-primary" style="padding: 16px; width: 100%; font-size: 0.8125rem;">
+                            Comprar Ahora
+                        </button>
+                        <button type="button" class="btn btn-ghost" style="padding: 16px; width: 100%; font-size: 0.8125rem;">
+                            <i class="fas fa-shopping-cart" style="margin-right: 8px;"></i>
+                            Agregar al Carrito
+                        </button>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-    </main>
 
-    
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div>
-                <a href="index.html" class="footer-logo-img" aria-label="Stevida - Inicio"><img src="Stevida logo final.svg" alt="Stevida" style="height:60px;width:auto;filter:brightness(0) invert(1);display:block;"></a>
-                <p class="footer-tagline">Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.</p>
-            </div>
-            <div>
-                <h4 class="footer-heading">Navegación</h4>
-                <ul class="footer-nav-list">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="tienda.html">Tienda</a></li>
-                    <li><a href="recetas.html">Recetas</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="encuentranos.html">Encuéntranos</a></li>
-                    <li><a href="comunidad.html">Comunidad</a></li>
-                    <li><a href="contactanos.html">Contáctanos</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="footer-heading">Contáctanos</h4>
-                <ul class="footer-contact-list">
-                    <li><i class="fas fa-phone icon"></i><span>(+593) 62 585 693<br>(+593) 98 451 0973</span></li>
-                    <li><i class="fas fa-envelope icon"></i><span>info@steviadelecuador.com.ec</span></li>
-                    <li><i class="fas fa-map-marker-alt icon"></i><span>Ibarra - Ecuador</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-inner">
-                <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <!-- ══ RESEÑAS ══ -->
+        <section class="reviews-section" aria-labelledby="reviews-title">
+            <div class="reviews-panel">
+                <header class="reviews-heading">
+                    <h2 id="reviews-title">Reseñas</h2>
+                </header>
+                <!-- Opiniones de clientes -->
+                <div class="reviews-list" aria-label="Opiniones de clientes">
+                    <article class="review-card">
+                        <div class="review-author">
+                            <span class="review-avatar" aria-hidden="true">MF</span>
+                            <div>
+                                <h4>María Fernanda Ortiz</h4>
+                                <span class="review-label">Cliente</span>
+                            </div>
+                        </div>
+                        <p>¡Excelente producto! Lo uso todos los días para mi café y mis postres. No deja ningún sabor amargo como otras marcas. 100% recomendado para quienes cuidamos nuestra salud.</p>
+                    </article>
+
+                    <article class="review-card">
+                        <div class="review-author">
+                            <span class="review-avatar" aria-hidden="true">CJ</span>
+                            <div>
+                                <h4>Carlos Jiménez</h4>
+                                <span class="review-label">Cliente</span>
+                            </div>
+                        </div>
+                        <p>Muy buen endulzante. Rinde muchísimo porque con una pequeña cantidad es suficiente. El envío fue rápido y el empaque es muy práctico.</p>
+                    </article>
+                </div>
+
+                <!-- Formulario de reseña -->
+                <div class="review-form-column">
+                    <div class="review-form-intro">
+                        <h3>Deja tu reseña</h3>
+                        <p>¿Ya probaste Stevida? Nos encantaría conocer tu opinión sobre este producto.</p>
+                    </div>
+
+                    <form id="review-form" class="review-form">
+                        <div class="review-field">
+                            <label for="review-text" class="sr-only">Escribe tu reseña</label>
+                            <textarea id="review-text" name="review" rows="6" minlength="10" maxlength="1500" required placeholder="Cuéntanos qué te pareció el producto..."></textarea>
+                            <span class="review-field-hint">Comparte tu experiencia de forma clara y respetuosa.</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary review-submit">
+                            Enviar reseña <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                        <p id="review-form-status" class="review-form-status" role="status" aria-live="polite" hidden></p>
+                    </form>
                 </div>
             </div>
+        </section>
+
+
+    </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div>
+            <a href="index.html" class="footer-logo-img" aria-label="Stevida - Inicio">
+                <img src="Stevida logo final.svg" alt="Stevida" style="height:60px;width:auto;filter:brightness(0) invert(1);display:block;">
+            </a>
+            <p class="footer-tagline">Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.</p>
         </div>
-    </footer>
+        <div>
+            <h4 class="footer-heading">Navegación</h4>
+            <ul class="footer-nav-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="recetas.html">Recetas</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="encuentranos.html">Encuéntranos</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="contactanos.html">Contáctanos</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="footer-heading">Contáctanos</h4>
+            <ul class="footer-contact-list">
+                <li><i class="fas fa-phone icon"></i><span>(+593) 62 585 693<br>(+593) 98 451 0973</span></li>
+                <li><i class="fas fa-envelope icon"></i><span>info@steviadelecuador.com.ec</span></li>
+                <li><i class="fas fa-map-marker-alt icon"></i><span>Ibarra - Ecuador</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+            <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="WhatsApp" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+<a href="https://wa.me/593984510973" class="whatsapp-fab" aria-label="WhatsApp" target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
-    <script>
-        /* Mobile menu */
-        const toggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
-        const menuIcon = document.getElementById('menu-icon');
-        toggle.addEventListener('click', () => {
-            const isOpen = mobileNav.classList.toggle('open');
-            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-            toggle.setAttribute('aria-expanded', isOpen);
+<script>
+    /* ── Menú móvil ── */
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const menuIcon = document.getElementById('menu-icon');
+    toggle.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    /* ── Header al hacer scroll ── */
+    const header = document.getElementById('site-header');
+    const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 10);
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+
+    /* ── Control de cantidad ── */
+    function changeQty(delta) {
+        const input = document.getElementById('qty');
+        const current = parseInt(input.value, 10) || 1;
+        const next = current + delta;
+        if (next >= 1 && next <= 99) input.value = next;
+    }
+    document.getElementById('qty').addEventListener('change', (e) => {
+        const v = parseInt(e.target.value, 10);
+        e.target.value = Number.isNaN(v) ? 1 : Math.min(99, Math.max(1, v));
+    });
+
+    /* ── Carrusel de imágenes ── */
+    (function () {
+        const track  = document.getElementById('carouselTrack');
+        const dotsEl = document.getElementById('carouselDots');
+        const slides = track.querySelectorAll('.carousel-slide');
+        const total  = slides.length;
+        let current  = 0;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Imagen ${i + 1}`);
+            dot.addEventListener('click', () => goTo(i));
+            dotsEl.appendChild(dot);
         });
 
-        /* Scroll header */
-        const header = document.getElementById('site-header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 10);
+        function goTo(idx) {
+            current = (idx + total) % total;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
+                d.classList.toggle('active', i === current)
+            );
+        }
+
+        document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1));
+
+        /* Gesto de deslizar en móvil */
+        let startX = 0;
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
         }, { passive: true });
+        track.addEventListener('touchend', (e) => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+        }, { passive: true });
+    })();
 
-        /* Quantity control */
-        function changeQty(delta) {
-            const input = document.getElementById('qty');
-            const val = parseInt(input.value) + delta;
-            if (val >= 1 && val <= 99) input.value = val;
+    /* ── Formulario de reseña ── */
+    (function () {
+        const form = document.getElementById('review-form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                /* Pendiente: conectar con un endpoint para guardar las reseñas. */
+                const status = document.getElementById('review-form-status');
+                status.textContent = 'El envío de reseñas aún no está habilitado. Tu texto se conserva para que no lo pierdas.';
+                status.hidden = false;
+            });
         }
-
-        /* Product layout responsive */
-        function adjustProductLayout() {
-            const layout = document.querySelector('.product-layout');
-            if (!layout) return;
-            const [imgCol, detailCol] = layout.children;
-            if (window.innerWidth >= 1024) {
-                layout.style.flexDirection = 'row';
-                imgCol.style.width = '45%';
-                imgCol.style.borderBottom = 'none';
-                imgCol.style.borderRight = '1px solid rgba(0,0,0,0.06)';
-                detailCol.style.width = '55%';
-            } else {
-                layout.style.flexDirection = 'column';
-                imgCol.style.width = '100%';
-                imgCol.style.borderRight = 'none';
-                imgCol.style.borderBottom = '1px solid rgba(0,0,0,0.06)';
-                detailCol.style.width = '100%';
-            }
-        }
-        adjustProductLayout();
-        window.addEventListener('resize', adjustProductLayout, { passive: true });
-    </script>
+    })();
+</script>
 
 </body>
 </html>
