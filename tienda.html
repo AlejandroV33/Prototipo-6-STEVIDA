@@ -109,21 +109,88 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            border-radius: 32px;
-            padding: 12px 0;
+            border-radius: 10px;
+            padding: 11px 16px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .btn-add-cart:hover {
+        /* Hover al pasar por cualquier parte de la tarjeta */
+        .card:hover .btn-add-cart {
             box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
         }
 
-        /* Products grid */
+        /* Precio rebajado — alinear precio actual y precio tachado */
+        .price-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .price-original {
+            color: #9ca3af;
+            text-decoration: line-through;
+            font-size: 0.875rem;
+            line-height: 1;
+        }
+        .price-current {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-stevida-green);
+            line-height: 1;
+        }
+
+        /* Products grid — mobile-first responsive */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        @media (min-width: 640px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 32px;
+            }
+        }
+
+        /* En mobile 2 col: ajustar card para que todo encaje bien */
+        @media (max-width: 639px) {
+            .products-grid {
+                gap: 10px;
+            }
+            .products-section {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            .card {
+                padding: 12px;
+            }
+            .product-img {
+                height: 160px;
+            }
+            .price-current {
+                font-size: 1.5rem;
+            }
+            .price-original {
+                font-size: 0.75rem;
+            }
+            .btn-add-cart {
+                font-size: 0.625rem;
+                letter-spacing: 0.04em;
+                padding: 9px 6px;
+                gap: 4px;
+            }
         }
 
         /* Hero section */
@@ -246,7 +313,7 @@
         </section>
 
         <!-- Products Grid -->
-        <section style="max-width:1200px;margin:0 auto;padding:0 24px 80px;">
+        <section class="products-section" style="max-width:1200px;margin:0 auto;padding:0 24px 80px;">
             <div class="products-grid">
 
                 <!-- Product 1 -->
@@ -263,11 +330,11 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Stevida en Polvo 100% Natural 250g
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="color:#9ca3af;text-decoration:line-through;font-size: 0.875rem;">$8.50</span>
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$6.80</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$6.80</span>
+                            <span class="price-original">$8.50</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -284,10 +351,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Stevida Líquida Gotero 100ml
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$4.20</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$4.20</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -304,10 +371,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Pack Stevida Especial Repostería 500g
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$12.50</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$12.50</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -325,10 +392,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Té Verde con Stevida Pack x20 bolsitas
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.80</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.80</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -341,10 +408,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Extracto Natural Stevida 50ml
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.50</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.50</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -358,10 +425,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Caja de Sobres Stevida x50
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$5.20</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$5.20</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -374,10 +441,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Mermelada Light con Stevida
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$4.90</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$4.90</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -390,10 +457,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Chocolate Amargo 70% Stevida
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$6.10</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$6.10</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -407,11 +474,11 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Pack Desayuno Stevida
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="color:#9ca3af;text-decoration:line-through;font-size: 0.875rem;">$15.00</span>
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$12.75</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$12.75</span>
+                            <span class="price-original">$15.00</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
@@ -424,10 +491,10 @@
                         <h3 style="font-family:var(--font-body);font-size: 1rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
                             Galletas de Avena Stevida
                         </h3>
-                        <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:16px;">
-                            <span style="font-family:var(--font-display);font-size:2rem;color:var(--color-stevida-green);">$3.20</span>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.20</span>
                         </div>
-                        <button class="btn-add-cart">Añadir al carrito</button>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
