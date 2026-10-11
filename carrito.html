@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -247,12 +247,14 @@
 
     <footer class="site-footer">
         <div class="footer-inner">
-            <div>
-                <a href="index.html" class="footer-logo-img" aria-label="Stevida - Inicio"><img src="Stevida logo final.svg" alt="Stevida" style="height:60px;width:auto;filter:brightness(0) invert(1);display:block;"></a>
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo-img" aria-label="Stevida - Inicio">
+                    <img src="Stevida logo final.svg" alt="Stevida" width="160" height="60">
+                </a>
                 <p class="footer-tagline">Proysermesa Cía. Ltda. Es una empresa comunitaria con su marca registrada STEVIDA, formada por mujeres y hombres líderes desde el 2010.</p>
             </div>
-            <div>
-                <h4 class="footer-heading">Navegación</h4>
+            <nav class="footer-navigation" aria-label="Navegación del pie de página">
+                <h2 class="footer-heading">Navegación</h2>
                 <ul class="footer-nav-list">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="tienda.html">Tienda</a></li>
@@ -262,23 +264,41 @@
                     <li><a href="comunidad.html">Comunidad</a></li>
                     <li><a href="contactanos.html">Contáctanos</a></li>
                 </ul>
+            </nav>
+            <div class="footer-locations">
+                <h2 class="footer-heading">Lugares de venta</h2>
+                <a class="footer-location-link" href="encuentranos.html" aria-label="Ver lugares de venta de Stevida">
+                    <img src="lugares-venta.svg" alt="Mapa ilustrado con marcador de ubicación" width="440" height="220" loading="lazy">
+                    <span>Encuentra tu punto de venta <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                </a>
             </div>
-            <div>
-                <h4 class="footer-heading">Contáctanos</h4>
+            <div class="footer-contact-column">
+                <h2 class="footer-heading">Contáctanos</h2>
                 <ul class="footer-contact-list">
-                    <li><i class="fas fa-phone icon"></i><span>(+593) 62 585 693<br>(+593) 98 451 0973</span></li>
-                    <li><i class="fas fa-envelope icon"></i><span>info@steviadelecuador.com.ec</span></li>
-                    <li><i class="fas fa-map-marker-alt icon"></i><span>Ibarra - Ecuador</span></li>
+                    <li><i class="fas fa-phone icon" aria-hidden="true"></i><span><a href="tel:+593984510973">(+593) 98 451 0973</a><br><a href="tel:+59324763985">02 476 3985</a></span></li>
+                    <li><i class="fas fa-envelope icon" aria-hidden="true"></i><a href="mailto:info@steviadelecuador.com.ec">info@steviadelecuador.com.ec</a></li>
+                    <li><i class="fas fa-map-marker-alt icon" aria-hidden="true"></i><span>Ibarra - Ecuador</span></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <div class="footer-bottom-inner">
-                <p>Copyright &copy; 2026 Stevida. Todos los derechos reservados.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <div class="footer-legal">
+                    <ul class="footer-legal-list">
+                        <li><a href="#" aria-label="Política de Privacidad y Tratamiento de Datos">Política de Privacidad y Tratamiento de Datos</a></li>
+                        <li><a href="#" aria-label="Aviso Legal y Propiedad Intelectual">Aviso Legal y Propiedad Intelectual (Derechos Reservados)</a></li>
+                        <li><a href="#" aria-label="Términos y Condiciones de Uso y Venta">Términos y Condiciones de Uso y Venta</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social-wrap">
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/STEVIDAEcu/?locale=es_LA" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/stevida_ecuador/" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/593984510973" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                        <a href="https://www.tiktok.com/@stevida_ecuador" aria-label="TikTok"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                        <a href="https://x.com/StevidaE" aria-label="X (Twitter)" title="X (Twitter)"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.901 1.153h3.308l-7.227 8.26L23.485 22.847h-6.657l-5.214-8.128-7.111 8.128H1.193l7.73-8.835L.515 1.153h6.826l4.713 7.395 6.847-7.395Zm-1.16 19.33h1.833L6.345 3.392H4.378l13.363 17.09Z"/></svg></a>
+                        <a href="mailto:info@steviadelecuador.com.ec" aria-label="Correo electrónico"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

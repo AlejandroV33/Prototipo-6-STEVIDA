@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-labelledby="title desc">
+<title id="title">Encuentra Stevida</title><desc id="desc">Ilustración de un mapa con un marcador de ubicación</desc>
+<rect width="440" height="220" rx="12" fill="#fbf9f6"/>
+<path d="M0 155Q85 119 160 158T320 158T440 139V220H0Z" fill="#a2d3a6" opacity=".45"/>
+<path d="M25 45 123 21 220 47 313 22 412 46v131l-99-22-93 25-97-25-98 22Z" fill="#fff" stroke="#3F8227" stroke-width="3" stroke-linejoin="round"/>
+<path d="m123 21 0 134M220 47v133M313 22v133" stroke="#a2d3a6" stroke-width="3"/>
+<path d="M55 104q44-39 89-22t69 32 74-18 102 4" fill="none" stroke="#d2b68c" stroke-width="9" stroke-linecap="round" stroke-dasharray="4 14"/>
+<path d="M253 50c-29 0-52 23-52 52 0 38 52 83 52 83s52-45 52-83c0-29-23-52-52-52Z" fill="#3F8227"/>
+<circle cx="253" cy="102" r="19" fill="#fbf9f6"/>
+<path d="m246 102 6 6 12-14" fill="none" stroke="#3F8227" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
