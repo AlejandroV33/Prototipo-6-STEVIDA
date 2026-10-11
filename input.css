@@ -439,6 +439,22 @@ body {
   z-index: 0;
 }
 
+/* Hero product image */
+@media (max-width: 1023px) {
+
+  /* Centrar la imagen: neutralizar el justify-content: flex-end y los márgenes direccionales */
+  .hero-img-wrapper {
+    justify-content: center !important;
+    max-width: 100% !important;
+  }
+
+  .hero-img {
+    margin-top: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 /* =============================================================
    FORMS
    ============================================================= */
