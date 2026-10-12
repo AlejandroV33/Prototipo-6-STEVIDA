@@ -10,6 +10,53 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .supermarket-grid {
+            align-items: stretch;
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+        .supermarket-item {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            min-width: 0;
+            padding: 12px 8px;
+            text-align: center;
+        }
+        .supermarket-logo {
+            align-items: center;
+            display: flex;
+            height: 104px;
+            justify-content: center;
+            width: 100%;
+        }
+        .supermarket-logo img {
+            display: block;
+            height: auto;
+            max-height: 76px;
+            max-width: 100%;
+            object-fit: contain;
+            width: 180px;
+        }
+        .supermarket-item--square .supermarket-logo img {
+            max-height: 104px;
+            max-width: 104px;
+            width: 100%;
+        }
+        @media (max-width: 1023px) {
+            .supermarket-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 639px) {
+            .supermarket-grid {
+                gap: 16px 8px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- â•â• HEADER â•â• -->
@@ -103,18 +150,38 @@
                 <h2 class="text-editorial-label animate-fade-in" style="color: var(--color-burnt-orange); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1);">
                     Supermercados
                 </h2>
-                <div class="card animate-fade-in delay-100" style="padding: 48px 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px; align-items: center; margin-bottom: 0;">
-                    <div style="text-align: center; font-family: var(--font-display); font-size: 1.75rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display);">
-                        Santa María
-                    </div>
-                    <div style="text-align: center; font-family: var(--font-display); font-size: 1.75rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display);">
-                        Supermaxi
-                    </div>
-                    <div style="text-align: center; font-family: var(--font-display); font-size: 1.75rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display);">
-                        Megamaxi
-                    </div>
-                    <div style="text-align: center; font-family: var(--font-display); font-size: 1.75rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display);">
-                        Mi Comisariato
+                <div class="card animate-fade-in delay-100" style="padding: 40px 32px; margin-bottom: 0;">
+                    <div class="supermarket-grid">
+                        <figure class="supermarket-item">
+                            <div class="supermarket-logo">
+                                <img src="recursos/ENCUENTRANOS/santa-maria-logo.png" alt="Logo de Supermercados Santa María" title="Santa María" loading="lazy">
+                            </div>
+                        </figure>
+                        <figure class="supermarket-item">
+                            <div class="supermarket-logo">
+                                <img src="recursos/ENCUENTRANOS/super_logo.png" alt="Logo de Supermaxi" title="Supermaxi" loading="lazy">
+                            </div>
+                        </figure>
+                        <figure class="supermarket-item">
+                            <div class="supermarket-logo">
+                                <img src="recursos/ENCUENTRANOS/mi-comisariato.png" alt="Logo de Megamaxi" title="Megamaxi" loading="lazy">
+                            </div>
+                        </figure>
+                        <figure class="supermarket-item">
+                            <div class="supermarket-logo">
+                                <img src="recursos/ENCUENTRANOS/logo_mega.png" alt="Logo de Mi Comisariato" title="Mi Comisariato" loading="lazy">
+                            </div>
+                        </figure>
+                        <figure class="supermarket-item supermarket-item--square">
+                            <div class="supermarket-logo">
+                                <img src="recursos/ENCUENTRANOS/Camari_logo.png" alt="Logo de Camari" title="Camari" loading="lazy">
+                            </div>
+                        </figure>
+                        <figure class="supermarket-item supermarket-item--square">
+                            <div class="supermarket-logo">
+                                <img src="recursos/ENCUENTRANOS/Salinerito_logo.png" alt="Logo de Salinerito" title="Salinerito" loading="lazy">
+                            </div>
+                        </figure>
                     </div>
                 </div>
             </div>
