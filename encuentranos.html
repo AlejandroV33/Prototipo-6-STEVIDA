@@ -56,6 +56,146 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
+        .store-directory {
+            background: var(--color-cream-paper);
+            padding: 24px 0 80px;
+        }
+        .store-zone {
+            margin: 0 auto 72px;
+            max-width: var(--page-max-width);
+            padding: 0 var(--spacing-32);
+        }
+        .store-zone:last-child {
+            margin-bottom: 0;
+        }
+        .store-directory-title {
+            color: var(--color-stevida-green);
+            margin: 0 auto 40px;
+            max-width: var(--page-max-width);
+            padding: 0 var(--spacing-32);
+        }
+        .store-zone-banner-wrap {
+            aspect-ratio: 19 / 6;
+            overflow: hidden;
+            position: relative;
+            width: min(78%, 900px);
+        }
+        .store-zone-banner-wrap.animate-fade-in {
+            transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .store-zone-banner {
+            border-radius: var(--radius-cards);
+            display: block;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleY(0.94);
+            transform-origin: center;
+            width: 100%;
+        }
+        .store-zone--left .store-zone-banner {
+            mask-image:
+                linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%),
+                linear-gradient(to right, #000 0%, #000 95%, transparent 100%);
+            mask-composite: intersect;
+        }
+        .store-zone--right .store-zone-banner {
+            mask-image:
+                linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%),
+                linear-gradient(to left, #000 0%, #000 95%, transparent 100%);
+            mask-composite: intersect;
+        }
+        .store-zone-name {
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            left: 28px;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            position: absolute;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.8);
+            top: 24px;
+        }
+        .store-zone--right .store-zone-name {
+            left: auto;
+            right: 28px;
+            text-align: right;
+        }
+        .store-zone--left .store-zone-banner-wrap {
+            margin: 0 auto 32px 0;
+        }
+        .store-zone--right .store-zone-banner-wrap {
+            margin: 0 0 32px auto;
+        }
+        .store-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        }
+        .store-card {
+            padding: 24px;
+            transition: transform 220ms ease, box-shadow 220ms ease;
+        }
+        .store-card:hover,
+        .store-card:focus-within {
+            box-shadow: 0 14px 34px rgba(25, 54, 31, 0.22);
+            transform: translateY(-5px);
+        }
+        .store-card h3 {
+            color: var(--color-stevida-green);
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            letter-spacing: var(--tracking-display);
+            line-height: 1.15;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .store-card p {
+            color: var(--color-ink-black);
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            line-height: 1.65;
+        }
+        @media (max-width: 639px) {
+            .store-zone {
+                margin-bottom: 48px;
+            }
+            .store-directory-title {
+                margin-bottom: 24px;
+            }
+            .store-zone-banner-wrap {
+                width: 100%;
+            }
+            .store-zone-banner {
+                border-radius: 6px;
+                margin-bottom: 0;
+            }
+            .store-zone-name {
+                left: 16px;
+                font-size: clamp(1.75rem, 7vw, 2.25rem);
+                top: 16px;
+            }
+            .store-zone--right .store-zone-name {
+                right: 16px;
+            }
+            .store-grid {
+                gap: 16px;
+                grid-template-columns: 1fr;
+            }
+            .store-card {
+                padding: 20px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .store-card {
+                transition: none;
+            }
+            .store-card:hover,
+            .store-card:focus-within {
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -238,50 +378,98 @@
             @media (min-width: 1024px) { .map-embed-wrapper { height: 600px; } }
         </style>
 
-        <!-- Tiendas Naturistas Quito -->
-        <section style="padding: 0 0 64px; background-color: var(--color-cream-paper);">
-            <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
-                <h2 class="text-editorial-label animate-fade-in" style="color: var(--color-stevida-green); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1);">
-                    Tiendas Naturistas Quito
-                </h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
-                    <div class="card animate-fade-in" style="padding: 24px;">
-                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 8px;">Camari</h3>
-                        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black);">Marchena Oe-2 38 y Versalles</p>
-                    </div>
-                    <div class="card animate-fade-in delay-100" style="padding: 24px;">
-                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 8px;">Amandé</h3>
-                        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black);">Avigiras E13-135 y de las Mentas</p>
-                    </div>
-                    <div class="card animate-fade-in delay-200" style="padding: 24px;">
-                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 8px;">Flora Garden</h3>
-                        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black);">CC Ventura Mall, Tumbaco</p>
-                    </div>
-                    <div class="card animate-fade-in delay-300" style="padding: 24px;">
-                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 8px;">Natura Market</h3>
-                        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black);">Av. 6 de Diciembre N33-49, Quito</p>
-                    </div>
+        <section class="store-directory" aria-label="Tiendas naturistas por zona">
+            <h2 class="text-editorial-label store-directory-title animate-fade-in">Tiendas naturistas</h2>
+            <section class="store-zone store-zone--left" aria-label="Tiendas naturistas en Quito">
+                <div class="store-zone-banner-wrap animate-fade-in">
+                    <img class="store-zone-banner" src="recursos/ENCUENTRANOS/quito_banner.jpg" alt="Paisaje ilustrado de Quito y los Andes" loading="lazy">
+                    <span class="store-zone-name">Quito</span>
                 </div>
-            </div>
-        </section>
+                <div class="store-grid">
+                    <article class="card store-card animate-fade-in"><h3>Camari</h3><p>Matriz en Marchena Oe-2 38 y Versalles (Santa Clara).<br>Sucursal en Amazonas y José Bolaños.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Balance Nutrition Market</h3><p>Av. San Pedro de Taboada, Valle de los Chillos.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Amandé</h3><p>Avigiras E13-135 y de las Mentas (pedidos a domicilio).</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Natulider</h3><p>Calle Madrid E14-138 y Mallorca, La Floresta.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Endémica</h3><p>Madrid E16-89 y Tolosa.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Fenix</h3><p>Delivery y Market, envíos a domicilio.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Flora Garden</h3><p>Av. Interoceánica Km 14½ y S/N, CC Ventura Mall, planta baja, local 4pb (Tumbaco).</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Life Market</h3><p>Mallorca y Av. La Coruña.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Natuorganic</h3><p>Av. El Telégrafo E10-146 y El Día (El Batán Bajo).<br>Av. Río Curaray OE11-49 (Valle de los Chillos).<br>El Telégrafo 313-209.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Super Foods</h3><p>Centro Comercial Ataium, Av. González Suárez.<br>Av. Interoceánica y Av. Siena, La Tejedora, Distrito Creativo (Cumbayá).</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Te Quiero Verde</h3><p>Av. Eloy Alfaro E5 330 y Av. De la República.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Labus</h3><p>Av. Toledo N23-100 y Madrid (La Floresta).<br>Antonio Navarro y de los Shyris, Edificio Sinahí (Parque La Carolina).</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Oasis Sur</h3><p>Sur de Quito, Guajaló.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>The Forest Beef</h3><p>Calle J N43 144, El Bosque.</p></article>
+                </div>
+            </section>
 
-        <!-- Tiendas Naturistas Ibarra -->
-        <section style="padding: 0 0 80px; background-color: var(--color-cream-paper);">
-            <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
-                <h2 class="text-editorial-label animate-fade-in" style="color: var(--color-stevida-green); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1);">
-                    Tiendas Naturistas Ibarra
-                </h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
-                    <div class="card animate-fade-in" style="padding: 24px;">
-                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 8px;">Punto Verde</h3>
-                        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black);">Bolívar y Flores, Ibarra</p>
-                    </div>
-                    <div class="card animate-fade-in delay-100" style="padding: 24px;">
-                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 8px;">Naturaleza Viva</h3>
-                        <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black);">Av. Mariano Acosta, Ibarra</p>
-                    </div>
+            <section class="store-zone store-zone--right" aria-label="Tiendas naturistas en Guayaquil">
+                <div class="store-zone-banner-wrap animate-fade-in">
+                    <img class="store-zone-banner" src="recursos/ENCUENTRANOS/guayaquil_banner.jpg" alt="Ilustración costera de Guayaquil al atardecer" loading="lazy">
+                    <span class="store-zone-name">Guayaquil</span>
                 </div>
-            </div>
+                <div class="store-grid">
+                    <article class="card store-card animate-fade-in"><h3>Alinuts</h3><p>Centro Comercial Albocentro, Av. Benjamín Carrión Mora.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Goorganicec</h3><p>Tienda orgánica online.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>El Huerto de Luchi</h3><p>Urdesa, Calle Guayacanes 303 y la 3era.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>La María Orgánica</h3><p>Mercado de artesanos y Productores Orgánicos, Circunvalación Sur y Guayaquil.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Vitalnuts</h3><p>Av. Benjamín Carrión Mora.<br>Av. Luis Plaza Dañín 108.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Vagon Fit</h3><p>Tienda virtual, envíos a nivel nacional.<br>Matriz en Guayaquil.</p></article>
+                </div>
+            </section>
+
+            <section class="store-zone store-zone--left" aria-label="Tiendas naturistas en la región Costa">
+                <div class="store-zone-banner-wrap animate-fade-in">
+                    <img class="store-zone-banner" src="recursos/ENCUENTRANOS/costa_banner.jpg" alt="Paisaje de la región Costa ecuatoriana al atardecer" loading="lazy">
+                    <span class="store-zone-name">Costa</span>
+                </div>
+                <div class="store-grid">
+                    <article class="card store-card animate-fade-in"><h3>Aldea Verde (Milagro)</h3><p>García Moreno 1002 y Bolívar.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>La Casa Orgánica (Huaquillas)</h3><p>Avenida de la República y 24 de Mayo.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Biotienda (Esmeraldas)</h3><p>Av. Colón.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Noblecilla (Machala)</h3><p>Av. Edgar Córdova Polo y Augusto Valle Rosales, Centro Comercial Unioro, local 91.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Aymuray (El Carmen, Manabí)</h3><p>Av. 3 de Julio y Calle 6 de agosto.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Tashi (Calceta, Manabí)</h3><p>Cjon. Atahualpa 2.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Mi Tienda Saludable (Santo Domingo)</h3><p>Juan José Flores y Vicente Rocafuerte.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>MerkaMarket (Santo Domingo)</h3><p>Av. 29 de Mayo.</p></article>
+                </div>
+            </section>
+
+            <section class="store-zone store-zone--right" aria-label="Tiendas naturistas en la región Sierra">
+                <div class="store-zone-banner-wrap animate-fade-in">
+                    <img class="store-zone-banner" src="recursos/ENCUENTRANOS/sierra_banner.jpg" alt="Paisaje andino de la región Sierra ecuatoriana" loading="lazy">
+                    <span class="store-zone-name">Sierra</span>
+                </div>
+                <div class="store-grid">
+                    <article class="card store-card animate-fade-in"><h3>NaturAndes (Ibarra)</h3><p>Simón Bolívar 763 y Pedro Moncayo, frente a Prefectura de Ibarra.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Verde Tu (Ibarra)</h3><p>La Plaza Shopping Center.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Canela &amp; Jengibre (Atuntaqui)</h3><p>Calle General Enríquez y Atahualpa.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Botánica Natural (Cotacachi)</h3><p>Calle Bolívar y García Moreno.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Salinerito (Latacunga)</h3><p>Calle Fernando Sánchez de Orellana.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>Biodespensa (Riobamba)</h3><p>Juan Montalvo 24-25 y Veloz.</p></article>
+                    <article class="card store-card animate-fade-in"><h3>All Green Shop (Ambato)</h3><p>Calle Sucre 10-11 y pasaje Rodó.</p></article>
+                </div>
+            </section>
+
+            <section class="store-zone store-zone--left" aria-label="Tiendas naturistas en la región Oriente">
+                <div class="store-zone-banner-wrap animate-fade-in">
+                    <img class="store-zone-banner" src="recursos/ENCUENTRANOS/oriente_banner.jpg" alt="Paisaje de la Amazonía ecuatoriana" loading="lazy">
+                    <span class="store-zone-name">Oriente</span>
+                </div>
+                <div class="store-grid">
+                    <article class="card store-card animate-fade-in"><h3>Productos Orgánicos A&amp;H (Yantzaza)</h3><p>Jorge Mosquera entre Primero de Mayo y Armando Arias.</p></article>
+                </div>
+            </section>
+
+            <section class="store-zone store-zone--right" aria-label="Tiendas naturistas en Galápagos">
+                <div class="store-zone-banner-wrap animate-fade-in">
+                    <img class="store-zone-banner" src="recursos/ENCUENTRANOS/galapagos_banner.jpg" alt="Paisaje y fauna de las islas Galápagos" loading="lazy">
+                    <span class="store-zone-name">Galápagos</span>
+                </div>
+                <div class="store-grid">
+                    <article class="card store-card animate-fade-in"><h3>Healthy (San Cristóbal)</h3><p>Alsacio Northia y Manuel Julian Cobos.</p></article>
+                </div>
+            </section>
         </section>
     </main>
 
