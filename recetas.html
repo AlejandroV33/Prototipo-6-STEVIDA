@@ -15,6 +15,28 @@
             color: var(--color-ink-black);
             overflow-x: hidden;
         }
+        .recipe-card {
+            color: inherit;
+            display: block;
+            transition: transform 220ms ease, box-shadow 220ms ease;
+            text-decoration: none;
+        }
+        .recipe-card:hover {
+            box-shadow: 0 16px 38px rgba(25, 54, 31, 0.24);
+            transform: translateY(-6px);
+        }
+        .recipe-card:focus-visible {
+            outline: 3px solid var(--color-stevida-green);
+            outline-offset: 4px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .recipe-card {
+                transition: none;
+            }
+            .recipe-card:hover {
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body class="font-body text-base">
@@ -107,13 +129,6 @@
             </div>
         </section>
 
-        <!-- Wave divider: burnt-orange → cream-paper (document flow sibling) -->
-        <div class="wave-divider" aria-hidden="true" style="line-height:0; margin-top:-2px;">
-            <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="display:block;width:100%;height:100px;">
-                <path d="M0,0 C480,100 960,100 1440,0 L1440,100 L0,100 Z" fill="var(--color-cream-paper)"></path>
-            </svg>
-        </div>
-
         <!-- Recipes Grid Section -->
         <section style="position:relative; overflow:hidden; background-color:var(--color-cream-paper); padding:80px 0 100px;">
 
@@ -128,61 +143,49 @@
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:40px;">
 
                     <!-- Recipe 1 -->
-                    <article class="card animate-fade-in" style="overflow:hidden; cursor:pointer;">
+                    <a href="receta_ejemplo.html" class="card recipe-card animate-fade-in" style="overflow:hidden; cursor:pointer;">
                         <div style="position:relative; height:256px; overflow:hidden;">
                             <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/06/hamburguesa-de-lenteja-768x768.png"
                                  alt="Hamburguesas de lenteja"
                                  style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;"
                                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            <div style="position:absolute; top:1rem; right:1rem; background:var(--color-pure-white); border-radius:999px; padding:4px 12px; display:flex; align-items:center; gap:6px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                                <i class="far fa-clock" style="color:var(--color-burnt-orange); font-size:0.7rem;"></i>
-                                <span class="text-editorial-label" style="font-size:1.2rem; color:var(--color-stevida-green);">30 min</span>
-                            </div>
                         </div>
                         <div style="padding:1.5rem;">
                             <span class="text-editorial-label" style="color:var(--color-burnt-orange); font-size:1.2rem; margin-bottom:0.5rem; display:inline-block;">Plato Fuerte</span>
                             <h3 style="font-family:var(--font-display); font-size:1.875rem; color:var(--color-stevida-green); text-transform:uppercase; letter-spacing:var(--tracking-display); line-height:1.05; margin:0;">Hamburguesas de Lenteja</h3>
                         </div>
-                    </article>
+                    </a>
 
                     <!-- Recipe 2 -->
-                    <article class="card animate-fade-in" style="overflow:hidden; cursor:pointer;">
+                    <a href="receta_ejemplo.html" class="card recipe-card animate-fade-in" style="overflow:hidden; cursor:pointer;">
                         <div style="position:relative; height:256px; overflow:hidden;">
                             <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/06/avena-con-naranjilla-768x768.png"
                                  alt="Colada de avena con naranjilla"
                                  style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;"
                                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            <div style="position:absolute; top:1rem; right:1rem; background:var(--color-pure-white); border-radius:999px; padding:4px 12px; display:flex; align-items:center; gap:6px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                                <i class="far fa-clock" style="color:var(--color-burnt-orange); font-size:0.7rem;"></i>
-                                <span class="text-editorial-label" style="font-size:1.2rem; color:var(--color-stevida-green);">15 min</span>
-                            </div>
                         </div>
                         <div style="padding:1.5rem;">
                             <span class="text-editorial-label" style="color:var(--color-burnt-orange); font-size:1.2rem; margin-bottom:0.5rem; display:inline-block;">Bebidas</span>
                             <h3 style="font-family:var(--font-display); font-size:1.875rem; color:var(--color-stevida-green); text-transform:uppercase; letter-spacing:var(--tracking-display); line-height:1.05; margin:0;">Colada de Avena con Naranjilla</h3>
                         </div>
-                    </article>
+                    </a>
 
                     <!-- Recipe 3 -->
-                    <article class="card animate-fade-in" style="overflow:hidden; cursor:pointer;">
+                    <a href="receta_ejemplo.html" class="card recipe-card animate-fade-in" style="overflow:hidden; cursor:pointer;">
                         <div style="position:relative; height:256px; overflow:hidden;">
                             <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/06/panancota-768x768.png"
                                  alt="Pannacota con Granada"
                                  style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;"
                                  onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            <div style="position:absolute; top:1rem; right:1rem; background:var(--color-pure-white); border-radius:999px; padding:4px 12px; display:flex; align-items:center; gap:6px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                                <i class="far fa-clock" style="color:var(--color-burnt-orange); font-size:0.7rem;"></i>
-                                <span class="text-editorial-label" style="font-size:1.2rem; color:var(--color-stevida-green);">45 min</span>
-                            </div>
                         </div>
                         <div style="padding:1.5rem;">
                             <span class="text-editorial-label" style="color:var(--color-burnt-orange); font-size:1.2rem; margin-bottom:0.5rem; display:inline-block;">Postres</span>
                             <h3 style="font-family:var(--font-display); font-size:1.875rem; color:var(--color-stevida-green); text-transform:uppercase; letter-spacing:var(--tracking-display); line-height:1.05; margin:0;">Pannacota con Granada</h3>
                         </div>
-                    </article>
+                    </a>
 
                     <!-- Recipe 4 -->
-                    <article class="card animate-fade-in" style="overflow:hidden; cursor:pointer;">
+                    <a href="receta_ejemplo.html" class="card recipe-card animate-fade-in" style="overflow:hidden; cursor:pointer;">
                         <div style="height:256px; overflow:hidden;">
                             <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/06/pollo-con-salsa-de-mermelada-768x768.png"
                                  alt="Pollo con salsa de mermelada"
@@ -193,10 +196,10 @@
                             <span class="text-editorial-label" style="color:var(--color-burnt-orange); font-size:1.2rem; margin-bottom:0.5rem; display:inline-block;">Plato Fuerte</span>
                             <h3 style="font-family:var(--font-display); font-size:1.875rem; color:var(--color-stevida-green); text-transform:uppercase; letter-spacing:var(--tracking-display); line-height:1.05; margin:0;">Pollo con salsa de mermelada</h3>
                         </div>
-                    </article>
+                    </a>
 
                     <!-- Recipe 5 -->
-                    <article class="card animate-fade-in" style="overflow:hidden; cursor:pointer;">
+                    <a href="receta_ejemplo.html" class="card recipe-card animate-fade-in" style="overflow:hidden; cursor:pointer;">
                         <div style="height:256px; overflow:hidden;">
                             <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/06/botans-con-quesi-768x768.png"
                                  alt="Botanas con queso"
@@ -207,10 +210,10 @@
                             <span class="text-editorial-label" style="color:var(--color-burnt-orange); font-size:1.2rem; margin-bottom:0.5rem; display:inline-block;">Snacks</span>
                             <h3 style="font-family:var(--font-display); font-size:1.875rem; color:var(--color-stevida-green); text-transform:uppercase; letter-spacing:var(--tracking-display); line-height:1.05; margin:0;">Botanas con queso</h3>
                         </div>
-                    </article>
+                    </a>
 
                     <!-- Recipe 6 -->
-                    <article class="card animate-fade-in" style="overflow:hidden; cursor:pointer;">
+                    <a href="receta_ejemplo.html" class="card recipe-card animate-fade-in" style="overflow:hidden; cursor:pointer;">
                         <div style="height:256px; overflow:hidden;">
                             <img src="https://www.stevidaecuador.com/wp-content/uploads/2021/06/stevida-instagram-3-768x768.png"
                                  alt="Pollo con piel de Naranja"
@@ -221,7 +224,7 @@
                             <span class="text-editorial-label" style="color:var(--color-burnt-orange); font-size:1.2rem; margin-bottom:0.5rem; display:inline-block;">Plato Fuerte</span>
                             <h3 style="font-family:var(--font-display); font-size:1.875rem; color:var(--color-stevida-green); text-transform:uppercase; letter-spacing:var(--tracking-display); line-height:1.05; margin:0;">Pollo con piel de Naranja</h3>
                         </div>
-                    </article>
+                    </a>
 
                 </div><!-- /grid -->
 
