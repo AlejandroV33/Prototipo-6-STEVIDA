@@ -157,6 +157,21 @@
             font-size: 0.9375rem;
             line-height: 1.65;
         }
+        .maps-app-link {
+            align-items: center;
+            box-sizing: border-box;
+            display: inline-flex;
+            gap: 10px;
+            justify-content: center;
+            line-height: 1.4;
+            max-width: 100%;
+            padding: 14px 36px;
+            text-align: center;
+            white-space: normal;
+        }
+        .maps-app-link i {
+            flex: 0 0 auto;
+        }
         @media (max-width: 639px) {
             .store-zone {
                 margin-bottom: 48px;
@@ -185,6 +200,10 @@
             }
             .store-card {
                 padding: 20px;
+            }
+            .maps-app-link {
+                width: 100%;
+                padding: 14px 18px;
             }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -359,13 +378,12 @@
                 <!-- CTA: open in Google Maps app -->
                 <div style="text-align: center; margin-top: 28px;">
                     <a
-                        href="https://www.google.com/maps/d/viewer?mid=1uqoNRGNnbr9Hq8s5qXKdayGTxZjKsUI"
+                        href="https://www.google.com/maps/search/?api=1&amp;query=Stevida%20puntos%20de%20venta%20Ecuador"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="btn btn-secondary"
-                        style="padding: 14px 36px; display: inline-flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Abrir en la aplicación de Google Maps
+                        class="btn btn-secondary maps-app-link">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <span>Abrir puntos de venta en Google Maps</span>
                     </a>
                 </div>
 

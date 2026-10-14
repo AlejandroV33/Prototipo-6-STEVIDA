@@ -34,6 +34,11 @@
             z-index: 5;
             opacity: 0.7;
         }
+        @media (max-width: 767px) {
+            .hero-botanical {
+                display: none;
+            }
+        }
 
         .values-carousel {
             position: relative;
@@ -353,7 +358,7 @@
             </svg>
 
             <!-- Botanical Illustration (absolutely positioned INSIDE section) -->
-            <svg class="botanical-ill" style="top:160px;left:80px;width:12rem;height:12rem;transform:rotate(-12deg);" viewBox="0 0 100 100">
+            <svg class="botanical-ill hero-botanical" style="top:160px;left:80px;width:12rem;height:12rem;transform:rotate(-12deg);" viewBox="0 0 100 100">
                 <path d="M50,90 C50,90 20,60 30,30 C40,10 60,10 70,30 C80,60 50,90 50,90 Z"/>
                 <path d="M50,90 L50,10"/>
                 <path d="M50,70 Q70,60 80,40"/>
@@ -488,9 +493,11 @@
                         <p style="font-family:var(--font-body);font-size:1rem;line-height:1.7;color:var(--color-pure-white);margin-bottom:2rem;">
                             Queremos crecer junto a ti. Stevida puede enseñarte cómo cultivar stevia de forma orgánica y limpia, favoreciendo el cuidado del medio ambiente y la salud. Brindamos asesoría desde la implementación del cultivo hasta la comercialización.
                         </p>
-                        <a href="contactanos.html" class="btn btn-primary" style="padding:18px 48px;font-size: 0.8125rem;display:inline-block;">
-                            Contáctanos
-                        </a>
+                        <div style="display:flex;justify-content:center;">
+                            <a href="contactanos.html" class="btn btn-primary" style="padding:18px 48px;font-size: 0.8125rem;display:inline-block;">
+                                Contáctanos
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Image column -->
