@@ -108,17 +108,100 @@
         .delay-300 { transition-delay: 300ms; }
 
         /* =============================================================
-           ANIMACIÓN 3D & HOVER DE LA GALERÍA
+           GALERÍA
+           MÓVIL (por defecto): 2 columnas × 3 filas
+             Fila 1: [ horizontal grande (2 cols) ]
+             Fila 2: [ vertical ][ vertical ]
+             Fila 3: [ horizontal grande (2 cols) ]
+           ESCRITORIO (≥768px): 3 columnas × 2 filas
+             Fila 1: [ horizontal (2 cols) ][ vertical ]
+             Fila 2: [ vertical ][ horizontal (2 cols) ]
+             Ambas filas miden lo mismo → bordes alineados, bloque rectangular.
            ============================================================= */
+        .field-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+            max-width: 960px;           /* contenedor más grande en escritorio */
+            margin-inline: auto;
+        }
+
+        .field-gallery__item {
+            min-height: 0;
+            min-width: 0;
+            margin: 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .field-gallery__item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Móvil: cada celda define su propia proporción */
+        .field-gallery__item:nth-child(1) { grid-area: 1 / 1 / 2 / 3; aspect-ratio: 16 / 9; }
+        .field-gallery__item:nth-child(2) { grid-area: 2 / 1 / 3 / 2; aspect-ratio: 4 / 5; }
+        .field-gallery__item:nth-child(3) { grid-area: 2 / 2 / 3 / 3; aspect-ratio: 4 / 5; }
+        .field-gallery__item:nth-child(4) { grid-area: 3 / 1 / 4 / 3; aspect-ratio: 16 / 9; }
+
+        @media (min-width: 768px) {
+            .field-gallery {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-rows: repeat(2, minmax(0, 1fr));
+                gap: 20px;
+                aspect-ratio: 48 / 35;  /* 960 × 700 aprox. */
+            }
+
+            .field-gallery__item { aspect-ratio: auto !important; }
+
+            .field-gallery__item:nth-child(1) { grid-area: 1 / 1 / 2 / 3; } /* fila 1, cols 1-2 */
+            .field-gallery__item:nth-child(2) { grid-area: 1 / 3 / 2 / 4; } /* fila 1, col 3   */
+            .field-gallery__item:nth-child(3) { grid-area: 2 / 1 / 3 / 2; } /* fila 2, col 1   */
+            .field-gallery__item:nth-child(4) { grid-area: 2 / 2 / 3 / 4; } /* fila 2, cols 2-3 */
+        }
+
+        /* =============================================================
+           ANIMACIÓN 3D & HOVER DE LA GALERÍA
+           Cada foto "gira" desde el lado donde está anclada:
+           las de la columna izquierda pivotan desde su borde izquierdo
+           y las de la derecha desde su borde derecho, así el efecto
+           se abre hacia el centro del mosaico.
+           ============================================================= */
+        .field-gallery__item--from-left  { --enter-rot: -90deg; transform-origin: left center; }
+        .field-gallery__item--from-right { --enter-rot:  90deg; transform-origin: right center; }
+
         html.js .field-gallery__item {
             opacity: 0;
-            transform: rotateY(-90deg) scale(0.95);
-            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: rotateY(var(--enter-rot, -90deg)) scale(0.95);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        box-shadow 0.4s ease;
         }
 
         html.js .field-gallery__item.is-revealed {
             opacity: 1;
             transform: rotateY(0deg) scale(1);
+        }
+
+        /* Entrada suave para las dos imágenes grandes (1 y 4):
+           en lugar del giro 3D, aparecen con un fundido y un leve ascenso. */
+        @media (prefers-reduced-motion: no-preference) {
+            html.js .field-gallery__item:nth-child(1),
+            html.js .field-gallery__item:nth-child(4) {
+                transform: translateY(28px) scale(0.985);
+                transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                            transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                            box-shadow 0.4s ease;
+            }
+
+            html.js .field-gallery__item:nth-child(1).is-revealed,
+            html.js .field-gallery__item:nth-child(4).is-revealed {
+                transform: translateY(0) scale(1);
+            }
         }
 
         @media (hover: hover) and (pointer: fine) {
@@ -129,16 +212,24 @@
                 box-shadow: 0 16px 38px rgba(0,0,0,0.14);
             }
         }
+
+        /* Accesibilidad: sin animación para quien lo prefiera */
+        @media (prefers-reduced-motion: reduce) {
+            html.js .field-gallery__item {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- ══════════════════════════════════════════════
          PROCESS / GALLERY — Sección Completa
-         (Extraída de prototipo 6/index.html)
     ══════════════════════════════════════════════ -->
     <section style="background-color: var(--color-cream-paper); padding: 80px 0; position: relative; overflow: hidden;">
-        
+
         <!-- Mint blob (decorativo) -->
         <svg class="blob"
              style="top: 40px; right: 0; width: 380px; height: 380px; color: var(--color-mint-sage); transform: translateX(33%); opacity: 0.5;"
@@ -171,22 +262,29 @@
                     </a>
                 </div>
 
-                <!-- Columna de imágenes - Diseño simétrico con perspectiva 3D -->
-                <div class="w-full max-w-[650px] mx-auto grid grid-cols-2 gap-5 relative z-10 field-gallery" style="perspective: 1200px;" aria-label="Galería del proceso productivo de Stevida">
-                    
-                    <!-- 1. Horizontal superior -->
-                    <figure class="col-span-2 aspect-[16/9] rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item origin-center">
+                <!-- Mosaico 3×2: bordes alineados, 20px de separación -->
+                <div class="relative z-10 field-gallery"
+                     style="perspective: 1200px;"
+                     aria-label="Galería del proceso productivo de Stevida">
+
+                    <!-- 1. Horizontal — fila 1, columnas 1-2 -->
+                    <figure class="col-span-2 row-span-1 rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item field-gallery__item--from-left">
                         <img src="recursos/INICIO/Stevida_campo.jpg" alt="Campo Stevida" class="w-full h-full object-cover">
                     </figure>
 
-                    <!-- 2. Vertical izquierda -->
-                    <figure class="col-span-1 aspect-[4/5] rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item origin-center">
+                    <!-- 2. Vertical — fila 1, columna 3 (la que antes estaba abajo a la izquierda) -->
+                    <figure class="col-span-1 row-span-1 rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item field-gallery__item--from-right">
                         <img src="recursos/INICIO/Stevida_gal_6.jpg" alt="Hojas Stevida" class="w-full h-full object-cover">
                     </figure>
 
-                    <!-- 3. Vertical derecha -->
-                    <figure class="col-span-1 aspect-[4/5] rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item origin-center">
+                    <!-- 3. Vertical — fila 2, columna 1 (la que quedaba) -->
+                    <figure class="col-span-1 row-span-1 rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item field-gallery__item--from-left">
                         <img src="recursos/INICIO/Stevida_gal_5.jpg" alt="Cultivos Stevida" class="w-full h-full object-cover">
+                    </figure>
+
+                    <!-- 4. NUEVA horizontal — fila 2, columnas 2-3 (reemplaza la ruta por tu nueva foto) -->
+                    <figure class="col-span-2 row-span-1 rounded-[8px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.10)] bg-[#ece9e4] field-gallery__item field-gallery__item--from-right">
+                        <img src="recursos/INICIO/Stevida_campo.jpg" alt="Proceso de producción Stevida" class="w-full h-full object-cover">
                     </figure>
 
                 </div>
@@ -201,10 +299,10 @@
     <script>
         /*
          * Desde el campo — reveal contextual.
-         * - Si la galería aún no se alcanza: espera a que el usuario llegue (sin importar cuánto suba o baje antes).
-         * - Si al cargar (recarga/restauración) el usuario ya está en la galería o por debajo: reproduce la secuencia.
+         * - Si la galería aún no se alcanza: espera a que el usuario llegue.
+         * - Si al cargar el usuario ya está en la galería o por debajo: reproduce la secuencia.
          * - Si la galería queda por encima del viewport sin haberse revelado: reproduce la secuencia en silencio.
-         * - Las fotos se revelan en orden y una sola vez por carga.
+         * - Las fotos se revelan en orden (zigzag: 1 → 2 → 3 → 4) y una sola vez por carga.
          */
         (() => {
             const gallery = document.querySelector('.field-gallery');
@@ -305,11 +403,7 @@
                 items.forEach(item => observer.observe(item));
                 window.addEventListener('scroll', onScroll, { passive: true });
 
-                /*
-                 * Al cargar: si la galería ya está visible o quedó por encima del viewport
-                 * (recarga con scroll restaurado, ancla, etc.), reproduce la secuencia automáticamente.
-                 * Si está por debajo, el IntersectionObserver espera a que el usuario llegue.
-                 */
+                /* Si ya está visible o quedó por encima (recarga con scroll restaurado), reproduce la secuencia. */
                 const rect = gallery.getBoundingClientRect();
                 if (rect.top < window.innerHeight) startForcedSequence();
             }

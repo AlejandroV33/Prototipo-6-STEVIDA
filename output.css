@@ -330,6 +330,9 @@
   .col-span-2 {
     grid-column: span 2 / span 2;
   }
+  .row-span-1 {
+    grid-row: span 1 / span 1;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -502,6 +505,12 @@
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid-rows-2 {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
   .flex-col {
     flex-direction: column;
