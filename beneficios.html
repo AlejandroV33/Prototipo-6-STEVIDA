@@ -61,7 +61,10 @@
         /* =============================================================
            GRID Y TARJETAS DE BENEFICIOS (FEATURES)
            ============================================================= */
-        /* Definición de la cuadrícula centrada y simétrica */
+        /* Cuadrícula de 5 tarjetas.
+           Móvil: 1 columna.
+           Tablet: 2 + 2 + 1 (la última centrada).
+           Escritorio: 3 arriba + 2 abajo centradas (mismo ancho en todas). */
         .features-grid {
             display: grid;
             gap: 28px;
@@ -70,21 +73,28 @@
 
         @media (min-width: 600px) {
             .features-grid {
-                grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columnas */
+                grid-template-columns: repeat(4, 1fr);
             }
+
+            .feature-card { grid-column: span 2; }
+            .feature-card:nth-child(5) { grid-column: 2 / span 2; }
         }
 
         @media (min-width: 1024px) {
             .features-grid {
-                grid-template-columns: repeat(4, 1fr); /* Escritorio: 4 columnas */
+                grid-template-columns: repeat(6, 1fr);
             }
+
+            .feature-card { grid-column: span 2; }
+            .feature-card:nth-child(4) { grid-column: 2 / span 2; }
+            .feature-card:nth-child(5) { grid-column: 4 / span 2; }
         }
 
         /* Tarjetas de Beneficios — Base común */
         .feature-card {
             background-color: var(--color-pure-white);
             border-radius: var(--radius-cards);
-            padding: 32px;
+            padding: 28px 40px;
             box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 24px 0px;
             display: flex;
             flex-direction: column;
@@ -119,6 +129,11 @@
         .feature-card:nth-child(4) {
             z-index: 1;
             --rot-start: 4deg;
+        }
+
+        .feature-card:nth-child(5) {
+            z-index: 0;
+            --rot-start: -3deg;
         }
 
         /* Hover solo en dispositivos con puntero (evita hover "pegado" en celular) */
@@ -188,51 +203,66 @@
             .feature-card:nth-child(4).is-visible {
                 animation-delay: 0.85s;
             }
+
+            .feature-card:nth-child(5).is-visible {
+                animation-delay: 1.1s;
+            }
         }
 
-        /* Tablet (2x2) - apiladas al centro */
+        /* Tablet (2 + 2 + 1) - apiladas al centro de la cuadrícula (centro de la fila 2) */
         @media (min-width: 600px) and (max-width: 1023px) {
             .feature-card:nth-child(1) {
                 --center-x: calc(50% + 14px);
-                --center-y: calc(50% + 14px);
+                --center-y: calc(100% + 28px);
             }
 
             .feature-card:nth-child(2) {
                 --center-x: calc(-50% - 14px);
-                --center-y: calc(50% + 14px);
+                --center-y: calc(100% + 28px);
             }
 
             .feature-card:nth-child(3) {
                 --center-x: calc(50% + 14px);
-                --center-y: calc(-50% - 14px);
+                --center-y: 0px;
             }
 
             .feature-card:nth-child(4) {
                 --center-x: calc(-50% - 14px);
-                --center-y: calc(-50% - 14px);
+                --center-y: 0px;
+            }
+
+            .feature-card:nth-child(5) {
+                --center-x: 0px;
+                --center-y: calc(-100% - 28px);
             }
         }
 
-        /* Escritorio (4x1) - apiladas al centro */
+        /* Escritorio (3 + 2) - apiladas al centro de la cuadrícula
+           (centro horizontal = tarjeta 2, centro vertical = entre ambas filas) */
         @media (min-width: 1024px) {
             .feature-card:nth-child(1) {
-                --center-x: calc(150% + 42px);
-                --center-y: 0px;
+                --center-x: calc(100% + 28px);
+                --center-y: calc(50% + 14px);
             }
 
             .feature-card:nth-child(2) {
-                --center-x: calc(50% + 14px);
-                --center-y: 0px;
+                --center-x: 0px;
+                --center-y: calc(50% + 14px);
             }
 
             .feature-card:nth-child(3) {
-                --center-x: calc(-50% - 14px);
-                --center-y: 0px;
+                --center-x: calc(-100% - 28px);
+                --center-y: calc(50% + 14px);
             }
 
             .feature-card:nth-child(4) {
-                --center-x: calc(-150% - 42px);
-                --center-y: 0px;
+                --center-x: calc(50% + 14px);
+                --center-y: calc(-50% - 14px);
+            }
+
+            .feature-card:nth-child(5) {
+                --center-x: calc(-50% - 14px);
+                --center-y: calc(-50% - 14px);
             }
         }
 
@@ -270,6 +300,10 @@
             .feature-card:nth-child(4) {
                 --rot-start: -1deg;
             }
+
+            .feature-card:nth-child(5) {
+                --rot-start: 1.5deg;
+            }
         }
     </style>
 </head>
@@ -295,50 +329,62 @@
             <div class="features-grid">
 
                 <div class="feature-card">
-                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.25rem; margin-bottom: 16px;">
                         <i class="fas fa-heartbeat"></i>
                     </div>
-                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 10px;">
                         Cuida tu salud
                     </h3>
-                    <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                    <p style="font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink-black); line-height: 1.6;">
                         Ideal para personas que sufren diabetes o buscan un estilo de vida balanceado.
                     </p>
                 </div>
 
                 <div class="feature-card">
-                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.25rem; margin-bottom: 16px;">
                         <i class="fas fa-smile"></i>
                     </div>
-                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 10px;">
                         Cuida tu sonrisa
                     </h3>
-                    <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                    <p style="font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink-black); line-height: 1.6;">
                         Mantén sana tu sonrisa endulzando de manera natural con Stevia.
                     </p>
                 </div>
 
                 <div class="feature-card">
-                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.25rem; margin-bottom: 16px;">
                         <i class="fas fa-leaf"></i>
                     </div>
-                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 10px;">
                         Cero Calorías
                     </h3>
-                    <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                    <p style="font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink-black); line-height: 1.6;">
                         Ideal para preparar tus alimentos y bebidas favoritas sin culpa.
                     </p>
                 </div>
 
                 <div class="feature-card">
-                    <div style="color: var(--color-burnt-orange); font-size: 2.5rem; margin-bottom: 24px;">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.25rem; margin-bottom: 16px;">
                         <i class="fas fa-seedling"></i>
                     </div>
-                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 14px;">
+                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 10px;">
                         Pureza de Origen
                     </h3>
-                    <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-black); line-height: 1.65;">
+                    <p style="font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink-black); line-height: 1.6;">
                         Elabora deliciosos productos 100% naturales y nutritivos.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div style="color: var(--color-burnt-orange); font-size: 2.25rem; margin-bottom: 16px;">
+                        <i class="fas fa-shield-heart"></i>
+                    </div>
+                    <h3 style="font-family: var(--font-display); font-size: 1.625rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; margin-bottom: 10px;">
+                        Libre de Aditivos
+                    </h3>
+                    <p style="font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink-black); line-height: 1.6;">
+                        Sin químicos añadidos, colorantes ni preservantes. Libre de after taste, ese sabor residual del polvo blanco y de la hoja no orgánica.
                     </p>
                 </div>
 
@@ -502,13 +548,17 @@
         let ticking = false;
         let cardOffsets = [];
 
-        /* ESCRITORIO / TABLET: se dispara UNA vez al ver la línea de hojas y corre por tiempo */
+        /* ESCRITORIO / TABLET: se dispara UNA vez cuando la cuadrícula ya está entrando en pantalla
+           y corre por tiempo. Ajusta DESKTOP_TRIGGER: 1 = apenas asoma por abajo,
+           0.5 = cuando su borde superior llega a la mitad de la pantalla (mayor = antes). */
+        const DESKTOP_TRIGGER = 0.78;
+
         function checkDesktopTrigger() {
-            if (desktopPlayed || mobileMQ.matches || !decorativeLine) return;
-            const rect = decorativeLine.getBoundingClientRect();
+            if (desktopPlayed || mobileMQ.matches || !gridContainer) return;
+            const rect = gridContainer.getBoundingClientRect();
             if (rect.height === 0) return;
-            // También cubre el caso de que el usuario salte más allá de la línea (rect.top < 0)
-            if (rect.top < window.innerHeight - 8) {
+            // También cubre el caso de que el usuario salte más allá (rect.top < 0) o recargue más abajo
+            if (rect.top < window.innerHeight * DESKTOP_TRIGGER) {
                 desktopPlayed = true;
                 featureCards.forEach(card => card.classList.add('is-visible'));
             }

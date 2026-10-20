@@ -110,12 +110,7 @@
         /* =============================================================
            GALERÍA
            MÓVIL (por defecto): 2 columnas × 3 filas
-             Fila 1: [ horizontal grande (2 cols) ]
-             Fila 2: [ vertical ][ vertical ]
-             Fila 3: [ horizontal grande (2 cols) ]
            ESCRITORIO (≥768px): 3 columnas × 2 filas
-             Fila 1: [ horizontal (2 cols) ][ vertical ]
-             Fila 2: [ vertical ][ horizontal (2 cols) ]
              Ambas filas miden lo mismo → bordes alineados, bloque rectangular.
            ============================================================= */
         .field-gallery {
@@ -123,7 +118,7 @@
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
             width: 100%;
-            max-width: 960px;           /* contenedor más grande en escritorio */
+            max-width: 960px;          
             margin-inline: auto;
         }
 
@@ -153,7 +148,7 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 grid-template-rows: repeat(2, minmax(0, 1fr));
                 gap: 20px;
-                aspect-ratio: 48 / 35;  /* 960 × 700 aprox. */
+                aspect-ratio: 48 / 35;  
             }
 
             .field-gallery__item { aspect-ratio: auto !important; }
@@ -166,10 +161,6 @@
 
         /* =============================================================
            ANIMACIÓN 3D & HOVER DE LA GALERÍA
-           Cada foto "gira" desde el lado donde está anclada:
-           las de la columna izquierda pivotan desde su borde izquierdo
-           y las de la derecha desde su borde derecho, así el efecto
-           se abre hacia el centro del mosaico.
            ============================================================= */
         .field-gallery__item--from-left  { --enter-rot: -90deg; transform-origin: left center; }
         .field-gallery__item--from-right { --enter-rot:  90deg; transform-origin: right center; }
