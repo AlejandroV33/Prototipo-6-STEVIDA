@@ -73,12 +73,12 @@
     --font-body: Inter, "DM Sans", sans-serif;
     --font-nav: Jost, Futura, sans-serif;
     --font-script: Caveat, "Dancing Script", cursive;
-    --text-caption: 0.75rem;
-    --text-body-sm: 0.875rem;
-    --text-body: 1rem;
-    --text-subheading: 1.5rem;
+    --text-caption: 0.79rem;
+    --text-body-sm: 0.92rem;
+    --text-body: 1.05rem;
+    --text-subheading: 1.58rem;
     --text-heading-sm: 2rem;
-    --text-heading: 2.875rem;
+    --text-heading: 2.88rem;
     --text-heading-lg: 3.5rem;
     --text-display: 5.5rem;
     --leading-caption: 1.6;
@@ -1055,8 +1055,8 @@ body {
 }
 .nav-link {
   font-family: var(--font-nav);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.88rem;
+  font-weight: 600;
   color: var(--color-stevida-green);
   text-decoration: none;
   text-transform: uppercase;
@@ -1096,7 +1096,7 @@ body {
   border: 1.5px solid rgba(100, 176, 53, 0.3);
   background: transparent;
   color: var(--color-stevida-green);
-  font-size: 1.125rem;
+  font-size: 1.13rem;
   text-decoration: none;
   transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
@@ -1115,7 +1115,7 @@ body {
   border: none;
   cursor: pointer;
   color: var(--color-stevida-green);
-  font-size: 1.375rem;
+  font-size: 1.38rem;
   padding: 6px;
   border-radius: 8px;
   transition: color 0.2s;
@@ -1157,7 +1157,8 @@ body {
   display: flex;
 }
 .mobile-nav .nav-link {
-  font-size: 0.9375rem;
+  font-size: 0.94rem;
+  font-weight: 600;
   letter-spacing: 0.15em;
 }
 .mobile-nav-icons {
@@ -1173,7 +1174,7 @@ body {
   justify-content: center;
   gap: var(--spacing-8);
   font-family: var(--font-body);
-  font-size: 0.8125rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1274,7 +1275,7 @@ body {
 }
 .form-label {
   font-family: var(--font-nav);
-  font-size: 0.625rem;
+  font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -1323,13 +1324,13 @@ body {
 }
 .footer-tagline {
   max-width: 235px;
-  font-size: .875rem;
+  font-size: 0.92rem;
   line-height: 1.8;
   color: rgba(255,255,255,.8);
 }
 .footer-heading {
   font-family: var(--font-nav);
-  font-size: .8125rem;
+  font-size: 0.81rem;
   font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -1355,7 +1356,7 @@ body {
   color: var(--color-honey-gold);
 }
 .footer-nav-list a, .footer-contact-list {
-  font-size: .875rem;
+  font-size: 0.92rem;
   line-height: 1.7;
 }
 .footer-contact-list li {
@@ -1390,7 +1391,7 @@ body {
   align-items: center;
   gap: 10px;
   margin-top: 12px;
-  font-size: .8125rem;
+  font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: .03em;
 }
@@ -1419,7 +1420,7 @@ body {
   gap: 10px;
 }
 .footer-legal-list a {
-  font-size: .8125rem;
+  font-size: 0.85rem;
   line-height: 1.6;
 }
 .footer-social-wrap {
@@ -1510,7 +1511,7 @@ body {
   align-items: center;
   gap: var(--spacing-4);
   font-family: var(--font-nav);
-  font-size: 0.625rem;
+  font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -1588,7 +1589,7 @@ body {
   display: block;
   color: var(--color-stevida-green);
   font-family: var(--font-nav);
-  font-size: 0.6875rem;
+  font-size: 0.69rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   line-height: 1.5;
@@ -1606,7 +1607,7 @@ body {
 .reviews-heading p {
   margin-top: 12px;
   color: rgba(0, 0, 0, 0.62);
-  font-size: 0.9375rem;
+  font-size: 0.98rem;
   line-height: 1.7;
 }
 .reviews-panel {
@@ -1635,7 +1636,7 @@ body {
 .reviews-column-heading h3, .review-form-intro h3 {
   color: var(--color-stevida-green);
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3vw, 2.125rem);
+  font-size: clamp(1.75rem, 3vw, 2.13rem);
   letter-spacing: var(--tracking-display);
   line-height: 1.15;
   text-transform: uppercase;
@@ -1643,7 +1644,7 @@ body {
 .reviews-column-heading p, .review-form-intro p {
   margin-top: 8px;
   color: rgba(0, 0, 0, 0.62);
-  font-size: 0.875rem;
+  font-size: 0.92rem;
   line-height: 1.7;
 }
 .review-card {
@@ -1676,17 +1677,17 @@ body {
 .review-author h4 {
   color: var(--color-stevida-green);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: 0.98rem;
   font-weight: 700;
   line-height: 1.4;
 }
 .review-label {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 0.75rem;
+  font-size: 0.79rem;
 }
 .review-card > p {
   color: rgba(0, 0, 0, 0.72);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.8;
   overflow-wrap: anywhere;
 }
@@ -1729,7 +1730,7 @@ body {
   background: var(--color-pure-white);
   color: var(--color-ink-black);
   font: inherit;
-  font-size: 0.9375rem;
+  font-size: 0.98rem;
   line-height: 1.6;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1742,7 +1743,7 @@ body {
 }
 .review-field-hint {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 0.75rem;
+  font-size: 0.79rem;
   line-height: 1.5;
 }
 .review-submit {
@@ -1755,7 +1756,7 @@ body {
 }
 .review-form-status {
   color: var(--color-stevida-green);
-  font-size: 0.875rem;
+  font-size: 0.92rem;
   line-height: 1.6;
 }
 .review-form-status[hidden] {
@@ -1799,6 +1800,22 @@ body {
     padding: 24px 16px 0;
     margin-bottom: 20px;
   }
+}
+.font-script, [style*="--font-script"], [style*="--font-family-script"] {
+  font-family: var(--font-script);
+  font-weight: 500;
+}
+.font-nav, [style*="--font-nav"], [style*="--font-family-nav"] {
+  font-family: var(--font-nav);
+  letter-spacing: var(--tracking-nav);
+  font-weight: 600;
+}
+.font-hero, [style*="--font-hero"], [style*="--font-family-hero"] {
+  font-family: var(--font-hero);
+  letter-spacing: var(--tracking-hero);
+}
+.font-body {
+  font-family: var(--font-body);
 }
 @property --tw-translate-x {
   syntax: "*";

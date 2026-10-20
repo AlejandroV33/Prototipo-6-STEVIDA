@@ -36,15 +36,20 @@
   --font-nav:      Jost, Futura, sans-serif;
   --font-script:   Caveat, "Dancing Script", cursive;
 
-  /* � Type Scale � */
-  --text-caption: 0.75rem;
-  --text-body-sm: 0.875rem;
-  --text-body: 1rem;
-  --text-subheading: 1.5rem;
-  --text-heading-sm: 2rem;
-  --text-heading: 2.875rem;
-  --text-heading-lg: 3.5rem;
-  --text-display: 5.5rem;
+  /* ── Type Scale (rem, max 2 decimals) ── */
+  --text-caption: 0.79rem;     /* Body copy +5% (base 0.75rem) */
+  --text-body-sm: 0.92rem;     /* Body copy +5% (base 0.88rem) */
+  --text-body: 1.05rem;        /* Body copy +5% (base 1rem) */
+  --text-subheading: 1.58rem;  /* Body copy +5% (base 1.5rem) */
+  --text-heading-sm: 2rem;     /* Revertido a original */
+  --text-heading: 2.88rem;     /* Revertido a original (2.88rem) */
+  --text-heading-lg: 3.5rem;   /* Revertido a original (Hero base) */
+  --text-display: 5.5rem;      /* Revertido a original (Hero/Display max) */
+
+  /* Specific typography scale & weight tokens */
+  --text-script: 1.76rem;      /* Mantiene aumento de tamaño (+10%) */
+  --font-weight-script: 500;   /* Mantiene aumento de grosor (+20%) */
+  --font-weight-nav: 600;      /* Solo aumento de grosor para nav */
 
   /* � Line Heights � */
   --leading-caption:    1.6;
@@ -222,8 +227,8 @@ body {
 
 .nav-link {
   font-family: var(--font-nav);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.88rem;
+  font-weight: 600;
   color: var(--color-stevida-green);
   text-decoration: none;
   text-transform: uppercase;
@@ -264,7 +269,7 @@ body {
   border: 1.5px solid rgba(100, 176, 53, 0.3);
   background: transparent;
   color: var(--color-stevida-green);
-  font-size: 1.125rem;
+  font-size: 1.13rem;
   text-decoration: none;
   transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
@@ -285,7 +290,7 @@ body {
   border: none;
   cursor: pointer;
   color: var(--color-stevida-green);
-  font-size: 1.375rem;
+  font-size: 1.38rem;
   padding: 6px;
   border-radius: 8px;
   transition: color 0.2s;
@@ -322,7 +327,7 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.08);
 }
 .mobile-nav.open { display: flex; }
-.mobile-nav .nav-link { font-size: 0.9375rem; letter-spacing: 0.15em; }
+.mobile-nav .nav-link { font-size: 0.94rem; font-weight: 600; letter-spacing: 0.15em; }
 
 /* Mobile icon row at bottom of drawer */
 .mobile-nav-icons {
@@ -343,7 +348,7 @@ body {
   justify-content: center;
   gap: var(--spacing-8);
   font-family: var(--font-body);
-  font-size: 0.8125rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -475,7 +480,7 @@ body {
 
 .form-label {
   font-family: var(--font-nav);
-  font-size: 0.625rem;
+  font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -508,18 +513,18 @@ body {
 .footer-logo-img { display: inline-block; line-height: 0; text-decoration: none; margin-bottom: 20px; }
 .footer-logo-img img { height: 60px; width: auto; max-width: 100%; display: block; filter: brightness(0) invert(1); opacity: .95; transition: opacity .2s ease; }
 .footer-logo-img:hover img { opacity: 1; }
-.footer-tagline { max-width: 235px; font-size: .875rem; line-height: 1.8; color: rgba(255,255,255,.8); }
-.footer-heading { font-family: var(--font-nav); font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--color-honey-gold); margin-bottom: 22px; }
+.footer-tagline { max-width: 235px; font-size: 0.92rem; line-height: 1.8; color: rgba(255,255,255,.8); }
+.footer-heading { font-family: var(--font-nav); font-size: 0.81rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--color-honey-gold); margin-bottom: 22px; }
 .footer-locations {margin: 0 100px 0 0;}
 .footer-nav-list, .footer-contact-list, .footer-legal-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .footer-nav-list a, .footer-contact-list a, .footer-legal-list a { color: rgba(255,255,255,.85); text-decoration: none; overflow-wrap: anywhere; transition: color .2s ease; }
 .footer-nav-list a:hover, .footer-contact-list a:hover, .footer-legal-list a:hover { color: var(--color-honey-gold); }
-.footer-nav-list a, .footer-contact-list { font-size: .875rem; line-height: 1.7; }
+.footer-nav-list a, .footer-contact-list { font-size: 0.92rem; line-height: 1.7; }
 .footer-contact-list li { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
 .footer-contact-list .icon { color: var(--color-honey-gold); width: 18px; flex-shrink: 0; margin-top: 4px; }
 .footer-location-link { display: block; text-decoration: none; color: #fff; max-width: 260px; }
 .footer-location-link img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; border-radius: var(--radius-cards); transition: transform .2s ease; }
-.footer-location-link span { display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; font-size: .8125rem; font-weight: 600; letter-spacing: .03em; }
+.footer-location-link span { display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 0.85rem; font-weight: 600; letter-spacing: .03em; }
 .footer-location-link:hover img { transform: translateY(-3px); }
 .footer-location-link:hover span { color: var(--color-honey-gold); }
 
@@ -536,7 +541,7 @@ body {
 }
 .footer-legal { min-width: 0; }
 .footer-legal-list { gap: 10px; }
-.footer-legal-list a { font-size: .8125rem; line-height: 1.6; }
+.footer-legal-list a { font-size: 0.85rem; line-height: 1.6; }
 .footer-social-wrap { flex-shrink: 0; }
 .footer-social { display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; white-space: nowrap; }
 .footer-social a {
@@ -575,7 +580,7 @@ body {
   align-items: center;
   gap: var(--spacing-4);
   font-family: var(--font-nav);
-  font-size: 0.625rem;
+  font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -652,7 +657,7 @@ body {
   display: block;
   color: var(--color-stevida-green);
   font-family: var(--font-nav);
-  font-size: 0.6875rem;
+  font-size: 0.69rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   line-height: 1.5;
@@ -672,7 +677,7 @@ body {
 .reviews-heading p {
   margin-top: 12px;
   color: rgba(0, 0, 0, 0.62);
-  font-size: 0.9375rem;
+  font-size: 0.98rem;
   line-height: 1.7;
 }
 
@@ -705,7 +710,7 @@ body {
 .review-form-intro h3 {
   color: var(--color-stevida-green);
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3vw, 2.125rem);
+  font-size: clamp(1.75rem, 3vw, 2.13rem);
   letter-spacing: var(--tracking-display);
   line-height: 1.15;
   text-transform: uppercase;
@@ -715,7 +720,7 @@ body {
 .review-form-intro p {
   margin-top: 8px;
   color: rgba(0, 0, 0, 0.62);
-  font-size: 0.875rem;
+  font-size: 0.92rem;
   line-height: 1.7;
 }
 
@@ -750,17 +755,17 @@ body {
 .review-author h4 {
   color: var(--color-stevida-green);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: 0.98rem;
   font-weight: 700;
   line-height: 1.4;
 }
 .review-label {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 0.75rem;
+  font-size: 0.79rem;
 }
 .review-card > p {
   color: rgba(0, 0, 0, 0.72);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.8;
   overflow-wrap: anywhere;
 }
@@ -790,7 +795,7 @@ body {
   background: var(--color-pure-white);
   color: var(--color-ink-black);
   font: inherit;
-  font-size: 0.9375rem;
+  font-size: 0.98rem;
   line-height: 1.6;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -801,7 +806,7 @@ body {
 .review-field textarea::placeholder { color: rgba(0, 0, 0, 0.42); }
 .review-field-hint {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 0.75rem;
+  font-size: 0.79rem;
   line-height: 1.5;
 }
 .review-submit { align-self: flex-start; min-height: 48px; }
@@ -811,7 +816,7 @@ body {
 }
 .review-form-status {
   color: var(--color-stevida-green);
-  font-size: 0.875rem;
+  font-size: 0.92rem;
   line-height: 1.6;
 }
 .review-form-status[hidden] { display: none; }
@@ -834,3 +839,37 @@ body {
 .reviews-heading { width: 100%; max-width: none; padding: 32px 24px 0; }
 @media (min-width: 768px) { .reviews-heading { padding: 40px 48px 0; } }
 @media (max-width: 480px) { .reviews-heading { padding: 24px 16px 0; margin-bottom: 20px; } }
+
+/* =============================================================
+   TYPOGRAPHY ENHANCEMENTS: SCRIPT, HERO, NAV & BODY
+   ============================================================= */
+
+/* 1. Script accent (Caveat) - Aumento de tamaño (+10%) y grosor (+20% -> 500) */
+.font-script,
+[style*="--font-script"],
+[style*="--font-family-script"] {
+  font-family: var(--font-script);
+  font-weight: 500; /* +20% grosor sobre regular (400 -> 500) para nitidez y contraste */
+}
+
+/* 2. Nav typography (Jost) - SOLO aumento de grosor a 600 (SemiBold) */
+.font-nav,
+[style*="--font-nav"],
+[style*="--font-family-nav"] {
+  font-family: var(--font-nav);
+  letter-spacing: var(--tracking-nav);
+  font-weight: 600; /* Mayor peso visual sin alterar el espaciado de layout */
+}
+
+/* 3. Hero display (Oswald / Delivery Note) - Tamaño original */
+.font-hero,
+[style*="--font-hero"],
+[style*="--font-family-hero"] {
+  font-family: var(--font-hero);
+  letter-spacing: var(--tracking-hero);
+}
+
+/* 4. Body typography (Inter / DM Sans) - Tamaño +5% */
+.font-body {
+  font-family: var(--font-body);
+}
