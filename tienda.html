@@ -35,6 +35,39 @@
             color: #9ca3af;
         }
 
+        /* Category wrapper & desktop arrows */
+        .categories-carousel-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .cat-scroll-btn {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 9999px;
+            background-color: var(--color-pure-white);
+            border: 1px solid #e5e7eb;
+            color: var(--color-stevida-green);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 10px;
+        }
+        .cat-scroll-btn:hover {
+            border-color: var(--color-stevida-green);
+            background-color: var(--color-stevida-green);
+            color: var(--color-pure-white);
+        }
+        @media (min-width: 768px) {
+            .cat-scroll-btn {
+                display: inline-flex;
+            }
+        }
+
         /* Category pill */
         .pill {
             flex-shrink: 0;
@@ -71,16 +104,31 @@
             padding: 16px;
         }
 
-        /* Product image hover */
-        .product-img {
+        /* Product image container & full image fit */
+        .product-img-box {
             width: 100%;
             height: 240px;
-            object-fit: cover;
+            margin-bottom: 24px;
+            overflow: hidden;
             border-radius: 8px;
+            background-color: var(--color-pure-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+        .product-img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 4px;
             transition: transform 0.4s ease;
         }
         .card:hover .product-img {
-            transform: scale(1.03);
+            transform: scale(1.04);
         }
 
         /* Badge */
@@ -176,8 +224,10 @@
             .card {
                 padding: 12px;
             }
-            .product-img {
+            .product-img-box {
                 height: 160px;
+                padding: 8px;
+                margin-bottom: 16px;
             }
             .price-current {
                 font-size: 1.5rem;
@@ -203,7 +253,7 @@
     </style>
 </head>
 <body>
-    <!-- â•â• HEADER â•â• -->
+    <!-- ══ HEADER ══ -->
     <header class="site-header" id="site-header">
         <div class="header-inner">
 
@@ -213,14 +263,14 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="site-nav" aria-label="Navegaci&#xF3;n principal">
+            <nav class="site-nav" aria-label="Navegación principal">
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="tienda.html" class="nav-link active">Tienda</a>
                 <a href="recetas.html" class="nav-link">Recetas</a>
                 <a href="nosotros.html" class="nav-link">Nosotros</a>
-                <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
+                <a href="encuentranos.html" class="nav-link">Encúentranos</a>
                 <a href="comunidad.html" class="nav-link">Comunidad</a>
-                <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
+                <a href="contactanos.html" class="nav-link">Contáctanos</a>
             </nav>
 
             <!-- Desktop icon actions: Cart + User -->
@@ -238,7 +288,7 @@
                 <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir men&#xFA;" aria-expanded="false">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
                     <i class="fas fa-bars" id="menu-icon"></i>
                 </button>
             </div>
@@ -246,14 +296,14 @@
         </div>
 
         <!-- Mobile Drawer -->
-        <nav class="mobile-nav" id="mobile-nav" aria-label="Navegaci&#xF3;n m&#xF3;vil">
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil">
             <a href="index.html" class="nav-link">Inicio</a>
             <a href="tienda.html" class="nav-link active">Tienda</a>
             <a href="recetas.html" class="nav-link">Recetas</a>
             <a href="nosotros.html" class="nav-link">Nosotros</a>
-            <a href="encuentranos.html" class="nav-link">Enc&#xFA;entranos</a>
+            <a href="encuentranos.html" class="nav-link">Encúentranos</a>
             <a href="comunidad.html" class="nav-link">Comunidad</a>
-            <a href="contactanos.html" class="nav-link">Cont&#xE1;ctanos</a>
+            <a href="contactanos.html" class="nav-link">Contáctanos</a>
 
             <!-- Icon row -->
             <div class="mobile-nav-icons">
@@ -288,6 +338,7 @@
                 <div style="position:relative;width:100%;max-width:672px;">
                     <input
                         type="text"
+                        id="search-input"
                         class="search-input"
                         placeholder="Buscar productos..."
                     >
@@ -303,108 +354,327 @@
 
         <!-- Category Pills -->
         <section style="max-width:1200px;margin:0 auto;padding:0 24px 48px;">
-            <div class="hide-scrollbar" style="display:flex;gap:12px;overflow-x:auto;justify-content:flex-start;flex-wrap:nowrap;">
-                <a href="#" class="pill pill-active">Todos</a>
-                <a href="#" class="pill pill-inactive">En Oferta</a>
-                <a href="#" class="pill pill-inactive">Nuevo</a>
+            <div class="categories-carousel-wrap">
+                <button type="button" class="cat-scroll-btn" id="cat-prev" aria-label="Desplazar categorías a la izquierda">
+                    <i class="fas fa-chevron-left" style="font-size:0.75rem;"></i>
+                </button>
+
+                <div class="hide-scrollbar" id="category-pills" style="display:flex;gap:12px;overflow-x:auto;justify-content:flex-start;flex-wrap:nowrap;scroll-behavior:smooth;flex:1;">
+                    <a href="#" class="pill pill-active" data-filter="all">Todos</a>
+                    <a href="#" class="pill pill-inactive" data-filter="oferta">En Oferta</a>
+                    <a href="#" class="pill pill-inactive" data-filter="nuevo">Nuevo</a>
+                    <a href="#" class="pill pill-inactive" data-filter="cuidado-personal">Cuidado Personal</a>
+                    <a href="#" class="pill pill-inactive" data-filter="tisanas">Tisanas - Frutas Deshidratadas</a>
+                    <a href="#" class="pill pill-inactive" data-filter="infusiones-frias">Infusiones Frías</a>
+                    <a href="#" class="pill pill-inactive" data-filter="endulzantes">Endulzantes</a>
+                </div>
+
+                <button type="button" class="cat-scroll-btn" id="cat-next" aria-label="Desplazar categorías a la derecha">
+                    <i class="fas fa-chevron-right" style="font-size:0.75rem;"></i>
+                </button>
             </div>
         </section>
 
         <!-- Products Grid -->
         <section class="products-section" style="max-width:1200px;margin:0 auto;padding:0 24px 80px;">
-            <div class="products-grid">
+            <div class="products-grid" id="products-grid">
 
-                <!-- Product 1 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                <!-- 1. Cafélix Gourmet Stevida (OFERTA SIMULADA 1) -->
+                <article class="card animate-fade-in" data-category="oferta" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
                     <span class="badge" style="background-color:var(--color-burnt-orange);">20% OFF</span>
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                    <div class="product-img-box">
                         <img
-                            src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                            alt="Stevida en Polvo"
+                            src="recursos/TIENDA/packsabores.png"
+                            alt="Cafélix Gourmet Stevida 500g"
                             class="product-img"
                         >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Stevida en Polvo 100% Natural 250g
+                            Cafélix Gourmet Stevida 500g
                         </h3>
                         <div class="price-wrapper">
-                            <span class="price-current">$6.80</span>
-                            <span class="price-original">$8.50</span>
+                            <span class="price-current">$7.60</span>
+                            <span class="price-original">$9.50</span>
                         </div>
                         <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
-                <!-- Product 2 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                <!-- 2. Mermelada de Tuna Stevida -->
+                <article class="card animate-fade-in" data-category="endulzantes" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
                         <img
-                            src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                            alt="Stevida Líquida"
+                            src="recursos/TIENDA/mermelada-de-tuna.png"
+                            alt="Mermelada de Tuna Stevida 250ml"
                             class="product-img"
                         >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Stevida Líquida Gotero 100ml
+                            Mermelada de Tuna Stevida 250ml
                         </h3>
                         <div class="price-wrapper">
-                            <span class="price-current">$4.20</span>
+                            <span class="price-current">$4.00</span>
                         </div>
                         <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
-                <!-- Product 3 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img
-                            src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                            alt="Pack Repostería"
-                            class="product-img"
-                        >
-                    </div>
-                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
-                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Pack Stevida Especial Repostería 500g
-                        </h3>
-                        <div class="price-wrapper">
-                            <span class="price-current">$12.50</span>
-                        </div>
-                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Product 4 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                <!-- 3. Sazonador Stevida -->
+                <article class="card animate-fade-in" data-category="nuevo" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
                     <span class="badge" style="background-color: var(--color-sky-blue);">NUEVO</span>
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
+                    <div class="product-img-box">
                         <img
-                            src="https://images.unsplash.com/photo-1576092762791-dd9e2220d565?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                            alt="Té Verde con Stevida"
+                            src="recursos/TIENDA/sasonador-sal-marina.png"
+                            alt="Sazonador con Stevia y Sal Marina 100g"
                             class="product-img"
                         >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Té Verde con Stevida Pack x20 bolsitas
+                            Sazonador con Stevia & Sal Marina 100g
                         </h3>
                         <div class="price-wrapper">
-                            <span class="price-current">$3.80</span>
+                            <span class="price-current">$6.00</span>
                         </div>
                         <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
-                <!-- Product 5 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img src="https://images.unsplash.com/photo-1622484211147-75e1823eb5ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                <!-- 4. Shampoo Energizante (Cuidado Personal) -->
+                <article class="card animate-fade-in" data-category="cuidado-personal" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/AseoPersonal_ShampooEnergizante500ml_1.png"
+                            alt="Shampoo Energizante Stevida 500ml"
+                            class="product-img"
+                        >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Extracto Natural Stevida 50ml
+                            Shampoo Energizante Stevida 500ml
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$9.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 5. Acondicionador Revitalizante (Cuidado Personal) -->
+                <article class="card animate-fade-in" data-category="cuidado-personal" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/acondicionador-revitalizante500.png"
+                            alt="Acondicionador Revitalizante Stevida 500ml"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Acondicionador Revitalizante Stevida 500ml
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$9.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 6. Tisana Tropical con Jengibre (Tisanas - Frutas Deshidratadas) -->
+                <article class="card animate-fade-in" data-category="tisanas" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/tisana-tropical-jengibre.png"
+                            alt="Tisana Tropical con Jengibre"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Tisana Tropical con Jengibre x6 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$6.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 7. Tisana Frutos Rojos & Flor de Jamaica (Tisanas - Frutas Deshidratadas) -->
+                <article class="card animate-fade-in" data-category="tisanas" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/tisana-frutos-rojos.png"
+                            alt="Tisana Frutos Rojos & Flor de Jamaica"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Tisana Frutos Rojos & Flor de Jamaica x6 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$6.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 8. Pack Sabores - Adelgazante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/packverde.png"
+                            alt="Pack de Sabores Adelgazante"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Pack de Sabores - Adelgazante x24 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 9. Pack Sabores - Expectorante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/Fotos productos/infusiones-pack-rojo.png"
+                            alt="Pack de Sabores Expectorante"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Pack de Sabores - Expectorante x24 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 10. Hierba Luisa Stevida - Expectorante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/infusion-hierba-luisa.png"
+                            alt="Hierba Luisa Stevida - Expectorante"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Hierba Luisa Stevida - Expectorante x25 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 11. Manzanilla Stevida - Antiinflamatoria (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/infusion-manzanilla.png"
+                            alt="Manzanilla Stevida - Antiinflamatoria"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Manzanilla Stevida - Antiinflamatoria x25 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 12. Menta Stevida - Refrescante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/infusion-menta.png"
+                            alt="Menta Stevida - Refrescante"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Menta Stevida - Refrescante x25 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 13. Toronjil Stevida - Relajante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/toronjil.png"
+                            alt="Toronjil Stevida - Relajante"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Toronjil Stevida - Relajante x25 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 14. Té Verde & Jengibre Stevida - Adelgazante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias nuevo" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <span class="badge" style="background-color: var(--color-sky-blue);">NUEVO</span>
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/Fotos productos/te-verde.png"
+                            alt="Té Verde & Jengibre Stevida"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Té Verde & Jengibre Stevida - Adelgazante x25 sobres
+                        </h3>
+                        <div class="price-wrapper">
+                            <span class="price-current">$3.00</span>
+                        </div>
+                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <!-- 15. Passion - Antioxidante (Infusiones Frías) -->
+                <article class="card animate-fade-in" data-category="infusiones-frias" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/Fotos productos/te-rojo.png"
+                            alt="Passion Frutos Rojos & Flor de Jamaica - Antioxidante"
+                            class="product-img"
+                        >
+                    </div>
+                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
+                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
+                            Passion Frutos Rojos & Flor de Jamaica x25 sobres
                         </h3>
                         <div class="price-wrapper">
                             <span class="price-current">$3.50</span>
@@ -413,83 +683,63 @@
                     </div>
                 </article>
 
-                <!-- Product 6 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img src="https://images.unsplash.com/photo-1599305090598-fe179d501227?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                <!-- 16. Snack Hojitas Deshidratadas Stevida (Endulzantes) -->
+                <article class="card animate-fade-in" data-category="endulzantes" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/HOJAS_DE_STEVIA_2.png"
+                            alt="Snack Hojitas Deshidratadas Stevida"
+                            class="product-img"
+                        >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Caja de Sobres Stevida x50
+                            Snack Hojitas Deshidratadas Stevida
                         </h3>
                         <div class="price-wrapper">
-                            <span class="price-current">$5.20</span>
+                            <span class="price-current">$1.25</span>
                         </div>
                         <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
-                <!-- Product 7 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                <!-- 17. Polvo Verde Stevia Rebaudiana (Endulzantes) -->
+                <article class="card animate-fade-in" data-category="endulzantes" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/stevia-en-polvo-100g.png"
+                            alt="Stevia Rebaudiana en Polvo Verde 100g"
+                            class="product-img"
+                        >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Mermelada Light con Stevida
+                            Stevia Rebaudiana en Polvo Verde 100g
                         </h3>
                         <div class="price-wrapper">
-                            <span class="price-current">$4.90</span>
+                            <span class="price-current">$6.00</span>
                         </div>
                         <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
                 </article>
 
-                <!-- Product 8 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img src="https://images.unsplash.com/photo-1596647414819-21b79f64e03d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
-                    </div>
-                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
-                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Chocolate Amargo 70% Stevida
-                        </h3>
-                        <div class="price-wrapper">
-                            <span class="price-current">$6.10</span>
-                        </div>
-                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Product 9 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
+                <!-- 18. Extracto Líquido de Stevia (Endulzantes + OFERTA SIMULADA 2) -->
+                <article class="card animate-fade-in" data-category="endulzantes oferta" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
                     <span class="badge" style="background-color:var(--color-burnt-orange);">15% OFF</span>
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
+                    <div class="product-img-box">
+                        <img
+                            src="recursos/TIENDA/Stevida_extracto_gotas.png"
+                            alt="Extracto Líquido de Stevia 120ml"
+                            class="product-img"
+                        >
                     </div>
                     <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
                         <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Pack Desayuno Stevida
+                            Extracto Líquido de Stevia 120ml
                         </h3>
                         <div class="price-wrapper">
-                            <span class="price-current">$12.75</span>
-                            <span class="price-original">$15.00</span>
-                        </div>
-                        <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Product 10 -->
-                <article class="card animate-fade-in" style="position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;" onclick="window.location.href='producto_detalle.html'">
-                    <div style="width:100%;margin-bottom:24px;overflow:hidden;border-radius:8px;">
-                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Producto Genérico" class="product-img">
-                    </div>
-                    <div style="text-align:center;flex:1;display:flex;flex-direction:column;width:100%;">
-                        <h3 style="font-family:var(--font-body);font-size: 1.05rem;color:var(--color-ink-black);line-height:1.4;margin-bottom:12px;flex:1;">
-                            Galletas de Avena Stevida
-                        </h3>
-                        <div class="price-wrapper">
-                            <span class="price-current">$3.20</span>
+                            <span class="price-current">$7.65</span>
+                            <span class="price-original">$9.00</span>
                         </div>
                         <button class="btn-add-cart"><i class="fas fa-shopping-cart" style="font-size:0.75rem;opacity:0.8;"></i>Añadir al carrito</button>
                     </div>
@@ -499,8 +749,6 @@
         </section>
 
     </main>
-
-    
 
     <footer class="site-footer">
         <div class="footer-inner">
@@ -583,6 +831,51 @@
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
         }, { threshold: 0.15 });
         document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+
+        // Flechas de navegación para recorrer categorías en escritorio
+        const categoryPillsContainer = document.getElementById('category-pills');
+        const catPrevBtn = document.getElementById('cat-prev');
+        const catNextBtn = document.getElementById('cat-next');
+
+        catPrevBtn.addEventListener('click', () => {
+            categoryPillsContainer.scrollBy({ left: -260, behavior: 'smooth' });
+        });
+        catNextBtn.addEventListener('click', () => {
+            categoryPillsContainer.scrollBy({ left: 260, behavior: 'smooth' });
+        });
+
+        // Filtro interactivo de categorías y búsqueda para el prototipo
+        const pills = document.querySelectorAll('#category-pills .pill');
+        const cards = document.querySelectorAll('#products-grid .card');
+        const searchInput = document.getElementById('search-input');
+        let activeFilter = 'all';
+
+        function filterProducts() {
+            const query = searchInput.value.toLowerCase().trim();
+            cards.forEach(card => {
+                const categories = (card.getAttribute('data-category') || '').split(' ');
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const matchesCategory = activeFilter === 'all' || categories.includes(activeFilter);
+                const matchesSearch = title.includes(query);
+                card.style.display = (matchesCategory && matchesSearch) ? 'flex' : 'none';
+            });
+        }
+
+        pills.forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault();
+                pills.forEach(p => {
+                    p.classList.remove('pill-active');
+                    p.classList.add('pill-inactive');
+                });
+                pill.classList.remove('pill-inactive');
+                pill.classList.add('pill-active');
+                activeFilter = pill.getAttribute('data-filter');
+                filterProducts();
+            });
+        });
+
+        searchInput.addEventListener('input', filterProducts);
     </script>
 </body>
 </html>
