@@ -197,6 +197,76 @@
         .card:hover .btn-add-cart {
             box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
         }
+        .btn-add-cart.is-added {
+            transform: scale(0.97);
+        }
+
+        /* ── Notificación animada debajo del icono del carrito (Rojo Stevida) ── */
+        .header-cart-btn {
+            position: relative;
+        }
+        .cart-pulse-notification {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            pointer-events: none;
+            z-index: 60;
+            animation: cartNotifFade 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .cart-pulse-bar {
+            width: 24px;
+            height: 3px;
+            border-radius: 9999px;
+            background-color: var(--color-burnt-orange);
+            box-shadow: 0 0 10px rgba(204, 65, 47, 0.65);
+            animation: cartBarExpand 0.4s ease-out forwards;
+        }
+        .cart-pulse-badge {
+            background-color: var(--color-burnt-orange);
+            color: var(--color-pure-white);
+            font-family: var(--font-nav);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(204, 65, 47, 0.45);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            animation: cartBadgePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .cart-icon-bounce {
+            animation: cartShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+        @keyframes cartBarExpand {
+            0% { width: 0; opacity: 0; }
+            100% { width: 26px; opacity: 1; }
+        }
+        @keyframes cartBadgePop {
+            0% { transform: translateY(-4px) scale(0.6); opacity: 0; }
+            60% { transform: translateY(2px) scale(1.15); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes cartNotifFade {
+            0% { opacity: 0; }
+            15% { opacity: 1; }
+            75% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+        }
+        @keyframes cartShake {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(1.22) rotate(-10deg); color: var(--color-burnt-orange); }
+            40% { transform: scale(1.22) rotate(10deg); color: var(--color-burnt-orange); }
+            60% { transform: scale(1.12) rotate(-5deg); }
+            80% { transform: scale(1.05) rotate(5deg); }
+        }
 
         /* Precio rebajado — alinear precio actual y precio tachado */
         .price-wrapper {
@@ -301,7 +371,7 @@
 
             <!-- Desktop icon actions: Cart + User -->
             <div class="header-actions">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                <a href="carrito.html" class="header-icon-btn header-cart-btn" aria-label="Carrito de compras">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
                 <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
@@ -311,7 +381,7 @@
 
             <!-- Mobile: mini cart + hamburger -->
             <div class="mobile-header-group">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito">
+                <a href="carrito.html" class="header-icon-btn header-cart-btn" aria-label="Carrito">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
                 <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
@@ -333,7 +403,7 @@
 
             <!-- Icon row -->
             <div class="mobile-nav-icons">
-                <a href="carrito.html" class="header-icon-btn" aria-label="Carrito de compras">
+                <a href="carrito.html" class="header-icon-btn header-cart-btn" aria-label="Carrito de compras">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
                 <a href="#" class="header-icon-btn" aria-label="Mi cuenta">
@@ -948,7 +1018,7 @@
                         currentIndex = (currentIndex + 1) % presentationList.length;
                         switchImage(presentationList[currentIndex]);
                     }, 2600);
-                }, 500);
+                }, 900);
             });
 
             card.addEventListener('mouseleave', () => {
@@ -970,6 +1040,63 @@
                     img.style.opacity = '1';
                 }
                 currentIndex = 0;
+            });
+        });
+
+        // ── Animación en header y funcionamiento de Añadir al Carrito ──
+        function triggerCartHeaderAnimation() {
+            const cartBtns = document.querySelectorAll('.header-cart-btn');
+            cartBtns.forEach(btn => {
+                // Remover animación previa si existe para reiniciar
+                const prevNotif = btn.querySelector('.cart-pulse-notification');
+                if (prevNotif) prevNotif.remove();
+
+                // Crear elemento animado en rojo Stevida directamente debajo del icono
+                const notif = document.createElement('div');
+                notif.className = 'cart-pulse-notification';
+                notif.innerHTML = `
+                    <span class="cart-pulse-bar" aria-hidden="true"></span>
+                    <span class="cart-pulse-badge"><i class="fas fa-check" style="font-size:0.6rem;"></i> +1</span>
+                `;
+                btn.appendChild(notif);
+
+                // Sacudir / vibrar el icono del carrito
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('cart-icon-bounce');
+                    void icon.offsetWidth; // forzar reflow para reiniciar la animación
+                    icon.classList.add('cart-icon-bounce');
+                }
+
+                // Limpieza del elemento al terminar la animación (2.2s)
+                setTimeout(() => {
+                    if (notif.parentNode === btn) notif.remove();
+                }, 2200);
+            });
+        }
+
+        // Manejador para los botones de añadir al carrito
+        const addCartButtons = document.querySelectorAll('.btn-add-cart');
+        addCartButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Detener propagación para NO abrir producto_detalle.html
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (btn.classList.contains('is-added')) return;
+
+                const originalHtml = btn.innerHTML;
+                btn.classList.add('is-added');
+                btn.innerHTML = '<i class="fas fa-check" style="color:var(--color-stevida-green);font-size:0.85rem;"></i> ¡Añadido!';
+
+                // Disparar animación en el header debajo del icono
+                triggerCartHeaderAnimation();
+
+                // Regresar a "Añadir al carrito" tras 1.5 segundos
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.remove('is-added');
+                }, 1500);
             });
         });
     </script>
