@@ -35,12 +35,59 @@
             overflow: hidden;
             position: relative;
             background-color: var(--color-cream-paper);
+        }
+
+        /* Capa animada de fondo del hero */
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
             background-image:
                 linear-gradient(rgba(154, 202, 106, 0.30), rgba(154, 202, 106, 0.08)),
                 url("recursos/INICIO/sld1_stevida.jpg");
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+            opacity: 0;
+            transform: scale(1.10);
+            animation: heroBgEntrance 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: transform, opacity;
+        }
+
+        @keyframes heroBgEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(1.10);
+            }
+            40% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-section::before {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Animación estandarizada para el tagline script: fade suave en su posición con inclinación orgánica, sin desplazamiento vertical */
+        .hero-script-tagline {
+            transform: rotate(-1.5deg) !important;
+        }
+        .hero-script-tagline.animate-fade-in {
+            transform: rotate(-1.5deg) !important;
+        }
+        .hero-script-tagline.animate-fade-in.is-visible {
+            transform: rotate(-1.5deg) !important;
+            opacity: 1;
         }
 
 
@@ -575,8 +622,8 @@
                         style="font-family: var(--font-hero); font-size: clamp(56px, 8vw, 88px); line-height: 0.94; letter-spacing: var(--tracking-hero); color: #315b25; text-transform: uppercase; margin-bottom: 24px;">
                         Vive lo<br>Natural
                     </h1>
-                    <p class="animate-fade-in delay-200"
-                       style="font-family: var(--font-script); font-size: clamp(24px, 3vw, 36px); color: #315b25; margin-bottom: 40px; line-height: 1.3;">
+                    <p class="hero-script-tagline animate-fade-in delay-200"
+                       style="font-family: var(--font-script); font-size: clamp(24px, 3vw, 36px); font-weight: 500; color: var(--color-stevida-green); margin-bottom: 40px; line-height: 1.3; display: inline-block; transform: rotate(-1.5deg);">
                         Dale un toque de dulzura a tus comidas y bebidas con Stevida.
                     </p>
                     <div class="animate-fade-in delay-300"
