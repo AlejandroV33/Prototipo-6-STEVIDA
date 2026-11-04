@@ -1272,8 +1272,21 @@
         const noResultsMsg = document.getElementById('no-results-msg');
         let activeFilter = 'all';
 
+        // Normalización rápida y eficiente para el buscador (minúsculas, sin tildes, espacios limpios)
+        function normalizeSearchText(str) {
+            return (str || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '') // Elimina tildes y diacríticos (é -> e, á -> a, etc.)
+                .replace(/[^a-z0-9\s]/g, ' ')     // Reemplaza signos o caracteres especiales por espacios
+                .replace(/\s+/g, ' ')             // Colapsa múltiples espacios seguidos
+                .trim();
+        }
+
         function filterProducts() {
-            const query = searchInput.value.toLowerCase().trim();
+            const rawQuery = searchInput.value;
+            const normalizedQuery = normalizeSearchText(rawQuery);
+            const queryTokens = normalizedQuery ? normalizedQuery.split(' ').filter(Boolean) : [];
             let totalVisibleProducts = 0;
 
             categoryGroups.forEach(group => {
@@ -1282,9 +1295,11 @@
 
                 groupCards.forEach(card => {
                     const categories = (card.getAttribute('data-category') || '').split(' ');
-                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const titleText = card.querySelector('h3') ? card.querySelector('h3').textContent : '';
+                    const normalizedTitle = normalizeSearchText(titleText);
+
                     const matchesCategory = activeFilter === 'all' || categories.includes(activeFilter);
-                    const matchesSearch = query === '' || title.includes(query);
+                    const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => normalizedTitle.includes(token));
 
                     if (matchesCategory && matchesSearch) {
                         card.style.display = 'flex';
