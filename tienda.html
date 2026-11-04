@@ -141,7 +141,7 @@
             object-fit: contain;
             object-position: center;
             border-radius: 4px;
-            transition: transform 0.4s ease;
+            transition: transform 0.4s ease, opacity 0.25s ease;
         }
         .card:hover .product-img {
             transform: scale(1.05);
@@ -902,6 +902,76 @@
         });
 
         searchInput.addEventListener('input', filterProducts);
+
+        // ── Carrusel de presentación en hover para tarjetas de producto ──
+        const genericPresentationImages = [
+            'recursos/productos-varios-fondo-bosque.jpg',
+            'recursos/isana-tropical-mano-fondo-planta.jpg',
+            'recursos/polvo-verde-fondo-bosque.jpg'
+        ];
+
+        // Precargar imágenes genéricas para transiciones instantáneas
+        genericPresentationImages.forEach(src => {
+            const preloadImg = new Image();
+            preloadImg.src = src;
+        });
+
+        cards.forEach(card => {
+            const img = card.querySelector('.product-img');
+            if (!img) return;
+
+            const originalSrc = img.getAttribute('src');
+            const presentationList = [originalSrc, ...genericPresentationImages];
+
+            let hoverTimeout = null;
+            let hoverInterval = null;
+            let fadeTimeout = null;
+            let currentIndex = 0;
+
+            function switchImage(targetSrc) {
+                clearTimeout(fadeTimeout);
+                img.style.opacity = '0';
+                fadeTimeout = setTimeout(() => {
+                    img.src = targetSrc;
+                    img.style.opacity = '1';
+                }, 200);
+            }
+
+            card.addEventListener('mouseenter', () => {
+                // Inicio rápido a los 900ms de hover sostenido
+                hoverTimeout = setTimeout(() => {
+                    currentIndex = 1;
+                    switchImage(presentationList[currentIndex]);
+
+                    // Rotación más ágil entre imágenes cada 2.6 segundos
+                    hoverInterval = setInterval(() => {
+                        currentIndex = (currentIndex + 1) % presentationList.length;
+                        switchImage(presentationList[currentIndex]);
+                    }, 2600);
+                }, 500);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Cancelar temporizadores inmediatamente
+                clearTimeout(hoverTimeout);
+                clearInterval(hoverInterval);
+                clearTimeout(fadeTimeout);
+                hoverTimeout = null;
+                hoverInterval = null;
+
+                // Restaurar la imagen original si se había cambiado
+                if (img.getAttribute('src') !== originalSrc) {
+                    img.style.opacity = '0';
+                    fadeTimeout = setTimeout(() => {
+                        img.src = originalSrc;
+                        img.style.opacity = '1';
+                    }, 150);
+                } else {
+                    img.style.opacity = '1';
+                }
+                currentIndex = 0;
+            });
+        });
     </script>
 </body>
 </html>
