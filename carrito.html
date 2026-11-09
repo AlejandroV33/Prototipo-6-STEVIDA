@@ -14,40 +14,249 @@
         .cart-layout {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 24px;
         }
         @media (min-width: 1024px) {
-            .cart-layout { flex-direction: row; align-items: flex-start; }
-            .cart-items-col { flex: 2; }
-            .cart-summary-col { flex: 1; }
+            .cart-layout {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 36px;
+            }
+            .cart-items-col {
+                flex: 2;
+                min-width: 0;
+            }
+            .cart-summary-col {
+                flex: 1;
+                min-width: 320px;
+            }
         }
 
+        .cart-container {
+            max-width: var(--page-max-width);
+            margin-inline: auto;
+            padding-inline: 16px;
+        }
+        @media (min-width: 640px) {
+            .cart-container {
+                padding-inline: var(--spacing-32);
+            }
+        }
+
+        .cart-items-card {
+            padding: 16px;
+        }
+        @media (min-width: 640px) {
+            .cart-items-card {
+                padding: 32px;
+            }
+        }
+
+        .cart-summary-card {
+            padding: 20px;
+        }
+        @media (min-width: 640px) {
+            .cart-summary-card {
+                padding: 32px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .cart-summary-card {
+                position: sticky;
+                top: 100px;
+            }
+        }
+
+        /* Estructura responsiva de cada item del carrito */
         .cart-item {
+            display: grid;
+            grid-template-columns: 72px 1fr auto;
+            grid-template-areas:
+                "img info   remove"
+                "img qty    price";
+            row-gap: 12px;
+            column-gap: 14px;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+        }
+        .cart-item:first-child {
+            padding-top: 0;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .cart-item-img-link {
+            grid-area: img;
+            width: 72px;
+            height: 72px;
+            align-self: start;
+            background-color: var(--color-cream-paper);
+            border-radius: var(--radius-cards);
+            overflow: hidden;
             display: flex;
             align-items: center;
-            gap: 24px;
-            padding: 24px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.07);
+            justify-content: center;
+            flex-shrink: 0;
+            text-decoration: none;
         }
-        .cart-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .cart-item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.25s ease;
+        }
+        .cart-item-img-link:hover .cart-item-img {
+            transform: scale(1.05);
+        }
 
-        .qty-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 1.5px solid rgba(0,0,0,0.15);
+        .cart-item-info {
+            grid-area: info;
+            min-width: 0;
+            align-self: start;
+        }
+        .cart-item-title {
+            font-family: var(--font-body);
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: var(--color-stevida-green);
+            margin: 0;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+        .cart-item-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .cart-item-title a:hover {
+            color: var(--color-burnt-orange);
+        }
+        .cart-item-badge {
+            font-family: var(--font-nav);
+            font-size: 0.65rem;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-burnt-orange);
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .cart-item-remove {
+            grid-area: remove;
+            align-self: start;
+            justify-self: end;
             background: none;
+            border: none;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.25);
+            font-size: 0.95rem;
+            padding: 6px;
+            margin: -6px -4px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, transform 0.15s;
+        }
+        .cart-item-remove:hover {
+            color: #e53e3e;
+            transform: scale(1.1);
+        }
+
+        .cart-item-qty {
+            grid-area: qty;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-self: start;
+            background-color: var(--color-cream-paper);
+            padding: 3px 8px;
+            border-radius: var(--radius-buttons);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 0, 0, 0.15);
+            background: var(--color-pure-white);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(0,0,0,0.4);
-            font-size: 0.76rem;
-            transition: border-color 0.2s, color 0.2s;
+            color: var(--color-ink-black);
+            font-size: 0.72rem;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
         }
         .qty-btn:hover {
             border-color: var(--color-stevida-green);
             color: var(--color-stevida-green);
+        }
+        .qty-value {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--color-ink-black);
+            min-width: 20px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .cart-item-price {
+            grid-area: price;
+            justify-self: end;
+            text-align: right;
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            color: var(--color-stevida-green);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .cart-back-link {
+            font-family: var(--font-nav);
+            font-size: 0.75rem;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-stevida-green);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+        .cart-back-link:hover {
+            color: var(--color-burnt-orange);
+        }
+
+        /* En pantallas medianas y grandes: diseño horizontal continuo */
+        @media (min-width: 640px) {
+            .cart-item {
+                grid-template-columns: 80px 1fr auto auto auto;
+                grid-template-areas: "img info qty price remove";
+                column-gap: 24px;
+                row-gap: 0;
+                align-items: center;
+                padding: 24px 0;
+            }
+            .cart-item-img-link {
+                width: 80px;
+                height: 80px;
+                align-self: center;
+            }
+            .cart-item-info {
+                align-self: center;
+            }
+            .cart-item-remove {
+                align-self: center;
+                margin: 0;
+            }
+            .cart-item-price {
+                min-width: 80px;
+                font-size: 1.55rem;
+            }
         }
     </style>
 </head>
@@ -117,80 +326,80 @@
     </header>
 
     <main style="background-color: var(--color-cream-paper); padding-top: 100px; padding-bottom: 96px;">
-        <div style="max-width: var(--page-max-width); margin-inline: auto; padding-inline: var(--spacing-32);">
+        <div class="cart-container">
 
             <!-- Page title -->
-            <h1 style="font-family: var(--font-mega); font-size: clamp(36px, 5vw, 56px); color: var(--color-stevida-green); margin-bottom: 40px;">
-                Tu Carrito
-            </h1>
+            <div style="margin-top: 32px; margin-bottom: 36px;">
+                <h1 class="animate-fade-in delay-100" style="font-family: var(--font-display); font-size: clamp(2.5rem, 6.5vw, 4rem); line-height: 0.95; color: var(--color-ink-black); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 0;">
+                    Tu Carrito
+                </h1>
+            </div>
 
             <div class="cart-layout">
 
                 <!-- Cart items -->
                 <div class="cart-items-col">
-                    <div class="card" style="padding: 32px;">
+                    <div class="card cart-items-card">
 
                         <!-- Item 1 -->
                         <div class="cart-item">
-                            <a href="producto_detalle.html" style="flex-shrink: 0;">
+                            <a href="producto_detalle.html" class="cart-item-img-link" aria-label="Ver Stevida en Polvo 250g">
                                 <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                                      alt="Stevida en Polvo 250g"
-                                     style="width: 80px; height: 80px; object-fit: contain; border-radius: var(--radius-cards);">
+                                     class="cart-item-img">
                             </a>
-                            <div style="flex: 1; min-width: 0;">
-                                <h3 style="font-family: var(--font-body); font-size: 0.98rem; font-weight: 600; color: var(--color-stevida-green); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    Stevida en Polvo 250g
+
+                            <div class="cart-item-info">
+                                <h3 class="cart-item-title">
+                                    <a href="producto_detalle.html">Stevida en Polvo 250g</a>
                                 </h3>
-                                <p style="font-family: var(--font-nav); font-size: 0.63rem; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-burnt-orange); font-weight: 700;">
-                                    Envío Gratis
-                                </p>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
-                                <button class="qty-btn" aria-label="Disminuir"><i class="fas fa-minus"></i></button>
-                                <span style="font-family: var(--font-body); font-weight: 700; font-size: 1rem; color: var(--color-ink-black); min-width: 20px; text-align: center;">1</span>
-                                <button class="qty-btn" aria-label="Aumentar"><i class="fas fa-plus"></i></button>
-                            </div>
-                            <div style="flex-shrink: 0; text-align: right; min-width: 80px;">
-                                <p style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green);">$6.80</p>
-                            </div>
-                            <button style="background: none; border: none; cursor: pointer; color: rgba(0,0,0,0.25); font-size: 0.96rem; transition: color 0.2s; flex-shrink: 0; padding: 4px;" aria-label="Eliminar producto" onmouseover="this.style.color='#e53e3e'" onmouseout="this.style.color='rgba(0,0,0,0.25)'">
+
+                            <button class="cart-item-remove" aria-label="Eliminar Stevida en Polvo 250g">
                                 <i class="fas fa-trash"></i>
                             </button>
+
+                            <div class="cart-item-qty">
+                                <button class="qty-btn qty-minus" aria-label="Disminuir cantidad"><i class="fas fa-minus"></i></button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-btn qty-plus" aria-label="Aumentar cantidad"><i class="fas fa-plus"></i></button>
+                            </div>
+
+                            <div class="cart-item-price">$6.80</div>
                         </div>
 
                         <!-- Item 2 -->
                         <div class="cart-item">
-                            <a href="producto_detalle.html" style="flex-shrink: 0;">
+                            <a href="producto_detalle.html" class="cart-item-img-link" aria-label="Ver Stevida Líquida Gotero 100ml">
                                 <img src="https://images.unsplash.com/photo-1542385151-efd9000785a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                                     alt="Stevida Líquida 100ml"
-                                     style="width: 80px; height: 80px; object-fit: contain; border-radius: var(--radius-cards);">
+                                     alt="Stevida Líquida Gotero 100ml"
+                                     class="cart-item-img">
                             </a>
-                            <div style="flex: 1; min-width: 0;">
-                                <h3 style="font-family: var(--font-body); font-size: 0.98rem; font-weight: 600; color: var(--color-stevida-green); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    Stevida Líquida Gotero 100ml
+
+                            <div class="cart-item-info">
+                                <h3 class="cart-item-title">
+                                    <a href="producto_detalle.html">Stevida Líquida Gotero 100ml</a>
                                 </h3>
-                                <p style="font-family: var(--font-nav); font-size: 0.63rem; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-burnt-orange); font-weight: 700;">
-                                    Envío Gratis
-                                </p>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
-                                <button class="qty-btn" aria-label="Disminuir"><i class="fas fa-minus"></i></button>
-                                <span style="font-family: var(--font-body); font-weight: 700; font-size: 1rem; color: var(--color-ink-black); min-width: 20px; text-align: center;">2</span>
-                                <button class="qty-btn" aria-label="Aumentar"><i class="fas fa-plus"></i></button>
-                            </div>
-                            <div style="flex-shrink: 0; text-align: right; min-width: 80px;">
-                                <p style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-stevida-green);">$8.40</p>
-                            </div>
-                            <button style="background: none; border: none; cursor: pointer; color: rgba(0,0,0,0.25); font-size: 0.96rem; transition: color 0.2s; flex-shrink: 0; padding: 4px;" aria-label="Eliminar producto" onmouseover="this.style.color='#e53e3e'" onmouseout="this.style.color='rgba(0,0,0,0.25)'">
+
+                            <button class="cart-item-remove" aria-label="Eliminar Stevida Líquida Gotero 100ml">
                                 <i class="fas fa-trash"></i>
                             </button>
+
+                            <div class="cart-item-qty">
+                                <button class="qty-btn qty-minus" aria-label="Disminuir cantidad"><i class="fas fa-minus"></i></button>
+                                <span class="qty-value">2</span>
+                                <button class="qty-btn qty-plus" aria-label="Aumentar cantidad"><i class="fas fa-plus"></i></button>
+                            </div>
+
+                            <div class="cart-item-price">$8.40</div>
                         </div>
 
                     </div>
 
                     <!-- Continue shopping -->
                     <div style="margin-top: 24px;">
-                        <a href="tienda.html" style="font-family: var(--font-nav); font-size: 0.75rem; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-stevida-green); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s;" onmouseover="this.style.color='var(--color-burnt-orange)'" onmouseout="this.style.color='var(--color-stevida-green)'">
+                        <a href="tienda.html" class="cart-back-link">
                             <i class="fas fa-arrow-left"></i>
                             Seguir comprando
                         </a>
@@ -199,7 +408,7 @@
 
                 <!-- Order summary -->
                 <div class="cart-summary-col">
-                    <div class="card" style="padding: 32px; position: sticky; top: 100px;">
+                    <div class="card cart-summary-card">
                         <h2 style="font-family: var(--font-display); font-size: 1.38rem; color: var(--color-stevida-green); text-transform: uppercase; letter-spacing: var(--tracking-display); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.07);">
                             Resumen de Orden
                         </h2>
@@ -213,13 +422,9 @@
                                 <span>Envío</span>
                                 <span style="color: var(--color-burnt-orange); font-weight: 700;">Gratis</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: rgba(0,0,0,0.45);">
-                                <span>IVA (12%)</span>
-                                <span>$1.82</span>
-                            </div>
                             <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.07); margin-top: 4px;">
                                 <span style="font-weight: 700; font-size: 1rem; color: var(--color-stevida-green);">Total</span>
-                                <span style="font-family: var(--font-display); font-size: 2.25rem; color: var(--color-stevida-green);">$17.02</span>
+                                <span style="font-family: var(--font-display); font-size: 2.25rem; color: var(--color-stevida-green);">$15.20</span>
                             </div>
                         </div>
 
@@ -321,6 +526,44 @@
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 10);
         }, { passive: true });
+
+        // Animaciones de entrada estandarizadas
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+
+        // Manejo interactivo de productos del carrito
+        document.querySelectorAll('.cart-item').forEach(item => {
+            const minusBtn = item.querySelector('.qty-minus');
+            const plusBtn = item.querySelector('.qty-plus');
+            const qtySpan = item.querySelector('.qty-value');
+            const removeBtn = item.querySelector('.cart-item-remove');
+
+            if (minusBtn && plusBtn && qtySpan) {
+                plusBtn.addEventListener('click', () => {
+                    let count = parseInt(qtySpan.textContent, 10) || 1;
+                    qtySpan.textContent = count + 1;
+                });
+                minusBtn.addEventListener('click', () => {
+                    let count = parseInt(qtySpan.textContent, 10) || 1;
+                    if (count > 1) {
+                        qtySpan.textContent = count - 1;
+                    }
+                });
+            }
+
+            if (removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(20px)';
+                    setTimeout(() => {
+                        item.remove();
+                    }, 250);
+                });
+            }
+        });
     </script>
 
 </body>
